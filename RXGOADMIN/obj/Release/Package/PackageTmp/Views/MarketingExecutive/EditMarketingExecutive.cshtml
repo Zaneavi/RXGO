@@ -1,0 +1,229 @@
+﻿@model RXGOADMIN.Models.MarketingExecutive
+
+@{
+    ViewBag.Title = "Edit Executive";
+    var info = Model;
+    HttpCookie rxgoAdminCookie = Request.Cookies["rxgoAdmin"];
+}
+
+<style type="text/css">
+    .field-icon {
+        float: right;
+        margin-left: -25px;
+        margin-top: 10px;
+        position: relative;
+        z-index: 2;
+    }
+</style>
+
+<link rel="icon" type="image/png" sizes="16x16" href="~/Assets/assets/images/favicon.png">
+<title>RXGO ADMIN</title>
+<!-- Custom CSS -->
+<link href="~/Assets/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="~/Assets/dist/css/style.min.css" rel="stylesheet">
+<link href="~/Assets/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+
+<!-- The Modal -->
+<!-- Modal Header -->
+<div class="modal-header">
+    <h4 class="modal-title">Edit Marketing Executive</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div class="modal-body">
+    <div class="page-breadcrumb">
+        <div class="card">
+            @using (Html.BeginForm("MarketingExecutive", "MarketingExecutive", FormMethod.Post, new { @class = "form-sample", enctype = "multipart/form-data" }))
+            {
+            <div class="card-body">
+                <div class="row">
+                    @Html.HiddenFor(model => model.ExecutiveId)
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Executive Name
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ExecutiveName, new { @placeholder = "Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Executive Email
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ExecutiveEmail, new { @placeholder = "Email", @required = "required", @class = "form-control", @type = "email", @maxlength = "50" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Executive Phone
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ExecutivePhone, new { @placeholder = "Phone Number", @required = "required", @class = "form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Executive Age
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ExecutiveAge, new { @placeholder = "Age", @required = "required", @class = "form-control", @type = "number", @maxlength = "10", @min = "18", @max = "50" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Executive Address
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ExecutiveAddress, new { @placeholder = "Address", @required = "required", @class = "form-control", @type = "text", @maxlength = "200" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                User Name
+                            </label>
+                            <div class="input-group">
+                                @Html.HiddenFor(model => model.AdminId, new { Value = rxgoAdminCookie.Values["Hid"] })
+                                <input type="text" readonly class="form-control" value="@rxgoAdminCookie.Values["UName"]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Country Name
+                            </label>
+                            <div class="input-group">
+                                @if (info.CountryName != null)
+                                {
+                                    <select class="form-control" name="CountryId">
+                                        <option value="@info.CountryId">@info.CountryName</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.CountryId, ViewBag.CountryList as SelectList, new { @class = "form-control req", @required = "required", @id = "country" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                State Name
+                            </label>
+                            <div class="input-group">
+                                @if (info.StateName != null)
+                                {
+                                    <select class="form-control" name="StateId">
+                                        <option value="@info.StateId">@info.StateName</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="sel" class="form-control" required name="StateId">
+                                        <option value="">Select State</option>
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                City Name
+                            </label>
+                            <div class="input-group">
+                                @if (info.CityName != null)
+                                {
+                                    <select class="form-control" name="CityId">
+                                        <option value="@info.CityId">@info.CityName</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="city" class="form-control" required name="CityId">
+                                        <option value="">Select City</option>
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Password
+                            </label>
+                            <div class="input-group">
+                                <input type="text" name="password" id="password-field" placeholder="Enter the password" class="form-control" value="@Model.Password" required />
+                                @*<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>*@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
+
+<script src="~/Assets/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="~/Assets/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="~/Assets/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/Assets/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="~/Assets/assets/extra-libs/sparkline/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="~/Assets/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="~/Assets/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="~/Assets/dist/js/custom.min.js"></script>
+

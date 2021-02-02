@@ -1,0 +1,310 @@
+﻿@model RXGOADMIN.Models.Pathology
+
+@{
+    ViewBag.Title = "Pathology";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Pathology List
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Pathology
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Pathology List
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Add Pathology</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Short Name</th>
+                                    <th>Test Type</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Method</th>
+                                    <th>Report Days</th>
+                                    <th>Charge</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.PathologyList != null)
+                                {
+                                    foreach (var i in ViewBag.PathologyList)
+                                    {
+                                <tr>
+
+                                    <td>@i.TestName</td>
+                                    <th>@i.ShortName</th>
+                                    <th>@i.TestType</th>
+                                    <th>@i.CategoryName</th>
+                                    <th>@i.SubCategoryName</th>
+                                    <th>@i.Method</th>
+                                    <th>@i.ReportDays</th>
+                                    <th>@i.Charge</th>
+                                    @if (i.IsActive == "True")
+                                    {
+                                        <td><a href="javascript:void(0)" onclick="ChngStatus('@i.PathologyId','@i.IsActive')" class="btn btn-success btn-xs">ACTIVE</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="javascript:void(0)" onclick="ChngStatus('@i.PathologyId','@i.IsActive')" class="btn btn-danger btn-xs">INACTIVE</a></td>
+                                    }
+                                    <td><a href="javascript:void(0)" onclick="Edit('@i.PathologyId')">Edit</a></td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="Delete('@i.PathologyId')" class="btn btn-danger btn-xs">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Short Name</th>
+                                    <th>Test Type</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Method</th>
+                                    <th>Report Days</th>
+                                    <th>Charge</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Pathology Test</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    @using (Html.BeginForm("PathologyTest", "Pathology", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.HiddenFor(model => model.PathologyId)
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Test Name *
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.TestName, new { @placeholder = "Test Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Short Name *
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ShortName, new { @placeholder = "Short Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "50" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Test Type *
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.TestType, new { @placeholder = "Test Type", @required = "required", @class = "form-control", @type = "text", @maxlength = "50" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Category Name *
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryList as SelectList, new { @required = "required", @class = "form-control", @id = "category" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Sub Category
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.DropDownListFor(model => model.SubCategoryId, ViewBag.CategoryList as SelectList, new { @class = "form-control", @id="subcategory" })*@
+                                            <select id="subcategory" class="form-control" name="SubCategoryId">
+                                                <option value="">Select Sub Category</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Method
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.Method, new { @placeholder = "Method", @class = "form-control", @type = "text", @maxlength = "50" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Report Days
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ReportDays, new { @placeholder = "Report Days", @class = "form-control", @type = "text", @maxlength = "50" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Standard Charge *
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.Charge, new { @placeholder = "Standard Charge", @required = "required", @class = "form-control", @type = "number" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="border-top">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="editpartial">
+
+        </div>
+    </div>
+</div>
+
+<a data-toggle="modal" data-target="#EditModal" id="editpartial1"></a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('#category').change(function () {
+        category1 = $(this).val();
+        $.ajax({
+            "type": "GET",
+            "dataType": 'json',
+            "contentType": "application/json; charset=utf-8",
+            "url": '/Pathology/SubCategory1', //sending server side status and filtering table
+            "data": { id: category1 },
+            "success": function (data) {
+                $('#subcategory').empty();
+                //$('#city').append('<option value="">' + "Select City" + '</option>');
+                $.each(data, function (i, data) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $('#subcategory').append('<option value="' + data.SubCategoryId + '">' + data.SubCategoryName + '</option>');
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    function ChngStatus(id, status) {
+        $.getJSON('/Pathology/PathologyTestStatus/', { id: id, status: status }, function (data) {
+            location.reload();
+        });
+    }
+</script>
+
+<script>
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Pathology/DeletePathology/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function Edit(id) {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/MarketingExecutive/EditMarketingExecutive',
+            data: { id: id },
+            success: function (data) {
+                $('#editpartial').html('');
+                $('#editpartial').html(data);
+                $('#editpartial1').trigger('click');
+            }
+        });
+    }
+</script>

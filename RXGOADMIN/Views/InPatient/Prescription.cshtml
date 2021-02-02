@@ -1,0 +1,252 @@
+﻿@model RXGOADMIN.Models.Prescription
+@{
+    ViewBag.Title = "Prescription";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+ 
+<script type="text/javascript">
+    function printTbl() {
+        var TableToPrint = document.getElementById('myt');
+        newWin = window.open("");
+        newWin.document.write(TableToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+</script>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Prescription
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Prescription
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Prescription
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Add Prescription</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="myt" class="table table-striped table-bordered">
+                            <button type="submit" onclick="printTbl()" id="print" class="m-r-10 mdi mdi-printer">Print</button>
+                            <thead>
+                                <tr>
+                                    <th>IPD No</th>
+                                    <th>Prescription No</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.CategoryList != null)
+                                {
+                                    foreach (var i in ViewBag.CategoryList)
+                                    {
+                                        <tr>
+                                            <td>@i.IPDId</td>
+                                            <td>@i.PrescriptionNo</td>
+                                            <td>@i.Date</td>
+                                           <td><button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Show</button></td>
+
+                                            
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Prescription</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    @using (Html.BeginForm("Prescription", "InPatient", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="modal-body pt0 pb0">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="ptt10">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Header Note</label>
+                                                    
+
+                                                    
+
+                                                    <div id="editor">
+                                                       @Html.TextBoxFor(model => model.Header, new { @placeholder = "", @required = "required", @class = "form-control", @type = "text" })
+                                                        <p><br></p>
+                                                    </div>
+
+
+
+                                                </div>
+
+                                                <hr>
+                                            </div>
+
+
+                                            <table id="tableID" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Medicine Category<small class="req" style="color:red;"> *</small></td>
+                                                        <td>Medicine</td>
+                                                        <td>Dosage</td>
+                                                        <td>Instruction</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:200px;">
+                                                           @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categoryinventory as SelectList, new { @class = "form-control req", @required = "required" })
+                                                        </td>
+                                                        <td style="width:200px;">
+                                                            @Html.TextBoxFor(model => model.Medicine, new { @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                                        </td>
+                                                        <td style="width:200px;">
+                                                           @Html.TextBoxFor(model => model.Dosage, new { @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextAreaFor(model => model.Instruction, new { @placeholder = "", @class = "form-control", @type = "text" })
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            <div class="col-sm-12">
+                                                <input type="hidden" id="prescription_id" value="9" name="ipd_no">
+                                                <input type="hidden" id="ipd_no_value" value="IPDN9" name="ipd_no_value">
+                                                <hr>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Footer Note</label>
+                                                    
+                                                    <div id="editor1">
+                                                        @Html.TextBoxFor(model => model.Footer, new { @placeholder = "", @required = "required", @class = "form-control", @type = "text" })
+                                                        <p><br></p>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             
+                            </div>
+                        </div> <!--./modal-body-->
+                        <div class="box-footer">
+                            <div class="pull-right">
+                                <button type="submit" id="form_prescriptionbtn" data-loading-text="Processing..." class="btn btn-info">Save</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="editpartial">
+
+        </div>
+    </div>
+</div>
+
+<a data-toggle="modal" data-target="#EditModal" id="editpartial1"></a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+@*<script>
+            function ChngStatus(id, status) {
+                $.getJSON('/Bed/FloorStatus/', { id: id, status: status }, function (data) {
+                    location.reload();
+                });
+            }
+    </script>
+
+<script>
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/InPatient/DeletePrescription/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    //function Edit(id) {
+    //    $.ajax({
+    //        cache: false,
+    //        type: 'POST',
+    //        url: '/Bed/EditFloor',
+    //        data: { id: id },
+    //        success: function (data) {
+    //            $('#editpartial').html('');
+    //            $('#editpartial').html(data);
+    //            $('#editpartial1').trigger('click');
+    //        }
+    //    });
+    //}
+@*</script>*@
+
+
+
+
+

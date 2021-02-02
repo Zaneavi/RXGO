@@ -1,0 +1,186 @@
+﻿@using System;
+@using System.Web;
+@using battsathletics.Models;
+@using System.Data;
+@using battsathletics.Helpers;
+@{ 
+    DLayer dl = new DLayer();
+    EncryptDecrypt enc = new EncryptDecrypt();
+    HttpCookie battsathleticsUserCookie = Request.Cookies["battsathleticsUser"];
+    Property p = new Property();
+    DataSet ds = new DataSet();
+
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Page Title -->
+    <title>:- Batts Athletic -:</title>
+    <!-- Favicon -->
+    <!-- Animate -->
+    <link rel="stylesheet" href="~/UserAssets/css/animate.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/UserAssets/css/font-awesome.min.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/UserAssets/css/owl.theme.default.min.css">
+    <!-- Cube Portfolio -->
+    <link rel="stylesheet" href="~/UserAssets/css/cubeportfolio.min.css">
+    <!-- Fancy Box -->
+    <link rel="stylesheet" href="~/UserAssets/css/jquery.fancybox.min.css">
+    <!-- REVOLUTION STYLE SHEETS -->
+    <link rel="stylesheet" type="text/css" href="~/UserAssets/rs-plugin/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="~/UserAssets/rs-plugin/css/navigation.css">
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="~/UserAssets/css/style.css">
+    <!-- Full Calendar -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.css" />
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="90" class="intrective">
+
+    <!--Header start-->
+    <header>
+        <!--Navigation-->
+        <nav class="navbar navbar-right">
+            <div class="container">
+                <a href="#home" title="Logo" class="logo scroll">
+                    <img src="~/UserAssets/images/logo.png" class="logo-dark default" alt="logo">
+                </a>
+                <!--Nav Links-->
+                <div class="navbar-collapse" id="wexim">
+                    <div class="navbar-nav ml-auto">
+                        @*<a class="nav-link scroll" href="#!">Home</a>
+        <a class="nav-link scroll" href="#!" target="_blank">Download App</a>
+        <a class="nav-link scroll" href="#!">Contact</a>*@
+                        @if (battsathleticsUserCookie == null)
+                        {
+                            <a class="nav-link " href="/">Home</a>
+                            <a class="nav-link " href="#!" target="_blank">Download App</a>
+                            <a class="nav-link " href="/Tournaments">Tournaments</a>
+                            <a class="nav-link " href="/Plans">Membership Plans</a>
+                            <a class="nav-link " href="/Login">Member Login</a>
+                            <a class="nav-link " href="/Contact">Contact</a>
+
+                        }
+
+                        else if (battsathleticsUserCookie != null)
+                        {
+                            <a class="nav-link" href="/User/MyProfile">Welcome @battsathleticsUserCookie.Values["Uname"]</a>
+                            <a class="nav-link" href="/">Home</a>
+                            @*<a class="nav-link" href="/Tournaments">Tournaments</a>*@
+                            @*<a class="nav-link" href="/Plans">Membership Plans</a>*@
+                            @*<a class="nav-link" href="/User/MyProfile">My Profile</a>*@
+                            <a class="nav-link" href="/User/Myplans">My Palns</a>
+                            @*<a class="nav-link" href="/User/PreviousPlans">Previous Palns</a>*@
+                            <a class="nav-link" href="/User/Mytournaments">My Tournaments</a>
+                            <a class="nav-link" href="/User/Booking">Book Court</a>
+                            <a class="nav-link" href="/User/BookingHistory">My Booking History</a>
+                            @*<a class="nav-line" href="/User/CheckinCheckout">Checkin / Checkout</a>*@
+                            <a class="nav-link" href="/Contact">Contact Us</a>
+
+                            <a href="/Login/Logout">Logout</a>
+
+                        }
+                    </div>
+                </div>
+                <!--Contact Items-->
+                <div class="side-right-social"><i class="fa fa-mobile" aria-hidden="true"></i> 905-670-2016</div>
+            </div>
+        </nav>
+
+        <div class="side-right-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+    <!--Header end-->
+    <div class="wrapper">
+
+        @RenderBody()
+
+        <!--Scroll Top-->
+        <a class="scroll-top-arrow" href="javascript:void(0);"><i class="fa fa-angle-up"></i></a>
+        <!--Scroll Top End-->
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="~/UserAssets/js/jquery-3.3.1.min.js"></script>
+    @*<script src='~/UserAssets/js/moment.min.js'></script>
+        <script src='~/UserAssets/js/fullcalendar.min.js'></script>*@
+
+    @*<script src="~/UserAssets/js/popper.min.js"></script>*@
+    <script src="~/UserAssets/js/bootstrap.min.js"></script>
+    <script src="~/UserAssets/js/jquery.appear.js"></script>
+    <!-- isotop gallery -->
+    <script src="~/UserAssets/js/isotope.pkgd.min.js"></script>
+    <!-- cube portfolio gallery -->
+    <script src="~/UserAssets/js/jquery.cubeportfolio.min.js"></script>
+    <!-- owl carousel slider -->
+    <script src="~/UserAssets/js/owl.carousel.min.js"></script>
+    <!-- text rotate -->
+    <script src="~/UserAssets/js/morphext.min.js"></script>
+    <!-- particles -->
+    <script src="~/UserAssets/js/particles.min.js"></script>
+    <!-- parallax Background -->
+    <script src="~/UserAssets/js/parallaxie.min.js"></script>
+    <!-- fancybox popup -->
+    <script src="~/UserAssets/js/jquery.fancybox.min.js"></script>
+    <!-- fancybox popup -->
+    <script src="~/UserAssets/js/wow.js"></script>
+    <!-- REVOLUTION JS FILES -->
+    <script src="~/UserAssets/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <!-- SLIDER REVOLUTION EXTENSIONS -->
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/UserAssets/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
+    <!-- date picker js -->
+    <!-- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script> -->
+    <!-- Calendar Start-->
+    <script src="~/UserAssets/date-picker/moment-with-locales.min.js"></script>
+    <script src="~/UserAssets/date-picker/calendar.js"></script>
+    @*<script>
+        $(document).ready(function (e) {
+            calendar = new CalendarYvv("#calendar", moment().format("Y-M-D"), "Monday");
+            calendar.funcPer = function (ev) {
+                console.log(ev)
+            };
+            calendar.diasResal = [4, 15, 26]
+            calendar.createCalendar();
+        });
+        </script>*@
+
+    <!-- Calendar End-->
+    <!-- custom script -->
+    <script src="~/UserAssets/js/script.js"></script>
+
+    @*<script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                window.location.href = '/Home/Index';
+            });
+        }
+    </script>*@
+
+</body>
+</html>

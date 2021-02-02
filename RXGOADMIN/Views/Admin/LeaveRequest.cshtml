@@ -1,0 +1,287 @@
+﻿
+@{
+    ViewBag.Title = "LeaveRequest";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                My Leaves
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                My Leaves
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            My Leaves
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">My Leaves</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        
+                        <table id="zero_config" class="table table-striped table-bordered">
+
+                            <thead>
+                                <tr>
+                                    <th>Staff</th>
+                                    <th>Leave Type</th>
+                                    <th>Leave Date</th>
+                                    <th>Days</th>
+                                    <th>Apply Date</th>
+                                    <th>Status</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.CategoryList != null)
+                                {
+                                    foreach (var i in ViewBag.CategoryList)
+                                    {
+                                        <tr>
+                                            <td>@i.Staff</td>
+                                            <td>@i.LeaveType</td>
+                                            <td>@i.LeaveDate</td>
+                                            <td>@i.Days</td>
+                                            <td>@i.ApplyDate</td>
+
+                                            @if (i.IsActive == "True")
+                                            {
+                                                <td><a href="javascript:void(0)" onclick="ChngStatus('@i.StaffId','@i.IsActive')" class="btn btn-success btn-xs">Pending</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a href="javascript:void(0)" onclick="ChngStatus('@i.StaffId','@i.IsActive')" class="btn btn-danger btn-xs">Approved</a></td>
+                                            }
+                                            <td><a href="javascript:void(0)" onclick="Edit('@i.StaffId')">Edit</a></td>
+                                            <td>
+                                                <a href="javascript:void(0)" onclick="Delete('@i.StaffId')" class="btn btn-danger btn-xs">
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Medicine Category</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    @using (Html.BeginForm("LeaveRequest", "Admin", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="card-body">
+                            <div class="row">
+                                @*@Html.HiddenFor(model => model.StaffId)*@
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Apply Date
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.Date, new { @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Leave Type *
+                                        </label>
+                                        <select class="form-control" name="Leave" required>
+                                            <option value="">Select</option>
+                                            <option value="Male">Medical</option>
+                                            <option value="Female">Casual</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Leave Date *
+                                        </label>
+                                        <button id="picker" class="btn btn-primary"><span class="date"></span> <span class="caret"></span></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Reason
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextAreaFor(model => model.Reason, new { @placeholder = "", @class = "form-control", @type = "text" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Attach Document
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="file" id="input-file-now" class="dropify" name="photo" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="border-top">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="editpartial">
+
+        </div>
+    </div>
+</div>
+
+<a data-toggle="modal" data-target="#EditModal" id="editpartial1"></a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function ChngStatus(id, status) {
+        $.getJSON('/Pharmacy/PharmacyCategoryStatus/', { id: id, status: status }, function (data) {
+            location.reload();
+        });
+    }
+</script>
+
+<script>
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Pharmacy/DeleteCategory/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function Edit(id) {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/Pharmacy/EditCategory',
+            data: { id: id },
+            success: function (data) {
+                $('#editpartial').html('');
+                $('#editpartial').html(data);
+                $('#editpartial1').trigger('click');
+            }
+        });
+    }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+$('#picker').daterangepicker();
+
+// Apply the date range picker with custom settings to the button
+$('#picker').daterangepicker({
+    format: 'MM/DD/YYYY',
+    startDate: moment().subtract(29, 'days'),
+    endDate: moment(),
+    minDate: '01/01/2012',
+    maxDate: '12/31/2015',
+    dateLimit: { days: 60 },
+    showDropdowns: true,
+    showWeekNumbers: true,
+    timePicker: false,
+    timePickerIncrement: 1,
+    timePicker12Hour: true,
+    ranges: {
+       'Today': [moment(), moment()],
+       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+       'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+       'This Month': [moment().startOf('month'), moment().endOf('month')],
+       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    },
+    opens: 'left',
+    drops: 'down',
+    buttonClasses: ['btn', 'btn-sm'],
+    applyClass: 'btn-primary',
+    cancelClass: 'btn-default',
+    separator: ' to ',
+    locale: {
+        applyLabel: 'Submit',
+        cancelLabel: 'Cancel',
+        fromLabel: 'From',
+        toLabel: 'To',
+        customRangeLabel: 'Custom',
+        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        firstDay: 1
+    }
+}, function(start, end, label) {
+    $('#picker span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+});
+</script>
+

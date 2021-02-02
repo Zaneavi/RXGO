@@ -1,0 +1,249 @@
+﻿@model RXGOADMIN.Models.EmployeeDetails
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Assets/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/Assets/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Employee Add
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Employee Master
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Employee Add
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="card">
+        <div class="card-body wizard-content">
+            @if (TempData["MSG"] != null)
+            {
+                <div class="alert alert-info alert-dismissable">
+                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                    <strong>@TempData["MSG"]</strong>
+                </div>
+            }
+            <h6 class="card-subtitle"></h6>
+            @*<form id="example-form" action="/Employee/Index" class="m-t-40" enctype="multipart/form-data" method="post">
+            <div>
+                <h3>Profile</h3>
+                <section>
+                    <label for="name">Full name *</label>
+                    <input name="name" type="text" class="form-control" required>
+                    <label for="surname">Email *</label>
+                    <input name="email" type="text" class="required email form-control">
+                    <label for="phone">Phone *</label>
+                    <input name="phone" type="number" class="required form-control" onKeyPress="if(this.value.length==10) return false;">
+                    <label for="age">Age *</label>
+                    <input name="age" type="number" class="required form-control" min="18" max="80">
+                    <label for="address">User type *</label>
+                    @if (ViewBag.TypeList != null)
+                    {
+                        foreach (var type in ViewBag.TypeList)
+                        {
+                            <select class="required form-control" required>
+                                <option value="">--Select User Type--</option>
+                                <option value="@type.UserTypeId">@type.UserType</option>
+                            </select>
+                        }
+                    }
+                    <p>(*) Mandatory</p>
+                </section>
+                <h3>Payroll</h3>
+                <section>
+                    <label for="salary">Salary *</label>
+                    <input name="name" type="number" class="required form-control" min="0" required>
+                    <label for="pf">Pf *</label>
+                    <input name="email" type="number" class="required form-control" min="0" required>
+                    <label for="mi">Medical incentives *</label>
+                    <input name="phone" type="number" class="required form-control" min="0" required>
+                    <label for="st">Service tax *</label>
+                    <input name="age" type="number" class="required form-control" min="0" required>
+                    <label for="hra">Hra *</label>
+                    <input name="hra" type="number" class="required form-control" min="0" required>
+                    <p>(*) Mandatory</p>
+                </section>
+                <h3>Document</h3>
+                <section>
+                    <label for="voterid">Voter id  *</label>
+                    <input name="voterid" type="file" class="required form-control" accept="application/pdf,image/x-png,image/gif,image/jpeg" >
+                    <label for="panid">Pan id *</label>
+                    <input name="panid" type="file" class="required email form-control" accept="application/pdf,image/x-png,image/gif,image/jpeg" >
+                    <label for="aadharid">Aadhar id *</label>
+                    <input name="aadharid" type="file" class="required form-control" accept="application/pdf,image/x-png,image/gif,image/jpeg" >
+                    <label for="profilepic">Profile pic *</label>
+                    <input name="profilepic" type="file" class="required form-control" accept="image/x-png,image/gif,image/jpeg" >
+                    <p>(*) Mandatory</p>
+                </section>
+                <h3>Finish</h3>
+                <section>
+                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                    <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                </section>
+            </div>
+        </form>*@
+            <form id="example-form" action="#" class="m-t-40" enctype="multipart/form-data">
+                <div>
+                    <h3>Profile</h3>
+                    <section>
+                        <label for="name">Full name *</label>
+                        @Html.TextBoxFor(model => model.FullName, new { @placeholder = "Full Name", @required = "required", @class = "required form-control", @type = "text", @maxlength = "100" })
+                        <label for="surname">Email *</label>
+                        @Html.TextBoxFor(model => model.EmailId, new { @placeholder = "Email", @required = "required", @class = "required email form-control", @type = "ema", @maxlength = "100" })
+                        <label for="phone">Phone *</label>
+                        @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Phone Number", @required = "required", @class = "required form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                        <label for="age">Age *</label>
+                        @Html.TextBoxFor(model => model.Age, new { @placeholder = "Age", @required = "required", @class = "required form-control", @type = "number", @min = "18", @max = "80" })
+                        <label for="address">User type *</label>
+                        @Html.DropDownListFor(model => model.UserTypeId, ViewBag.TypeList as SelectList, new { @class = "required form-control", @required = "required" })
+                        <p>(*) Mandatory</p>
+                    </section>
+                    <h3>Payroll</h3>
+                    <section>
+                        <label for="salary">Salary *</label>
+                        @Html.TextBoxFor(model => model.Salary, new { @placeholder = "Salary", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                        <label for="pf">Pf *</label>
+                        @Html.TextBoxFor(model => model.Pf, new { @placeholder = "Pf", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                        <label for="mi">Medical incentives *</label>
+                        @Html.TextBoxFor(model => model.MedicalIncentives, new { @placeholder = "Medical Incentives", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                        <label for="st">Service tax *</label>
+                        @Html.TextBoxFor(model => model.ServiceTax, new { @placeholder = "Service Tax", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                        <label for="hra">Hra *</label>
+                        @Html.TextBoxFor(model => model.Hra, new { @placeholder = "Hra", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                        <p>(*) Mandatory</p>
+                    </section>
+                    @*<h3>Document</h3>
+                <section>
+                    <label for="VoterId">Voter id  *</label>
+                    <input id="VoterId" name="VoterId" type="file" class="required form-control" accept="application/pdf,image/jpg,image/png,image/jpeg">
+                    <label for="PanId">Pan id *</label>
+                    <input id="PanId" name="PanId" type="file" class="required form-control" accept="application/pdf,image/jpg,image/png,image/jpeg">
+                    <label for="AadharId">Aadhar id *</label>
+                    <input id="AadharId" name="AadharId" type="file" class="required form-control" accept="application/pdf,image/jpg,image/png,image/jpeg">
+                    <label for="ProfilePic">Profile pic *</label>
+                    <input id="ProfilePic" name="ProfilePic" type="file" class="required form-control" accept="image/jpg,image/png,image/jpeg">
+                    <p>(*) Mandatory</p>
+                </section>*@
+                    <h3>Finish</h3>
+                    <section>
+                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                        <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                    </section>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+
+<script src="~/Assets/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- this page js -->
+<script src="~/Assets/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/Assets/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+    // Basic Example with form
+    var form = $("#example-form");
+
+    //var file1 = document.getElementById("VoterId").files[0];
+    //var file2 = document.getElementById("PanId").files[0];
+    //var file3 = document.getElementById("AadharId").files[0];
+    //var file4 = document.getElementById("ProfilePic").files[0];
+
+    //var files1 = $("#VoterId").get(0).files1;
+    //var files2 = $("#PanId").get(0).files2;
+    //var files3 = $("#AadharId").get(0).files3;
+    //var files4 = $("#ProfilePic").get(0).files4;
+
+    //form.append("files1", files1[0]);
+    //form.append("files2", files2[0]);
+    //form.append("files3", files3[0]);
+    //form.append("files4", files4[0]);
+
+    //form.append("VoterId", files1[0].name);
+    //form.append("PanId", files2[0].name);
+    //form.append("AadharId", files3[0].name);
+    //form.append("ProfilePic", files4[0].name);
+
+    //form.append("VoterId", file1);
+    //form.append("PanId", file2);
+    //form.append("AadharId", file3);
+    //form.append("ProfilePic", file4);
+
+    form.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password"
+            }
+        }
+    });
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            //alert("Submitted!");
+            $.ajax({
+                url: "/Employee/Index",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response == 1) {
+                        alert("Successfully Data Saved");
+                        window.location.href = '/Employee/Index';
+                    }
+                    else {
+                        alert("Something Went Wrong..");
+                        window.location.href = '/Employee/Index';
+                    }
+                }
+            });   
+        }
+    });
+</script>

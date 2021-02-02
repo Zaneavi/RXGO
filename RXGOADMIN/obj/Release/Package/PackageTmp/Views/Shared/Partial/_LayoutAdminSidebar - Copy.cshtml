@@ -1,0 +1,71 @@
+﻿@{
+    HttpCookie rxgoAdminCookie = Request.Cookies["rxgoAdmin"];
+}
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="sidebar-menu">
+        <li class="treeview nav-profile">
+            <div class="nav-profile-wrapper">
+                <div class="user-wrapper">
+                    <div class="text-wrapper">
+                        <p class="profile-name">My Admin</p>
+
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class="treeview">
+            <a href="/Admin">
+                <i class="menu-icon mdi mdi-television"></i>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+
+        @* Add Hospital start *@
+        <li class="treeview">
+            <a href="#">
+                <i class="menu-icon mdi mdi-ship-wheel"></i>
+                <span class="menu-title">Manage Executive</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="/MarketingExecutive/MarketingExecutive">
+                        <span class="menu-title menu-title mdi mdi-account-settings">Marketing Executive</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @*Hospital End*@
+
+        @*My Profile*@
+        <li class="treeview">
+            <a href="/Admin/MyProfile/@rxgoAdminCookie.Values["Hid"]">
+                <i class="menu-icon mdi mdi-ship-wheel"></i>
+                <span class="menu-title">My Profile</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
+        @*End My Profile*@
+
+    </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,972 @@
+﻿
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="row">
+            <div class="box-body pb0">
+                <div class="col-lg-2 col-md-2 col-sm-3 text-center">
+
+                    <img width="115" height="115" class="" src="https://demo.smart-hospital.in/uploads/patient_images/no_image.png" alt="No Image">
+                    <div class="editviewdelete-icon pt8">
+                        <a class="" href="#" onclick="getRecord('10', '9')" data-toggle="tooltip" title="" data-original-title="Profile">
+                            <i class="fa fa-reorder"></i>
+                        </a>
+                        <a class="" href="#" onclick="getEditRecord('10', '9')" data-toggle="tooltip" title="" data-original-title="Edit Profile">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+
+
+                        <a class="" href="#" onclick="deletePatient('10')" data-toggle="tooltip" title="" data-original-title="Delete Patient">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-10 col-lg-10 col-sm-9">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb0 font13">
+                            <tbody>
+                                <tr>
+                                    <th class="bozerotop">Name</th>
+                                    <td class="bozerotop">Aditya Singh</td>
+                                    <th class="bozerotop">Guardian Name</th>
+                                    <td class="bozerotop">Kamal Singh</td>
+                                </tr>
+                                <tr>
+                                    <th class="bozerotop">Gender</th>
+                                    <td class="bozerotop">Male</td>
+                                    <th class="bozerotop">Age</th>
+                                    <td class="bozerotop">
+                                        25 Year 2 Month
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="bozerotop">Phone</th>
+                                    <td class="bozerotop">958569586</td>
+                                    <th class="bozerotop">Credit Limit ($)</th>
+                                    <td class="bozerotop">20000                                        </td>
+                                </tr>
+                                <tr>
+                                    <th class="bozerotop">Patient Id</th>
+                                    <td class="bozerotop">1012</td>
+                                    <th class="bozerotop">IPD No</th>
+                                    <td class="bozerotop">IPDN9                                        </td>
+                                </tr>
+                                <tr>
+                                    <th class="bozerotop">Admission Date</th>
+                                    <td class="bozerotop">22/11/2019 01:40 AM                                        </td>
+                                    <th class="bozerotop">Bed</th>
+                                    <td class="bozerotop">51 - ICU - Ground Floor                                        </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            <div class="box border0">
+                <div style="background: #dadada; height: 1px; width: 100%; clear: both; margin-top:5px;"></div>
+                <div class="nav-tabs-custom border0" id="tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#consultant_register" data-toggle="tab" aria-expanded="true"><i class="fas fa-file-prescription"></i> Consultant Register</a>
+                        </li>
+
+                        <li class="">
+                            <a href="#diagnosis" data-toggle="tab" aria-expanded="false"><i class="fas fa-diagnoses"></i> Diagnosis</a>
+                        </li>
+
+                        <li class="">
+                            <a href="#timeline" data-toggle="tab" aria-expanded="false"><i class="far fa-calendar-check"></i> Timeline</a>
+                        </li>
+                        <li class="">
+                            <a href="#prescription" data-toggle="tab" aria-expanded="false"><i class="far fa-calendar-check"></i> Prescription</a>
+                        </li>
+
+                        <li class="">
+                            <a href="#charges" data-toggle="tab" aria-expanded="false"><i class="fas fa-donate"></i> Charges</a>
+                        </li>
+
+                        <li class="">
+                            <a href="#payment" data-toggle="tab" aria-expanded="false"><i class="fas fa-hand-holding-usd"></i> Payment</a>
+                        </li>
+
+                        <li class="">
+                            <a href="#bill" class="bill" data-toggle="tab" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i> Bill</a>
+                        </li>
+                        <li class="">
+                            <a href="#live_consult" class="live_consult" data-toggle="tab" aria-expanded="false"><i class="fa fa-video-camera ftlayer"></i> Live Consultation</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+
+
+                        <!-- Consultant Register -->
+                        <div class="tab-pane active" id="consultant_register">
+                            <div class="impbtnview">
+                                <a href="#" class="btn btn-sm btn-primary dropdown-toggle addconsultant" onclick="holdModal('add_instruction')" data-toggle="modal"><i class="fas fa-plus"></i> Add Consultant Instruction</a>
+                            </div><!--./impbtnview-->
+
+                            <div class="download_label">Aditya Singh IPD Details</div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+                                    <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Applied Date: activate to sort column ascending" style="width: 246px;">Applied Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Doctor: activate to sort column ascending" style="width: 154px;">Doctor</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Instruction: activate to sort column ascending" style="width: 217px;">Instruction</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Instruction Date: activate to sort column ascending" style="width: 295px;">Instruction Date</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 120px;">Action</th></tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr class="odd"><td valign="top" colspan="5" class="dataTables_empty"><div align="center">No data available in table <br> <br><img src="https://smart-school.in/ssappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span><div></div></div></td></tr>
+                                        </tbody>
+                                    </table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="tab-pane" id="prescription">
+                            <div class="impbtnview">
+                                <a href="#" class="btn btn-sm btn-primary dropdown-toggle addprescription" onclick="holdModal('add_prescription')" data-toggle="modal"><i class="fas fa-plus"></i> Add Prescription</a>
+                            </div><!--./impbtnview-->
+                            <div class="download_label">Aditya Singh IPD Details</div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper no-footer">
+                                    <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_1" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_1" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_1" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_1" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_1" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_1" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_1_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_1"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_1" role="grid" aria-describedby="DataTables_Table_1_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="IPD No: activate to sort column ascending" style="width: 0px;">IPD No</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Prescription No: activate to sort column ascending" style="width: 0px;">Prescription No</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0px;">Date</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th></tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr class="odd"><td valign="top" colspan="4" class="dataTables_empty"><div align="center">No data available in table <br> <br><img src="https://smart-school.in/ssappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span><div></div></div></td></tr>
+                                        </tbody>
+                                    </table><div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_1_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_1" data-dt-idx="0" tabindex="0" id="DataTables_Table_1_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_1" data-dt-idx="1" tabindex="0" id="DataTables_Table_1_next"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -->
+                        <!-- diagnosis -->
+
+                        <div class="tab-pane" id="diagnosis">
+
+                            <div class="impbtnview">
+                                <a href="#" class="btn btn-sm btn-primary dropdown-toggle adddiagnosis" onclick="holdModal('add_diagnosis')" data-toggle="modal"><i class="fas fa-plus"></i> Add Diagnosis</a>
+                            </div><!--./impbtnview-->
+                            <div class="download_label">Aditya Singh IPD Details</div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper no-footer">
+                                    <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_2" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_2" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_2" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_2" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_2" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_2" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_2_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_2"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_2" role="grid" aria-describedby="DataTables_Table_2_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Report Type: activate to sort column ascending" style="width: 0px;">Report Type</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Report Date: activate to sort column ascending" style="width: 0px;">Report Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width: 0px;">Description</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th></tr>
+                                        </thead>
+                                        <tbody>
+
+
+
+
+
+
+
+
+
+                                            <tr role="row" class="odd">
+                                                <td>Cardiac MRI</td>
+                                                <td>02/10/2019</td>
+                                                <td></td>
+                                                <td class="text-right">
+                                                    <a onclick="delete_record('https://demo.smart-hospital.in/admin/patient/deleteIpdPatientDiagnosis/10/5', 'Record Deleted Successfully')" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr role="row" class="even">
+                                                <td>Functional MRI (fMRI)</td>
+                                                <td>09/11/2019</td>
+                                                <td></td>
+                                                <td class="text-right">
+                                                    <a onclick="delete_record('https://demo.smart-hospital.in/admin/patient/deleteIpdPatientDiagnosis/10/6', 'Record Deleted Successfully')" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr role="row" class="odd">
+                                                <td>Abdominal Ultrasound</td>
+                                                <td>07/11/2020</td>
+                                                <td></td>
+                                                <td class="text-right">
+                                                    <a onclick="delete_record('https://demo.smart-hospital.in/admin/patient/deleteIpdPatientDiagnosis/10/18', 'Record Deleted Successfully')" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr role="row" class="even">
+                                                <td>Cardiac MRI</td>
+                                                <td>09/11/2019</td>
+                                                <td></td>
+                                                <td class="text-right">
+                                                    <a onclick="delete_record('https://demo.smart-hospital.in/admin/patient/deleteIpdPatientDiagnosis/10/5', 'Record Deleted Successfully')" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table><div class="dataTables_info" id="DataTables_Table_2_info" role="status" aria-live="polite">Records: 1 to 4 of 4</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_2_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_2" data-dt-idx="0" tabindex="0" id="DataTables_Table_2_previous"><i class="fa fa-angle-left"></i></a><span><a class="paginate_button current" aria-controls="DataTables_Table_2" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_2" data-dt-idx="2" tabindex="0" id="DataTables_Table_2_next"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+
+                        <div class="tab-pane" id="timeline">
+                            <div class="impbtnview">
+
+                                <a href="#" class="btn btn-sm btn-primary dropdown-toggle addtimeline" onclick="holdModal('myTimelineModal')" data-toggle="modal"><i class="fa fa-plus"></i> Add Timeline</a>
+
+                            </div><!--./impbtnview-->
+                            <div class="download_label">Aditya Singh IPD Details</div>
+                            <div class="timeline-header no-border">
+                                <div id="timeline_list">
+                                    <br>
+                                    <div class="alert alert-info">No Record Found</div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Live Consult  -->
+
+                        <div class="tab-pane" id="live_consult">
+                            <!--   -->
+                            <div class="download_label">Aditya Singh IPD Details</div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_3_wrapper" class="dataTables_wrapper no-footer">
+                                    <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_3" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_3" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_3" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_3" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_3" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_3" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_3_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_3"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_3" role="grid" aria-describedby="DataTables_Table_3_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Consultation Title: activate to sort column ascending" style="width: 0px;">Consultation Title</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0px;">Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Created By : activate to sort column ascending" style="width: 0px;">Created By </th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Created For: activate to sort column ascending" style="width: 0px;">Created For</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Patient: activate to sort column ascending" style="width: 0px;">Patient</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 0px;">Status</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th></tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <tr role="row" class="odd">
+                                                <td class="mailbox-name">
+                                                    <a href="#" data-toggle="popover" class="detail_popover">Online consult for IPDN9</a>
+
+                                                    <div class="fee_detail_popover" style="display: none">
+                                                        <p class="text text-danger">No Description</p>
+                                                    </div>
+                                                </td>
+
+                                                <td class="mailbox-name">
+                                                    22/11/2019 01:40 AM
+                                                    <!--   <td class="mailbox-name">
+
+                                                       Global
+                                                    </td> -->
+                                                </td>
+                                                <td class="mailbox-name">
+
+                                                    Simon Stark (Super Admin: 9000)
+                                                </td>
+                                                <td class="mailbox-name">
+                                                    Sonia Bush (Doctor: 9002)
+                                                </td>
+
+                                                <td class="mailbox-name">
+                                                    Aditya Singh (1012)
+                                                </td>
+                                                <td class="mailbox-name">
+                                                    <form class="chgstatus_form" method="POST" action="https://demo.smart-hospital.in/admin/conference/chgstatus">
+                                                        <input type="hidden" name="conference_id" value="3">
+                                                        <select class="form-control chgstatus_dropdown" name="chg_status">
+                                                            <option value="0">Awaited</option>
+                                                            <option value="1" selected="selected">Cancelled </option>
+                                                            <option value="2">Finished </option>
+                                                        </select>
+                                                    </form>
+                                                </td>
+                                                <td class="mailbox-date relative text-right" width="90"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table><div class="dataTables_info" id="DataTables_Table_3_info" role="status" aria-live="polite">Records: 1 to 1 of 1</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_3_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_3" data-dt-idx="0" tabindex="0" id="DataTables_Table_3_previous"><i class="fa fa-angle-left"></i></a><span><a class="paginate_button current" aria-controls="DataTables_Table_3" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_3" data-dt-idx="2" tabindex="0" id="DataTables_Table_3_next"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--Charges-->
+
+                        <div class="tab-pane" id="charges">
+
+                            <div class="impbtnview">
+                                <a href="#" class="btn btn-sm btn-primary dropdown-toggle addcharges" onclick="holdModal('myChargesModal')" data-toggle="modal"><i class="fa fa-plus"></i> Add Charges</a>
+                            </div>
+
+                            <div class="download_label">Charges</div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_4_wrapper" class="dataTables_wrapper no-footer">
+                                    <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_4_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_4"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_4" role="grid" aria-describedby="DataTables_Table_4_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0px;">Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Charge Type: activate to sort column ascending" style="width: 0px;">Charge Type</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Charge Category: activate to sort column ascending" style="width: 0px;">Charge Category</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Standard Charge ($) : activate to sort column ascending" style="width: 0px;">Standard Charge ($) </th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="TPA Charge ($): activate to sort column ascending" style="width: 0px;">TPA Charge ($)</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Applied Charge ($): activate to sort column ascending" style="width: 0px;">Applied Charge ($)</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd"><td valign="top" colspan="7" class="dataTables_empty"><div align="center">No data available in table <br> <br><img src="https://smart-school.in/ssappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span><div></div></div></td></tr>
+                                        </tbody>
+
+
+                                        <tbody>
+                                            <tr class="box box-solid total-bg">
+                                                <td colspan="6" class="text-right">
+                                                    Total : $0 <input type="hidden" id="charge_total" name="charge_total" value="0">
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table><div class="dataTables_info" id="DataTables_Table_4_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_4_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_4" data-dt-idx="0" tabindex="0" id="DataTables_Table_4_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_4" data-dt-idx="1" tabindex="0" id="DataTables_Table_4_next"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="bill">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <h4 class="box-title mt0">Charges</h4>
+                                    <div class="table-responsive" style="border: 1px solid #dadada;border-radius: 2px; padding: 10px;">
+
+                                        <table class="nobordertable table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="16%">Charges </th>
+                                                    <th width="16%">Category</th>
+                                                    <th width="19%">Date</th>
+                                                    <th width="16%" class="pttright reborder">Amount ($) </th>
+                                                </tr>
+                                                <tr class="box box-solid total-bg">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="text-right">Total :   $0</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-1"></div> -->
+                                <div class="col-md-6">
+                                    <h4 class="box-title mt0">Payment</h4>
+                                    <div class="table-responsive" style="border: 1px solid #dadada;border-radius: 2px; padding: 10px;">
+
+                                        <table class="nobordertable table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="20%" class="">Payment Mode</th>
+                                                    <th width="16%" class="">Payment Date</th>
+                                                    <th width="16%" class="text-right">Paid Amount ($) </th>
+                                                </tr>
+
+                                                <tr class="box box-solid total-bg">
+                                                    <td></td>
+                                                    <td></td>
+
+                                                    <td class="text-right">Total  :   $0</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div><!--./table-responsive-->
+                                    <h4 class="box-title ptt10">Bill Summary</h4>
+                                    <div class="table-responsive" style="border: 1px solid #dadada;border-radius: 2px; padding: 10px;">
+                                        <table class="nobordertable table table-striped table-responsive">
+                                            <form class="" method="post" id="add_bill" action="#" enctype="multipart/form-data"></form>
+                                            <input type="hidden" name="status" id="status" value="yes">
+                                            <input type="hidden" name="ipdid" value="9">
+
+                                            <tbody>
+                                                <tr>
+                                                    <th>Total Charges ($)</th>
+                                                    <td class="text-right fontbold20">0.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Other Charges ($)</th>
+                                                    <td class="text-right ipdbilltable"><input type="text" id="other_charge" value="0" name="other_charge" style="width: 30%; float: right" class="form-control"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Discount(%)</th>
+                                                    <td class="text-right ipdbilltable">
+                                                        <input type="text" id="discount_percent" name="discount_percent" style="width: 30%; float: right" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Discount ($)</th>
+                                                    <td class="text-right ipdbilltable">
+                                                        <input type="hidden" name="patient_id" value="10">
+
+                                                        <input type="text" id="discount" value="0" name="discount" style="width: 30%; float: right" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tax(%)</th>
+                                                    <td class="text-right ipdbilltable">
+                                                        <input type="text" id="tax_percent" name="tax_percent" style="width: 30%; float: right" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tax ($)</th>
+                                                    <td class="text-right ipdbilltable"><input type="text" name="tax" value="0" id="tax" style="width: 30%; float: right" class="form-control"></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <th>Gross Total (Balance Amount) ($)</th>
+                                                    <td class="text-right fontbold20">
+
+                                                        <span id="grass_amount_span" class="">0</span>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td colspan="2"><input type="hidden" id="gross_total" value="0" name="gross_total" style="width: 30%; float: right" class="form-control"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Total Payment ($)</th>
+                                                    <td class="text-right fontbold20">
+                                                        0                                                                <input type="hidden" value="0" id="paid_amountpa" name="" style="width: 30%" class="form-control">
+                                                        <input type="hidden" value="0" id="total_amount" name="total_amount" style="width: 30%" class="form-control">
+                                                        <input type="hidden" value="56" id="bed_no" name="bed_no" style="width: 30%; float: right" class="form-control">
+
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <th>Net Payable Amount ($)</th>
+                                                    <td class="text-right fontbold20">
+
+                                                        <span id="net_amount_span" class="">0</span>
+                                                        <input type="hidden" name="net_amount" value="0" id="net_amount" style="width: 30%; float: right" class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+                                        <input type="button" onclick="calculate()" id="cal_btn" name="" value="Calculate" class="btn btn-sm btn-info">
+                                        <input data-loading-text="Processing..." type="submit" style="display:none" id="save_button" name="" value="Generate Bill &amp; Discharge Patient" class="btn btn-sm btn-info">
+                                        <a href="#" style="display:none" class="btn btn-sm btn-info" id="printBill" onclick="printBill('10', '9')">Print Bill</a>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="payment">
+                            <div class="impbtnview">
+                                <a href="#" class="btn btn-sm btn-primary dropdown-toggle addpayment" onclick="addpaymentModal()" data-toggle="modal"><i class="fa fa-plus"></i> Add Payment</a>
+                            </div><!--./impbtnview-->
+                            <div class="download_label">Payment</div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_5_wrapper" class="dataTables_wrapper no-footer">
+                                    <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_5_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_5"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_5" role="grid" aria-describedby="DataTables_Table_5_info">
+                                        <thead>
+                                            <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0px;">Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Note: activate to sort column ascending" style="width: 0px;">Note</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Payment Mode: activate to sort column ascending" style="width: 0px;">Payment Mode</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Paid Amount ($): activate to sort column ascending" style="width: 0px;">Paid Amount ($)</th><th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th></tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <tr class="odd"><td valign="top" colspan="5" class="dataTables_empty"><div align="center">No data available in table <br> <br><img src="https://smart-school.in/ssappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span><div></div></div></td></tr>
+                                        </tbody>
+                                    </table><div class="dataTables_info" id="DataTables_Table_5_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_5_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_5" data-dt-idx="0" tabindex="0" id="DataTables_Table_5_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_5" data-dt-idx="1" tabindex="0" id="DataTables_Table_5_next"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Bill payment -->
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.box-body -->
+    </div><!--./box box-primary-->
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+section{display:block;}
+.content{min-height:250px;clear:both;padding:15px;margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px;}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.box{position:relative;border-radius:3px;background:#ffffff;margin-bottom:20px;width:100%;}
+    .row{margin-right:-10px;margin-left:-10px;}
+    .row:before{display:table;content:" ";}
+    .pb0{padding-bottom:0;}
+    .box-body{padding:8px;border-radius:3px;}
+    .box-body:before{content:" ";display:table;}
+    :after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+    img{border:0;}
+    img{vertical-align:middle;}
+    .editviewdelete-icon{display:block;}
+    .pt8{padding-top:8px;}
+    .editviewdelete-icon a{display:inline-block;color:#444;}
+.editviewdelete-icon a:first-child{margin-left:0;}
+
+    a {
+    position: relative;
+    overflow: hidden;
+}
+a {
+    color: #0084B4;
+}
+a {
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+a {
+    text-decoration: none;
+}
+
+a {
+    background-color: transparent;
+}
+
+    .table-responsive{min-height:.01%;overflow-x:auto;}
+    .font13{font-size:13px;}
+    .mb0{margin-bottom:0!important;}
+    .table{width:100%;max-width:100%;}
+    table{border-spacing:0;border-collapse:collapse;}
+    table{background-color:transparent;}
+    table{empty-cells:hide;}
+    .table-striped>tbody>tr:nth-of-type(odd){background-color:#fff;}
+    .table>tbody>tr>th{padding:5px;line-height:1.42857143;vertical-align:top}
+    .bozerotop{border-top:0!important;}
+    .table>tbody>tr>td{padding:5px;line-height:1.42857143;vertical-align:top}
+    .box-body:after{clear:both;}
+    .box-body:after{content:" ";display:table;}
+    .pb0{padding-bottom:0px!important;}
+    .row:after{clear:both;}
+    .nav-tabs-custom{margin-bottom:20px;border:1px solid #c5d6de;background:#fff;border-radius:3px;}
+   
+
+
+
+
+
+a{background-color:transparent;}
+a:active,a:hover{outline:0;}
+
+input,select{margin:0;font:inherit;color:inherit;}
+select{text-transform:none;}
+html input[type=button],input[type=submit]{-webkit-appearance:button;cursor:pointer;}
+input::-moz-focus-inner{padding:0;border:0;}
+input{line-height:normal;}
+input[type=search]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield;}
+
+td,th{padding:0;}
+@@media print{
+*,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+a,a:visited{text-decoration:underline;}
+a[href]:after{content:" (" attr(href) ")";}
+a[href^="#"]:after{content:"";}
+thead{display:table-header-group;}
+img,tr{page-break-inside:avoid;}
+img{max-width:100%!important;}
+p{orphans:3;widows:3;}
+.table{border-collapse:collapse!important;}
+.table td,.table th{background-color:#fff!important;}
+.table-bordered td,.table-bordered th{border:1px solid #ddd!important;}
+}
+
+
+input,select{font-family:inherit;font-size:inherit;line-height:inherit;}
+a{color:#337ab7;text-decoration:none;}
+a:focus,a:hover{color:#23527c;text-decoration:underline;}
+a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+
+h4{font-family:inherit;font-weight:500;line-height:1.1;color:inherit;}
+h4{margin-top:10px;margin-bottom:10px;}
+h4{font-size:18px;}
+p{margin:0 0 10px;}
+.text-right{text-align:right;}
+.text-center{text-align:center;}
+.text-success{color:#3c763d;}
+.text-danger{color:#a94442;}
+ul{margin-top:0;margin-bottom:10px;}
+.row{margin-right:-15px;margin-left:-15px;}
+.col-lg-10,.col-lg-2,.col-md-10,.col-md-2,.col-md-6,.col-sm-3,.col-sm-9{position:relative;min-height:1px;padding-right:15px;padding-left:15px;}
+@@media (min-width:768px){
+.col-sm-3,.col-sm-9{float:left;}
+.col-sm-9{width:75%;}
+.col-sm-3{width:25%;}
+}
+@@media (min-width:992px){
+.col-md-10,.col-md-2,.col-md-6{float:left;}
+.col-md-10{width:83.33333333%;}
+.col-md-6{width:50%;}
+.col-md-2{width:16.66666667%;}
+}
+@@media (min-width:1200px){
+.col-lg-10,.col-lg-2{float:left;}
+.col-lg-10{width:83.33333333%;}
+.col-lg-2{width:16.66666667%;}
+}
+
+th{text-align:left;}
+
+
+.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd;}
+.table>thead:first-child>tr:first-child>th{border-top:0;}
+.table>tbody+tbody{border-top:2px solid #ddd;}
+.table-bordered{border:1px solid #ddd;}
+.table-bordered>tbody>tr>td,.table-bordered>thead>tr>th{border:1px solid #ddd;}
+.table-bordered>thead>tr>th{border-bottom-width:2px;}
+
+.table-hover>tbody>tr:hover{background-color:#f5f5f5;}
+
+@@media screen and (max-width:767px){
+.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;}
+.table-responsive>.table{margin-bottom:0;}
+.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tbody>tr>th{white-space:nowrap;}
+}
+label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700;}
+input[type=search]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.form-control{display:block;width:100%;height:28px;padding:0px 10px;font-size:10pt;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;}
+.form-control:focus{border-color:#66afe9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);}
+.form-control::-moz-placeholder{color:#999;opacity:1;}
+.form-control:-ms-input-placeholder{color:#999;}
+.form-control::-webkit-input-placeholder{color:#999;}
+input[type=search]{-webkit-appearance:none;}
+.btn{display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent;border-radius:4px;}
+.btn:active:focus,.btn:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+.btn:focus,.btn:hover{color:#333;text-decoration:none;}
+.btn:active{background-image:none;outline:0;-webkit-box-shadow:inset 0 3px 5px rgba(0,0,0,.125);box-shadow:inset 0 3px 5px rgba(0,0,0,.125);}
+.btn-default{color:#333;background-color:#fff;border-color:#ccc;}
+.btn-default:focus{color:#333;background-color:#e6e6e6;border-color:#8c8c8c;}
+.btn-default:hover{color:#333;background-color:#e6e6e6;border-color:#adadad;}
+.btn-default:active{color:#333;background-color:#e6e6e6;border-color:#adadad;}
+.btn-default:active:focus,.btn-default:active:hover{color:#333;background-color:#d4d4d4;border-color:#8c8c8c;}
+.btn-default:active{background-image:none;}
+.btn-primary{color:#fff;background-color:#337ab7;border-color:#2e6da4;}
+.btn-primary:focus{color:#fff;background-color:#727272;border-color:#525252;}
+.btn-primary:hover{color:#fff;background-color:#070707;border-color:#525252;}
+.btn-primary:active{color:#fff;background-color:#286090;border-color:#525252;}
+.btn-primary:active:focus,.btn-primary:active:hover{color:#fff;background-color:#727272;border-color:#525252;}
+.btn-primary:active{background-image:none;}
+.btn-info{color:#fff;background-color:#5bc0de;border-color:#46b8da;}
+.btn-info:focus{color:#fff;background-color:#727272;border-color:#525252;}
+.btn-info:hover{color:#fff;background-color:#31b0d5;border-color:#525252;}
+.btn-info:active{color:#fff;background-color:#31b0d5;border-color:#269abc;}
+.btn-info:active:focus,.btn-info:active:hover{color:#fff;background-color:#070707;border-color:#525252;}
+.btn-info:active{background-image:none;}
+.btn-sm{padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px;}
+.btn-xs{padding:1px 5px;font-size:12px;line-height:1.5;border-radius:3px;}
+.dropdown-toggle:focus{outline:0;}
+.btn-group{position:relative;display:inline-block;vertical-align:middle;}
+.btn-group>.btn{position:relative;float:left;}
+.btn-group>.btn:active,.btn-group>.btn:focus,.btn-group>.btn:hover{z-index:2;}
+.btn-group .btn+.btn{margin-left:-1px;}
+.btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){border-radius:0;}
+.btn-group>.btn:first-child{margin-left:0;}
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle){border-top-right-radius:0;border-bottom-right-radius:0;}
+.btn-group>.btn:last-child:not(:first-child){border-top-left-radius:0;border-bottom-left-radius:0;}
+.nav{padding-left:0;margin-bottom:0;list-style:none;}
+.nav>li{position:relative;display:block;}
+.nav>li>a{position:relative;display:block;padding:10px 15px;}
+.nav>li>a:focus,.nav>li>a:hover{text-decoration:none;background-color:#eee;}
+.nav-tabs{border-bottom:1px solid #ddd;}
+.nav-tabs>li{float:left;margin-bottom:-1px;}
+.nav-tabs>li>a{margin-right:2px;line-height:1.42857143;border:1px solid transparent;border-radius:4px 4px 0 0;}
+.nav-tabs>li>a:hover{border-color:#eee #eee #ddd;}
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover{color:#555;cursor:default;background-color:#fff;border:1px solid #ddd;border-bottom-color:transparent;}
+.tab-content>.tab-pane{display:none;}
+.tab-content>.active{display:block;}
+.alert{padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px;}
+.alert-info{color:#31708f;background-color:#d9edf7;border-color:#bce8f1;}
+.nav:after,.nav:before,.row:after,.row:before{display:table;content:" ";}
+
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/css/style-main.css */
+
+.fontbold20{font-size:20px;font-family:'Roboto-Bold';}
+label{font-family:'Roboto-Medium';font-weight:normal;}
+a{-webkit-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;-moz-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;-o-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;transition:color 250ms ease-in-out, background-color 250ms ease-in-out;}
+a:hover,a:focus{-webkit-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;-moz-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;-o-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;transition:color 250ms ease-in-out, background-color 250ms ease-in-out;}
+
+.ptt10{padding-top:10px;}
+.relative{position:relative;}
+.content{min-height:250px;clear:both;padding:15px;margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px;}
+h4{font-family:'Roboto','Source Sans Pro',sans-serif;}
+a{color:#0084B4;}
+a:hover,a:active,a:focus{outline:none;text-decoration:none;color:#72afd2;}
+.form-control{border-radius:0;box-shadow:none;border-color:#d2d6de;}
+.form-control:focus{border-color:#3c8dbc;box-shadow:none;}
+.form-control::-moz-placeholder,.form-control:-ms-input-placeholder,.form-control::-webkit-input-placeholder{color:#bbb;opacity:1;}
+.form-control:not(select){-webkit-appearance:none;-moz-appearance:none;appearance:none;}
+
+.box.box-solid{border-top:0;}
+
+
+
+.btn{border-radius:2px;-webkit-box-shadow:none;box-shadow:none;border:0;line-height:1.42857143;}
+.btn-sm{padding:4px 10px;}
+.btn:active{-webkit-box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);-moz-box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);box-shadow:inset 0 3px 5px rgba(0,0,0,0.125);}
+.btn:focus{outline:none;}
+.btn-default{background-color:#f4f4f4;color:#444;border-color:#ddd;}
+.btn-default:hover,.btn-default:active{background-color:#e7e7e7;}
+.btn-primary{background-color:#2196f3;border-color:transparent;transition:.3s;}
+.btn-primary:hover,.btn-primary:active{background-color:#1563b0;}
+.alert{border-radius:3px;}
+.alert-info{border-color:#00acd6;}
+.nav>li>a:hover,.nav>li>a:active,.nav>li>a:focus{color:#444;background:#f7f7f7;}
+
+.nav-tabs-custom>.nav-tabs{margin:0;border-bottom-color:#c5d6de;border-top-right-radius:3px;border-top-left-radius:3px;}
+.nav-tabs-custom>.nav-tabs>li{border-bottom:3px solid transparent;font-family:'Roboto';margin-bottom:-1px;margin-right:5px;}
+.nav-tabs-custom>.nav-tabs>li>a{padding:10px 10px;color:#444;border-radius:0;}
+.nav-tabs-custom>.nav-tabs>li>a,.nav-tabs-custom>.nav-tabs>li>a:hover{background:transparent;margin:0;}
+.nav-tabs-custom>.nav-tabs>li>a:hover{color:#999;}
+.nav-tabs-custom>.nav-tabs>li:not(.active)>a:hover,.nav-tabs-custom>.nav-tabs>li:not(.active)>a:focus,.nav-tabs-custom>.nav-tabs>li:not(.active)>a:active{border-color:transparent;}
+.nav-tabs-custom>.nav-tabs>li.active{border-bottom-color:#0283cc;}
+.nav-tabs-custom>.nav-tabs>li.active>a,.nav-tabs-custom>.nav-tabs>li.active:hover>a{background-color:#fff;color:#0183cc;}
+.nav-tabs-custom>.nav-tabs>li.active>a{border-top-color:transparent;border-left-color:#f4f4f4;border-right-color:#f4f4f4;}
+.nav-tabs-custom>.nav-tabs>li:first-of-type{margin-left:0;}
+.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a{border-left-color:transparent;}
+.nav-tabs-custom>.tab-content{background:#fff;padding:10px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;}
+.table>thead>tr>th,.table>tbody>tr>th,.table>tbody>tr>td{border-top:1px solid #f4f4f4;}
+.table>thead>tr>th{border-bottom:2px solid #f4f4f4;background:#ececec;}
+.table-bordered{border:1px solid #fff;}
+.table-bordered>thead>tr>th,.table-bordered>tbody>tr>td{border:1px solid #f4f4f4;}
+.table-bordered>thead>tr>th{border-bottom-width:2px;}
+.btn{-webkit-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;-moz-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;-o-transition:color 250ms ease-in-out, background-color 250ms ease-in-out;transition:color 250ms ease-in-out, background-color 250ms ease-in-out;}
+.alert-info{color:#fff!important;}
+.alert-info{background-color:#16b1c5!important;}
+.no-border{border:0!important;}
+@@media print{
+.table-responsive{overflow:auto;}
+.table-responsive>.table tr th,.table-responsive>.table tr td{white-space:normal!important;}
+}
+.btn-info{background-color:#727272;border-color:#525252;padding:4px 12px;}
+.btn-info:hover,.btn-info:active{background-color:#1563b0;outline:none;}
+.alert-info{background-color:#dae8f2!important;border-color:#a3c8e3!important;color:#3498db!important;}
+p.text.text-danger{color:#a94442!important;font-weight:normal!important;font-size:12px!important;height:100%;font-family:'Roboto','Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;margin:0;}
+.table-bordered>thead>tr>th,.table-bordered>tbody>tr>td{border:0px solid #f4f4f4;}
+.dataTables_wrapper .dataTables_filter{float:right;text-align:right;}
+
+@@media (max-width:767px){
+.dataTables_wrapper .dataTables_filter{float:none;text-align:center!important;}
+.btn-group{position:relative;z-index:1;}
+}
+.dataTables_filter input{height:26px!important;border-radius:3px;}
+.buttons-html5,.buttons-print,.buttons-colvis{padding:2px 8px;}
+table.dataTable thead .sorting:last-child:after{opacity:0.2;display:none;content:"\f0d7";}
+.btn-group2{position:relative;z-index:1;padding-left:10px;float:right!important;}
+.table>thead>tr>th{border-bottom:2px solid #f4f4f4;background:#fff;vertical-align:top;}
+table.dataTable{width:100%!important;}
+.btn-xs{line-height:1.3;}
+@@media (max-width:767px){
+div.dataTables_wrapper div.dataTables_filter input{width:100%;}
+.dataTables_wrapper{margin-top:10px;}
+div.dt-buttons{margin-bottom:0px!important;margin-right:10px;}
+div.dataTables_wrapper div.dataTables_filter label{margin-left:10px;}
+table.table-bordered td:last-child{text-align:left;}
+}
+.total-bg{background:#e4e4e4!important;font-family:'Roboto-Bold';}
+.dataTables_empty{color:#f7bbbb;}
+
+
+
+.bolds{font-family:'Roboto-Bold';}
+.font13{font-size:13px!important;}
+
+@@media (max-width:767px){
+.btn-xs{padding:1px 3px;}
+}
+.btn-default,.btn{position:relative;overflow:hidden;}
+.btn:active:after{transform:scale(0,0);opacity:.2;transition:0s;}
+.btn:after{content:"";display:block;position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;background-image:radial-gradient(circle, #fff 10%, transparent 10.01%);background-repeat:no-repeat;background-position:50%;transform:scale(10, 10);opacity:0;transition:transform .5s, opacity 1s;}
+.nav-tabs>li.active>a:active:after,.btn-default:active:after{transform:scale(0,0);opacity:.2;transition:0s;}
+.nav-tabs>li.active>a:after,.btn-default:after{content:"";display:block;position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;background-image:radial-gradient(circle, #000 10%, transparent 10.01%);background-repeat:no-repeat;background-position:50%;transform:scale(10, 10);opacity:0;transition:transform .5s, opacity 1s;}
+.nav>li>a{overflow:hidden;position:relative;}
+.nav>li>a:active:after,.nav-tabs>li.active>a:active:after{transform:scale(0,0);opacity:.2;transition:0s;}
+.nav>li>a:after{content:"";display:block;position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;background-image:radial-gradient(circle, #000 10%, transparent 10.01%);background-repeat:no-repeat;background-position:50%;transform:scale(10, 10);opacity:0;transition:transform .5s, opacity 2s;}
+a{position:relative;overflow:hidden;display:table;}
+a:active:after{transform:scale(0,0);opacity:.2;transition:0s;}
+a:after{content:"";display:block;position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;background-image:radial-gradient(circle, #000 10%, transparent 10.01%)!important;background-repeat:no-repeat;background-position:50%;transform:scale(10, 10);opacity:0;transition:transform .5s, opacity 1s;}
+tr.box.box-solid.total-bg{box-shadow:none;}
+@@media screen and (max-width: 767px){
+.table-responsive{border:0px solid #ddd;}
+}
+.btn-info:focus,.btn-primary:focus{color:#fff;background-color:#1563b0;border:0;}
+
+.mt0{margin-top:0px;}
+div.dt-buttons{margin-bottom:10px;}
+table.dataTable thead .sorting:after{opacity:0.2;content:"\f0d7";}
+table.dataTable thead .sorting:after{position:relative;vertical-align:middle;display:inline-block;font-family:'FontAwesome';opacity:0.5;padding-left:5px;}
+.relative{position:relative;}
+.download_label{display:none;}
+@@media (max-width: 767px){
+.dataTables_wrapper{text-align:center;overflow-x:scroll;overflow-y:hidden;}
+table.dataTable{text-align:left;}
+td,th{white-space:nowrap;}
+}
+.pttright{padding-right:10px!important;text-align:right;}
+.reborder{border-right:1px solid #f4f4f4;}
+.nobordertable{border:0;width:100%;}
+.nobordertable>tbody>tr>td,.nobordertable>tbody>tr>th{border:0!important;padding:5px;line-height:1.42857143;vertical-align:top;}
+.impbtnview{position:absolute;right:10px;top:9px;}
+
+.col-lg-10,.col-lg-2,.col-md-10,.col-md-2,.col-md-6,.col-sm-3,.col-sm-9{position:relative;min-height:1px;padding-right:10px;padding-left:10px;}
+
+
+.ipdbilltable input{text-align:right;color:#000;font-size:20px;background:transparent!important;font-family:'Roboto-Bold';border-bottom:1px solid #dadada;border-left:0;border-right:0;border-top:0;padding-left:0;padding-right:0;}
+@@media (max-width:767px){
+.chgstatus_form{width:150px;}
+.impbtnview{position:relative;top:0px;left:0px;}
+}
+.nobordertable{width:100%;}
+.nobordertable tr td{border:0;}
+@@media (max-width:767px){
+.chgstatus_form{width:150px;}
+.nav-tabs-custom>.nav-tabs>li{width:100%;}
+}
+@@media (max-width:1260px){
+.table-responsive::-webkit-scrollbar{-webkit-appearance:none;}
+.table-responsive::-webkit-scrollbar-thumb{background-color:#ccc;}
+.table-responsive::-webkit-scrollbar-track{border-radius:10px;}
+}
+@@media (max-width:767px){
+.table-responsive::-webkit-scrollbar{-webkit-appearance:none;}
+.table-responsive::-webkit-scrollbar-thumb{background-color:#ccc;}
+.table-responsive::-webkit-scrollbar-track{border-radius:10px;}
+}
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/themes/default/ss-main.css */
+.btn-info{background-color:#2196f3;border-color:#288cf1;}
+tr.box.box-solid.total-bg{box-shadow:none;}
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/css/all.css */
+.fa,.fas,.far{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1;}
+.fa-angle-left:before{content:"\f104";}
+.fa-angle-right:before{content:"\f105";}
+.fa-arrow-left:before{content:"\f060";}
+.fa-calendar-check:before{content:"\f274";}
+.fa-columns:before{content:"\f0db";}
+.fa-diagnoses:before{content:"\f470";}
+.fa-donate:before{content:"\f4b9";}
+.fa-file-invoice-dollar:before{content:"\f571";}
+.fa-file-prescription:before{content:"\f572";}
+.fa-hand-holding-usd:before{content:"\f4c0";}
+.fa-plus:before{content:"\f067";}
+.fa-print:before{content:"\f02f";}
+.fa-trash:before{content:"\f1f8";}
+.far{font-family:'Font Awesome 5 Free';font-weight:400;}
+.fa,.fas{font-family:'Font Awesome 5 Free';font-weight:900;}
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/css/font-awesome.min.css */
+.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.fa-print:before{content:"\f02f";}
+.fa-video-camera:before{content:"\f03d";}
+.fa-pencil:before{content:"\f040";}
+.fa-arrow-left:before{content:"\f060";}
+.fa-plus:before{content:"\f067";}
+.fa-files-o:before{content:"\f0c5";}
+.fa-reorder:before{content:"\f0c9";}
+.fa-columns:before{content:"\f0db";}
+.fa-file-text-o:before{content:"\f0f6";}
+.fa-angle-left:before{content:"\f104";}
+.fa-angle-right:before{content:"\f105";}
+.fa-file-pdf-o:before{content:"\f1c1";}
+.fa-file-excel-o:before{content:"\f1c3";}
+.fa-trash:before{content:"\f1f8";}
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/datatables/css/jquery.dataTables.min.css */
+table.dataTable{width:100%;margin:0 auto;clear:both;border-spacing:0;}
+table.dataTable thead th{padding:5px 5px;border-bottom:1px solid #ddd;}
+table.dataTable thead th:active{outline:none;}
+table.dataTable thead .sorting{cursor:pointer;*cursor:hand;background-repeat:no-repeat;background-position:center right;}
+table.dataTable.no-footer{border-bottom:1px solid #f4f4f4;}
+table.dataTable td.dataTables_empty{text-align:center;}
+.dataTables_wrapper{position:relative;clear:both;*zoom:1;zoom:1;}
+.dataTables_wrapper .dataTables_filter{float:left;text-align:right;}
+.dataTables_wrapper .dataTables_filter input{margin-left:0.5em;}
+.dataTables_wrapper .dataTables_info{clear:both;float:left;padding-top:0.755em;}
+.dataTables_wrapper .dataTables_paginate{float:right;text-align:right;padding-top:0.25em;}
+.dataTables_wrapper .dataTables_paginate .paginate_button{font-size:10px;box-sizing:border-box;display:inline-block;min-width:1.5em;padding:2px 8px;text-align:center;text-decoration:none!important;cursor:pointer;*cursor:han;color:#424242!important;t;border:0px solid #ddd;}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{color:#777!important;border:0px solid #ddd;background-color:rgb(236, 236, 236);}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{cursor:default;color:#666!important;border:0px solid #ddd;background:transparent;box-shadow:none;border-radius:0;cursor:not-allowed;}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{color:#424242!important;border-radius:0px;border:0px solid rgb(221, 221, 221);background-color:rgb(236, 236, 236);}
+.dataTables_wrapper .dataTables_paginate .paginate_button:active{outline:none;border-radius:0;background-color:#fff;}
+.dataTables_wrapper .dataTables_filter,.dataTables_wrapper .dataTables_info,.dataTables_wrapper .dataTables_paginate{color:#333;}
+.dataTables_wrapper:after{visibility:hidden;display:block;content:"";clear:both;height:0;}
+@@media screen and (max-width: 767px){
+.dataTables_wrapper .dataTables_info,.dataTables_wrapper .dataTables_paginate{float:none;text-align:center;}
+.dataTables_wrapper .dataTables_paginate{margin-top:0.5em;}
+}
+@@media screen and (max-width: 640px){
+.dataTables_wrapper .dataTables_filter{float:none;text-align:center;}
+.dataTables_wrapper .dataTables_filter{margin-top:0.5em;}
+}
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/datatables/css/buttons.dataTables.min.css */
+a.dt-button{position:relative;display:inline-block;box-sizing:border-box;padding:2px 6.2px;border-radius:0px;cursor:pointer;font-size:14px;color:#444;white-space:nowrap;overflow:hidden;background-color:#fff;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-decoration:none;outline:none;border-top:0;border-left:0;border-right:0;border-bottom:1px solid #ddd;}
+a.dt-button:active:not(.disabled){background-color:#e2e2e2;}
+a.dt-button:active:not(.disabled):hover:not(.disabled){box-shadow:none;background-color:#868585;}
+a.dt-button:hover{text-decoration:none;}
+a.dt-button:hover:not(.disabled){background-color:#e7e7e7;}
+a.dt-button:focus:not(.disabled){outline:none;}
+div.dt-buttons{position:relative;float:left;}
+@@media screen and (max-width: 640px){
+div.dt-buttons{float:none!important;text-align:center;}
+}
+.dataTables_filter input{height:26px!important;border-radius:0px;font-weight:normal;border-top:0;border-left:0;border-right:0;border-bottom:1px solid #ddd;outline:none;padding:0px 0px;font-size:10pt;}
+/*! CSS Used from: https://demo.smart-hospital.in/backend/dist/datatables/css/dataTables.bootstrap.min.css */
+table.dataTable{clear:both;margin-top:6px!important;margin-bottom:6px!important;max-width:none!important;}
+table.dataTable td,table.dataTable th{-webkit-box-sizing:content-box;box-sizing:content-box;}
+table.dataTable td.dataTables_empty{text-align:center;}
+div.dataTables_wrapper div.dataTables_filter{text-align:right;}
+div.dataTables_wrapper div.dataTables_filter label{font-weight:normal;white-space:nowrap;text-align:left;}
+div.dataTables_wrapper div.dataTables_filter input{margin-left:0;display:inline-block;width:100%;}
+div.dataTables_wrapper div.dataTables_info{padding-top:8px;white-space:nowrap;font-size:10px;}
+div.dataTables_wrapper div.dataTables_paginate{margin:0;white-space:nowrap;text-align:right;}
+table.dataTable thead>tr>th.sorting{padding-right:10px;}
+table.dataTable thead>tr>th:active{outline:none;}
+table.dataTable thead .sorting{cursor:pointer;position:relative;background:#fff;}
+table.dataTable thead .sorting:after{position:relative;vertical-align:middle;display:inline-block;font-family:'FontAwesome';opacity:0.5;padding-left:5px;}
+table.dataTable thead .sorting:after{opacity:0.2;content:"\f0d7";}
+div.dataTables_wrapper div.dataTables_filter input:focus{border-color:#3c8dbc;box-shadow:none;}
+@@media screen and (max-width: 767px){
+div.dataTables_wrapper div.dataTables_filter,div.dataTables_wrapper div.dataTables_info,div.dataTables_wrapper div.dataTables_paginate{text-align:center;}
+}
+table.table-bordered.dataTable th,table.table-bordered.dataTable td{border-left-width:0;}
+table.table-bordered.dataTable th:last-child,table.table-bordered.dataTable td:last-child{border-right-width:0;}
+table.table-bordered.dataTable tbody td{border-bottom-width:0;outline:none;}
+/*! CSS Used fontfaces */
+@@font-face{font-family:'Roboto-Bold';src:url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-bold-webfont.eot');src:url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-bold-webfont.eot#iefix') format('embedded-opentype'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-bold-webfont.woff2') format('woff2'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-bold-webfont.woff') format('woff'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-bold-webfont.ttf') format('truetype'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-bold-webfont.svg#robotobold') format('svg');font-style:normal;font-weight:normal;}
+@@font-face{font-family:'Roboto-Medium';src:url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-medium-webfont.eot');src:url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-medium-webfont.eot#iefix') format('embedded-opentype'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-medium-webfont.woff2') format('woff2'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-medium-webfont.woff') format('woff'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-medium-webfont.ttf') format('truetype'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-medium-webfont.svg#robotomedium') format('svg');font-style:normal;font-weight:normal;}
+@@font-face{font-family:'Roboto';src:url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-regular-webfont.eot');src:url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-regular-webfont.eot#iefix') format('embedded-opentype'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-regular-webfont.woff2') format('woff2'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-regular-webfont.woff') format('woff'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-regular-webfont.ttf') format('truetype'),           url('https://demo.smart-hospital.in/backend/dist/fonts/roboto-regular-webfont.svg#robotoregular') format('svg');font-style:normal;font-weight:normal;}
+@@font-face{font-family:'FontAwesome';src:url('https://demo.smart-hospital.in/backend/dist/fonts/fontawesome-webfont.eot?v=4.5.0');src:url('https://demo.smart-hospital.in/backend/dist/fonts/fontawesome-webfont.eot#iefix&v=4.5.0') format('embedded-opentype'),url('https://demo.smart-hospital.in/backend/dist/fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'),url('https://demo.smart-hospital.in/backend/dist/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'),url('https://demo.smart-hospital.in/backend/dist/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'),url('https://demo.smart-hospital.in/backend/dist/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal;}
+@@font-face{font-family:'Font Awesome 5 Free';font-style:normal;font-weight:400;src:url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-regular-400.eot");src:url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-regular-400.eot#iefix") format("embedded-opentype"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-regular-400.woff2") format("woff2"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-regular-400.woff") format("woff"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-regular-400.ttf") format("truetype"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-regular-400.svg#fontawesome") format("svg");}
+@@font-face{font-family:'Font Awesome 5 Free';font-style:normal;font-weight:900;src:url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-solid-900.eot");src:url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-solid-900.eot#iefix") format("embedded-opentype"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-solid-900.woff2") format("woff2"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-solid-900.woff") format("woff"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-solid-900.ttf") format("truetype"), url("https://demo.smart-hospital.in/backend/dist/webfonts/fa-solid-900.svg#fontawesome") format("svg");}
+
+
+
+</style>

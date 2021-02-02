@@ -1,0 +1,419 @@
+﻿@model RXGOADMIN.Models.AdminLogin
+
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var info = Model;
+}
+
+<style type="text/css">
+    .field-icon {
+        float: right;
+        margin-left: -20px;
+        margin-top: 10px;
+        position: relative;
+        z-index: 2;
+    }
+</style>
+
+@*<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        @if (TempData["MSG"] != null)
+                        {
+                            <div class="alert alert-info alert-dismissable">
+                                <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                                <strong>@TempData["MSG"]</strong>
+                            </div>
+                        }
+                        <h4 class="card-title">My Profile</h4>
+                        @using (Html.BeginForm("MyProfile", "Admin", FormMethod.Post, new { @class = "form-sample" }))
+                        {
+                        <div class="row">
+
+                            @Html.HiddenFor(model => model.HospitalId)
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-hospital-o text-white"></i>
+                                            </span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.HospitalName, new { @placeholder = "Hospital Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-external-link text-white"></i>
+                                            </span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.HospitalWebsiteUrl, new { @placeholder = "Website Url", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-envelope text-white"></i>
+                                            </span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email Address", @required = "required", @class = "form-control", @type = "email", @maxlength = "50" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-lock text-white"></i>
+                                            </span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Password, new { @placeholder = "Password", @required = "required", @class = "form-control", @type = "text", @maxlength = "50" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" id="phoneno">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-phone text-white"></i>
+                                            </span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Phone", @required = "required", @class = "form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-address-book text-white"></i>
+                                            </span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.Address, new { @placeholder = "Address", @required = "required", @class = "form-control", @type = "text", @maxlength = "200" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-address-book-o text-white"></i>
+                                            </span>
+                                        </div>
+                                        @if (info.CountryName != null)
+                                        {
+                                            <select class="form-control" name="CountryId">
+                                                <option value="@info.CountryId">@info.CountryName</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(model => model.CountryId, ViewBag.CountryList as SelectList, new { @class = "form-control req", @required = "required", @id = "country" })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-address-card text-white"></i>
+                                            </span>
+                                        </div>
+                                        @if (info.StateName != null)
+                                        {
+                                            <select class="form-control" name="StateId">
+                                                <option value="@info.StateId">@info.StateName</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <select id="sel" class="form-control" required name="StateId">
+                                                <option value="">Select State</option>
+                                            </select>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-info">
+                                            <span class="input-group-text bg-transparent">
+                                                <i class="fa fa-address-card-o text-white"></i>
+                                            </span>
+                                        </div>
+                                        @if (info.CityName != null)
+                                        {
+                                            <select class="form-control" name="CityId">
+                                                <option value="@info.CityId">@info.CityName</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <select id="city" class="form-control" required name="CityId">
+                                                <option value="">Select City</option>
+                                            </select>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button type="submit" id="submit1" class="btn btn-facebook mr-2">Update</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>*@
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                My Profile
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                My Profile
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            My Profile
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                @using (Html.BeginForm("MyProfile", "Admin", FormMethod.Post, new { @class = "form -sample", enctype = "multipart/form-data" }))
+                {
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <div class="row">
+
+                        @Html.HiddenFor(model => model.HospitalId)
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Hospital Name
+                                </label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.HospitalName, new { @placeholder = "Hospital Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Hospital Website Url
+                                </label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.HospitalWebsiteUrl, new { @placeholder = "Website Url", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Email Address
+                                </label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email Address", @required = "required", @class = "form-control", @type = "email", @maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Password
+                                </label>
+                                <div class="input-group">
+                                    @*@Html.TextBoxFor(model => model.Password, new { @placeholder = "Password", @required = "required", @class = "form-control", @type = "text", @maxlength = "50" })*@
+                                    <input type="password" name="password" id="password-field" placeholder="Enter the password" class="form-control" value="@Model.Password" required />
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Phone No
+                                </label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Phone", @required = "required", @class = "form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Address
+                                </label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Address, new { @placeholder = "Address", @required = "required", @class = "form-control", @type = "text", @maxlength = "200" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Country Name
+                                </label>
+                                <div class="input-group">
+                                    @if (info.CountryName != null)
+                                    {
+                                        <select class="form-control" name="CountryId">
+                                            <option value="@info.CountryId">@info.CountryName</option>
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(model => model.CountryId, ViewBag.CountryList as SelectList, new { @class = "form-control req", @required = "required", @id = "country" })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    State Name
+                                </label>
+                                <div class="input-group">
+                                    @if (info.StateName != null)
+                                    {
+                                        <select class="form-control" name="StateId">
+                                            <option value="@info.StateId">@info.StateName</option>
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        <select id="sel" class="form-control" required name="StateId">
+                                            <option value="">Select State</option>
+                                        </select>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    City Name
+                                </label>
+                                <div class="input-group">
+                                    @if (info.CityName != null)
+                                    {
+                                        <select class="form-control" name="CityId">
+                                            <option value="@info.CityId">@info.CityName</option>
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        <select id="city" class="form-control" required name="CityId">
+                                            <option value="">Select City</option>
+                                        </select>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="col-md-6">
+                <div class="form-group">
+                    <label>
+                        Password
+                    </label>
+                    <div class="input-group">
+                        <input type="password" name="password" id="password-field" placeholder="Enter the password" class="form-control" value="@Model.Password" required />
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+                </div>
+            </div>*@
+
+                    </div>
+                </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>

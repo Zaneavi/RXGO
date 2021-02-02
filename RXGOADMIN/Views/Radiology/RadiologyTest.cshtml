@@ -1,0 +1,538 @@
+﻿@model RXGOADMIN.Models.RadiologyTestReport
+
+@{
+    ViewBag.Title = "Radiology Test";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    element.style {
+        display: block;
+    }
+
+    .modal-open .modal {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .modal-open .modal {
+        overflow: hidden auto;
+    }
+
+    .fade.in {
+        opacity: 1;
+    }
+
+    .modal {
+        overflow-y: scroll;
+    }
+
+    .modal {
+        padding-left: 0px !important;
+    }
+
+    .modal {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+        .modal.fade.in .modal-dialog {
+            transform: translate3d(0px, 0px, 0px);
+            opacity: 1;
+        }
+
+    @@media (min-width: 992px) .modal-lg {
+        width: 930px;
+    }
+
+    .modal-dialog {
+        margin: 50px auto auto;
+    }
+
+    @@media (min-width: 768px) .modal-content {
+        box-shadow: rgba(0, 0, 0, 0.125) 0px 2px 3px;
+    }
+
+    .modal-content {
+        border-radius: 4px 4px 2px 2px;
+        border: 0px;
+        margin: 10px;
+    }
+
+    .modal-header {
+        background-color: rgb(66, 66, 66);
+    }
+
+    .modal-header {
+        padding: 10px 15px;
+    }
+
+    .modal-header {
+        background: linear-gradient(to right, rgb(30, 158, 242), rgb(0, 148, 245) 100%);
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+
+    .modal-header {
+        border-bottom-color: rgb(244, 244, 244);
+        border-radius: 2px 2px 0px 0px;
+    }
+
+    .close {
+        z-index: 1;
+        position: relative;
+    }
+
+    .close {
+        color: rgb(255, 255, 255);
+        text-shadow: none;
+        opacity: 1;
+        margin-top: 0px !important;
+    }
+
+    .pt4 {
+        padding-top: 4px !important;
+    }
+
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    body {
+        -webkit-font-smoothing: antialiased;
+        font-family: Roboto, "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+
+    .pb0 {
+        padding-bottom: 0px !important;
+    }
+
+    .pt0 {
+        padding-top: 0px !important;
+    }
+
+    .row {
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+
+
+    .row-eq {
+        display: flex;
+    }
+
+    .col-eq {
+        flex: 1 1 0%;
+        margin-right: -5px;
+        background: rgb(244, 244, 244);
+    }
+
+    .ptt10 {
+        padding-top: 10px;
+    }
+
+    button.close {
+        appearance: none;
+        padding: 0px;
+        cursor: pointer;
+        background: 0px 0px;
+        border: 0px;
+    }
+
+    .close {
+        z-index: 1;
+        position: relative;
+    }
+</style>
+
+
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Radiology List
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Radiology
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Radiology List
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Add Radiology Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Short Name</th>
+                                    <th>Test Type</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Method</th>
+                                    <th>Report Days</th>
+                                    <th>Charge</th>
+                                    @*<th>Status</th>*@
+                                    <th>Action</th>
+                                    @*<th>Delete</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+
+                                    <td>Test1</td>
+                                    <th>Test2</th>
+                                    <th>Test3</th>
+                                    <th>Test4</th>
+                                    <th>Test5</th>
+                                    <th>Test6</th>
+                                    <th>Test7</th>
+                                    <th>Test8</th>
+
+                                    @*@if (i.IsActive == "True")
+                                        {
+                                            <td><a href="javascript:void(0)" onclick="ChngStatus('@i.RadiologyId','@i.IsActive')" class="btn btn-success btn-xs">ACTIVE</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="javascript:void(0)" onclick="ChngStatus('@i.RadiologyId','@i.IsActive')" class="btn btn-danger btn-xs">INACTIVE</a></td>
+                                        }*@
+
+                                    <td>
+                                        <button type="button" class="fas fa-plus" @*onclick="Add('@i.RadiologyId')"*@ data-toggle="modal" data-target="#AddPatient"></button>
+                                        <button type="button" class="fa fa-reorder" @*onclick="Add('@i.RadiologyId')"*@ data-toggle="modal" data-target="#myModal"></button>
+
+                                        @*<a href="javascript:void(0)" onclick="Edit('@i.RadiologyId')">Edit</a></td>*@
+                                        @*<td>
+                                                <a href="javascript:void(0)" onclick="Delete('@i.RadiologyId')" class="btn btn-danger btn-xs">
+                                                    Delete
+                                                </a>
+                                            </td>*@
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal-->
+<div class="modal fade" id="AddPatient" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close pt4" data-dismiss="modal">×</button>
+            </div>
+            @using (Html.BeginForm("PatientTestReport", "Radiology", FormMethod.Post, new { @class = "form-sample" }))
+            {
+                <div class="row">
+                    @Html.HiddenFor(model => model.BillId)
+                    <div class="col-sm-6 col-xs-6">
+                        <div class="form-group15">
+                            <div>
+                                @Html.DropDownListFor(model => model.PatientId, ViewBag.PatientList as SelectList, new { @class = "form-control req", @required = "required" })
+                                <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-addpatient_id-container"><span class="select2-selection__rendered" id="select2-addpatient_id-container" title="Select Patient"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+
+                    </div><!--./col-sm-8-->
+
+                    <div class="col-sm-4 col-xs-5">
+                        <div class="form-group15">
+                            <a data-toggle="modal" id="add" onclick="holdModal('myModalpa')" class="modalbtnpatient"><i class="fa fa-plus"></i>  <span>New Patient</span></a>
+
+
+                        </div>
+                    </div><!--./col-sm-4-->
+                </div><!-- ./row -->
+
+
+                <div class="modal-body pt0 pb0">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <form id="formbatch" accept-charset="utf-8" enctype="multipart/form-data" method="post" action="">
+                                <div class="row row-eq">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div id="ajax_load"></div>
+                                        <div class="row ptt10" id="patientDetails" style="display:none">
+                                            <input type="hidden" name="Radiology_id" id="patho_id" value="24">
+                                            <input type="hidden" name="patho_parameter_id" id="patho_parameter_id" value="">
+                                            <input type="hidden" name="patient_id" id="patho_patientid">
+                                            <div class="col-md-9 col-sm-9 col-xs-9">
+
+                                                <ul class="singlelist">
+                                                    <li class="singlelist24bold">
+                                                        <span id="listname"></span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fas fa-user-secret" data-toggle="tooltip" data-placement="top" title="Guardian"></i>
+                                                        <span id="guardian"></span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="multilinelist">
+                                                    <li>
+                                                        <i class="fas fa-venus-mars" data-toggle="tooltip" data-placement="top" title="Gender"></i>
+                                                        <span id="genders"></span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fas fa-tint" data-toggle="tooltip" data-placement="top" title="Blood Group"></i>
+                                                        <span id="blood_group"></span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fas fa-ring" data-toggle="tooltip" data-placement="top" title="Marital Status"></i>
+                                                        <span id="marital_status"></span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="singlelist">
+                                                    <li>
+                                                        <i class="fas fa-hourglass-half" data-toggle="tooltip" data-placement="top" title="Age"></i>
+                                                        <span id="age"></span>
+                                                    </li>
+
+                                                    <li>
+                                                        <i class="fa fa-phone-square" data-toggle="tooltip" data-placement="top" title="Phone"></i>
+                                                        <span id="listnumber"></span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-envelope" data-toggle="tooltip" data-placement="top" title="Email"></i>
+                                                        <span id="email"></span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fas fa-street-view" data-toggle="tooltip" data-placement="top" title="Address"></i>
+                                                        <span id="address"></span>
+                                                    </li>
+
+                                                    <li>
+                                                        <b>Any Known Allergies </b>
+                                                        <span id="allergies"></span>
+                                                    </li>
+                                                    <li>
+                                                        <b>Remarks </b>
+                                                        <span id="note"></span>
+                                                    </li>
+                                                </ul>
+                                            </div><!-- ./col-md-9 -->
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <div class="pull-right">
+                                                    <!--<b>Patient Photo </b>-->
+                                                    <!--<span id="image"></span>-->
+
+                                                    <img class="modal-profile-user-img img-responsive" src="https://demo.smart-hospital.in/uploads/patient_images/no_image.png" id="image" alt="User profile picture">
+                                                </div>
+                                            </div><!-- ./col-md-3 -->
+                                        </div>
+                                    </div><!--./col-md-8-->
+
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-eq ptt10">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Reporting Date</label><span class="text-danger">*</span>
+                                                    @Html.TextBoxFor(model => model.ReportingDate, new { @required = "required", @class = "form-control", @type = "date" })
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @type = "text" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Test Report</label>
+                                                    @Html.TextBoxFor(model => model.Attachment, new { @class = "dropify", @type = "file" })
+                                                    <span class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputFile">
+                                                        Referral Doctor
+                                                    </label>
+                                                    <div>
+                                                        @Html.DropDownListFor(model => model.EmployeeId, ViewBag.DoctorList as SelectList, new { @class = "form-control req", @required = "required" })
+                                                        <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-consultant_doctor-container"><span class="select2-selection__rendered" id="select2-consultant_doctor-container" title="Select">Select</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                    </div>
+                                                    <span class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Charge Category</label>
+
+                                                    <input type="text" id="charge_category_html" class="form-control" readonly="">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Code</label>
+
+                                                    <input type="text" id="code_html" class="form-control" readonly="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Standard Charge ($)</label>
+
+                                                    <input type="text" id="charge_html" class="form-control" readonly="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>
+                                                        Applied Charge ($)<small class="text-danger"> *</small>
+                                                    </label>
+                                                    @Html.TextBoxFor(model => model.AppliedCharge, new { @class = "form-control", @required = "required", @type = "text", @maxlength = "100" })
+                                                </div>
+                                            </div>
+
+                                        </div><!--./row-->
+                                    </div><!--./col-md-4-->
+                                </div><!--./row-->
+
+                                <div class="row">
+                                    <div class="box-footer">
+                                        <div class="pull-right mrminus8">
+                                            <button type="submit" id="formbatchbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                                        </div>
+                                        <div class="pull-right" style="margin-right:10px;">
+                                            <button type="button" data-loading-text="Processing..." class="btn btn-info pull-right printsavebtn">Save &amp; Print</button>
+                                        </div>
+                                    </div>
+                                </div><!--./row-->
+                            </form>
+                        </div><!--./col-md-12-->
+                    </div><!--./row-->
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+@Html.Partial("~/Views/Shared/Partial/_RadiologyTest.cshtml")
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="editpartial">
+
+        </div>
+    </div>
+</div>
+
+<a data-toggle="modal" data-target="#EditModal" id="editpartial1"></a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('#category').change(function () {
+        category1 = $(this).val();
+        $.ajax({
+            "type": "GET",
+            "dataType": 'json',
+            "contentType": "application/json; charset=utf-8",
+            "url": '/Radiology/SubCategory1', //sending server side status and filtering table
+            "data": { id: category1 },
+            "success": function (data) {
+                $('#subcategory').empty();
+                //$('#city').append('<option value="">' + "Select City" + '</option>');
+                $.each(data, function (i, data) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $('#subcategory').append('<option value="' + data.SubCategoryId + '">' + data.SubCategoryName + '</option>');
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    function ChngStatus(id, status) {
+        $.getJSON('/Radiology/RadiologyTestStatus/', { id: id, status: status }, function (data) {
+            location.reload();
+        });
+    }
+</script>
+
+<script>
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Radiology/DeleteRadiology/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function Edit(id) {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/MarketingExecutive/EditMarketingExecutive',
+            data: { id: id },
+            success: function (data) {
+                $('#editpartial').html('');
+                $('#editpartial').html(data);
+                $('#editpartial1').trigger('click');
+            }
+        });
+    }
+</script>

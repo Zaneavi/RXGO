@@ -1,0 +1,287 @@
+﻿@model RXGOADMIN.Models.EmployeeDetails
+
+@{
+    ViewBag.Title = "Edit Employee";
+    var info = Model;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Assets/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/Assets/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Edit Employee
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Manage Employee
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit Employee
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body wizard-content">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <h6 class="card-subtitle">Edit Employee</h6>
+                    <form id="example-form" action="#" class="m-t-40" enctype="multipart/form-data">
+                        <div>
+                            <h3>Profile</h3>
+                            @*@Html.HiddenFor(model=>model.EmployeeId)*@
+                            <section>
+                                <label for="name">Full name *</label>
+                                @Html.TextBoxFor(model => model.FullName, new { @placeholder = "Full Name", @required = "required", @class = "required form-control", @type = "text", @maxlength = "100" })
+                                <label for="surname">Email *</label>
+                                @Html.TextBoxFor(model => model.EmailId, new { @placeholder = "Email", @required = "required", @class = "required email form-control", @type = "ema", @maxlength = "100" })
+                                <label for="phone">Phone *</label>
+                                @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Phone Number", @required = "required", @class = "required form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                                <label for="age">Age *</label>
+                                @Html.TextBoxFor(model => model.Age, new { @placeholder = "Age", @required = "required", @class = "required form-control", @type = "number", @min = "18", @max = "80" })
+                                <label for="address">User type *</label>
+                                @*@Html.DropDownListFor(model => model.UserTypeId, ViewBag.TypeList as SelectList, new { @class = "required form-control", @required = "required" })*@
+                                <select class="form-control" name="UserTypeId">
+                                    <option value="@info.UserTypeId">@info.UserType</option>
+                                </select>
+                                <input type="hidden" value="@info.HospitalId" name="HospitalId" />
+                                <input type="hidden" value="@info.Password" name="Password" />
+                                <p>(*) Mandatory</p>
+                            </section>
+                            <h3>Payroll</h3>
+                            <section>
+                                <label for="salary">Salary *</label>
+                                @Html.TextBoxFor(model => model.Salary, new { @placeholder = "Salary", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                                <label for="pf">Pf *</label>
+                                @Html.TextBoxFor(model => model.Pf, new { @placeholder = "Pf", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                                <label for="mi">Medical incentives *</label>
+                                @Html.TextBoxFor(model => model.MedicalIncentives, new { @placeholder = "Medical Incentives", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                                <label for="st">Service tax *</label>
+                                @Html.TextBoxFor(model => model.ServiceTax, new { @placeholder = "Service Tax", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                                <label for="hra">Hra *</label>
+                                @Html.TextBoxFor(model => model.Hra, new { @placeholder = "Hra", @required = "required", @class = "required form-control", @type = "number", @min = "0" })
+                                <p>(*) Mandatory</p>
+                            </section>
+                            <h3>Document</h3>
+                            <section>
+                                <label for="VoterId">Voter id  *</label>
+                                <input id="VoterId" name="VoterId" type="file" class="form-control" accept="application/pdf,image/jpg,image/png,image/jpeg">
+                                <img src="@info.VoterId.Replace("~","")" style="width:200px; height:200px;margin-top:10px;" alt="Voter card" />
+                                <br />
+                                <label for="PanId">Pan id *</label>
+                                <input id="PanId" name="PanId" type="file" class="form-control" accept="application/pdf,image/jpg,image/png,image/jpeg">
+                                <img src="@info.PanId.Replace("~","")" style="width:200px; height:200px;margin-top:10px;" alt="Pan card" />
+                                <br />
+                                <label for="AadharId">Aadhar id *</label>
+                                <input id="AadharId" name="AadharId" type="file" class="form-control" accept="application/pdf,image/jpg,image/png,image/jpeg">
+                                <img src="@info.AadharId.Replace("~","")" style="width:200px; height:200px;margin-top:10px;" alt="Aadhar card" />
+                                <br />
+                                <label for="ProfilePic">Profile pic *</label>
+                                <input id="ProfilePic" name="ProfilePic" type="file" class="form-control" accept="image/jpg,image/png,image/jpeg">
+                                <img src="@info.ProfilePic.Replace("~","")" style="width:200px; height:200px;margin-top:10px;" alt="Profile Pic" />
+
+                                <p>(*) Mandatory</p>
+                            </section>
+                            <input type="hidden" value="@info.EmployeeId" name="EmployeeId" />
+                            <input type="hidden" value="@info.PayrollId" name="PayrollId" />
+                            <input type="hidden" value="@info.DocumentId" name="DocumentId" />
+                            <input type="hidden" value="@info.VoterId" name="VoterId" />
+                            <input type="hidden" value="@info.PanId" name="PanId" />
+                            <input type="hidden" value="@info.AadharId" name="AadharId" />
+                            <input type="hidden" value="@info.ProfilePic" name="ProfilePic" />
+                            <h3>Finish</h3>
+                            <section>
+                                <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                                <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                            </section>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Assets/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="~/Assets/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/Assets/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+    // Basic Example with form
+    var form = $("#example-form");
+
+    form.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password"
+            }
+        }
+    });
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            //alert("Submitted!");
+
+            $.ajax({
+                url: "/Employee/UpdateEmployee",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response == 1) {
+                        alert("Successfully Data Saved");
+                        window.location.href = '/Employee/ShowEmployee';
+                    }
+                    else {
+                        alert("Something Went Wrong..");
+                        window.location.href = '/Employee/ShowEmployee';
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $('#VoterId').on('change', function (e) {
+        var formData = new FormData();
+        var files = $("#VoterId").get(0).files;
+
+
+        formData.append("file", files[0]);
+        formData.append("Voter", files[0].name);
+
+        $.ajax({
+            type: 'POST',
+            url: "/Employee/AddVoter",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 1) {
+                    alert("successfully Voter Card Updated");
+                }
+                else {
+                    alert("Something Went Wrong..");
+                }
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $('#PanId').on('change', function (e) {
+        var formData = new FormData();
+        var files = $("#PanId").get(0).files;
+
+
+        formData.append("file", files[0]);
+        formData.append("Pan", files[0].name);
+
+        $.ajax({
+            type: 'POST',
+            url: "/Employee/AddPanid",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 1) {
+                    alert("successfully Pan Card Updated");
+                }
+                else {
+                    alert("Something Went Wrong..");
+                }
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $('#AadharId').on('change', function (e) {
+        var formData = new FormData();
+        var files = $("#AadharId").get(0).files;
+
+
+        formData.append("file", files[0]);
+        formData.append("Aadhar", files[0].name);
+
+        $.ajax({
+            type: 'POST',
+            url: "/Employee/AddAadharId",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 1) {
+                    alert("successfully Aadhar Card Updated");
+                }
+                else {
+                    alert("Something Went Wrong..");
+                }
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $('#ProfilePic').on('change', function (e) {
+        var formData = new FormData();
+        var files = $("#ProfilePic").get(0).files;
+
+
+        formData.append("file", files[0]);
+        formData.append("Profile", files[0].name);
+
+        $.ajax({
+            type: 'POST',
+            url: "/Employee/ProfilePic",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 1) {
+                    alert("successfully Profile Pic Updated");
+                }
+                else {
+                    alert("Something Went Wrong..");
+                }
+            }
+        });
+    });
+</script>

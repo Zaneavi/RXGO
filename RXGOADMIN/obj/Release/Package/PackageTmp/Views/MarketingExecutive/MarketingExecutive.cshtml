@@ -1,0 +1,662 @@
+﻿@model RXGOADMIN.Models.MarketingExecutive
+
+@{
+    ViewBag.Title = "MarketingExecutive";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var info = Model;
+    HttpCookie rxgoAdminCookie = Request.Cookies["rxgoAdmin"];
+}
+
+<style type="text/css">
+    .field-icon {
+        float: right;
+        margin-left: -25px;
+        margin-top: 10px;
+        position: relative;
+        z-index: 2;
+    }
+</style>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Marketing Executive List
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Manage Executive
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Marketing Executive List
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Add Marketing Executive</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Age</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.ExecutiveList.Count > 0)
+                                {
+                                    foreach (var i in ViewBag.ExecutiveList)
+                                    {
+                                        <tr>
+
+                                            <td>@i.ExecutiveName</td>
+                                            <td>@i.ExecutiveEmail</td>
+                                            <td>@i.ExecutivePhone</td>
+                                            <td>@i.ExecutiveAge</td>
+                                            @if (i.IsActive == "True")
+                                            {
+                                                <td><a href="javascript:void(0)" onclick="ChngStatus('@i.ExecutiveId','@i.IsActive')" class="btn btn-success btn-xs">ACTIVE</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a href="javascript:void(0)" onclick="ChngStatus('@i.ExecutiveId','@i.IsActive')" class="btn btn-danger btn-xs">INACTIVE</a></td>
+                                            }
+                                            <td><a href="javascript:void(0)" onclick="Edit('@i.ExecutiveId')">Edit</a></td>
+                                            <td>
+                                                <a href="javascript:void(0)" onclick="Delete('@i.ExecutiveId')" class="btn btn-danger btn-xs">
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Age</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Marketing Executive</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    @using (Html.BeginForm("MarketingExecutive", "MarketingExecutive", FormMethod.Post, new { @class = "form-sample", enctype = "multipart/form-data" }))
+                    {
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.HiddenFor(model => model.ExecutiveId)
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Executive Name
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ExecutiveName, new { @placeholder = "Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Executive Email
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ExecutiveEmail, new { @placeholder = "Email", @required = "required", @class = "form-control", @type = "email", @maxlength = "50" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Executive Phone
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ExecutivePhone, new { @placeholder = "Phone Number", @required = "required", @class = "form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Executive Age
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ExecutiveAge, new { @placeholder = "Age", @required = "required", @class = "form-control", @type = "number", @maxlength = "10", @min = "18", @max = "50" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Executive Address
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.ExecutiveAddress, new { @placeholder = "Address", @required = "required", @class = "form-control", @type = "text", @maxlength = "200" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            User Name
+                                        </label>
+                                        <div class="input-group">
+                                            @Html.HiddenFor(model => model.AdminId, new { Value = rxgoAdminCookie.Values["Hid"] })
+                                            <input type="text" readonly class="form-control" value="@rxgoAdminCookie.Values["UName"]" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Country Name
+                                        </label>
+                                        <div class="input-group">
+                                            @if (info.CountryName != null)
+                                            {
+                                                <select class="form-control" name="CountryId">
+                                                    <option value="@info.CountryId">@info.CountryName</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownListFor(model => model.CountryId, ViewBag.CountryList as SelectList, new { @class = "form-control req", @required = "required", @id = "country" })
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            State Name
+                                        </label>
+                                        <div class="input-group">
+                                            @if (info.StateName != null)
+                                            {
+                                                <select class="form-control" name="StateId">
+                                                    <option value="@info.StateId">@info.StateName</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <select id="sel" class="form-control" required name="StateId">
+                                                    <option value="">Select State</option>
+                                                </select>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            City Name
+                                        </label>
+                                        <div class="input-group">
+                                            @if (info.CityName != null)
+                                            {
+                                                <select class="form-control" name="CityId">
+                                                    <option value="@info.CityId">@info.CityName</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <select id="city" class="form-control" required name="CityId">
+                                                    <option value="">Select City</option>
+                                                </select>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Password
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="password" name="password" id="password-field" placeholder="Enter the password" class="form-control" value="@Model.Password" required />
+                                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="border-top">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*<div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            @if (TempData["MSG"] != null)
+                            {
+                                <div class="alert alert-info alert-dismissable">
+                                    <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                                    <strong>@TempData["MSG"]</strong>
+                                </div>
+                            }
+                            <h4 class="card-title">Add / Edit Marketing Executive</h4>
+                            @using (Html.BeginForm("MarketingExecutive", "MarketingExecutive", FormMethod.Post, new { @class = "form-sample", enctype = "multipart/form-data" }))
+                            {
+                                <div class="row">
+
+                                    @Html.HiddenFor(model => model.ExecutiveId)
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-user text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.ExecutiveName, new { @placeholder = "Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-envelope text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.ExecutiveEmail, new { @placeholder = "Email", @required = "required", @class = "form-control", @type = "email", @maxlength = "50" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-phone text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.ExecutivePhone, new { @placeholder = "Phone Number", @required = "required", @class = "form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-child text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.ExecutiveAge, new { @placeholder = "Age", @required = "required", @class = "form-control", @type = "number", @maxlength = "10", @min = "18", @max = "50" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-address-book text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.ExecutiveAddress, new { @placeholder = "Address", @required = "required", @class = "form-control", @type = "text", @maxlength = "200" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-hospital-o text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @Html.HiddenFor(model => model.AdminId, new { Value = rxgoAdminCookie.Values["Hid"] })
+                                                <input type="text" readonly class="form-control" value="@rxgoAdminCookie.Values["UName"]" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-address-book-o text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @if (info.CountryName != null)
+                                                {
+                                                    <select class="form-control" name="CountryId">
+                                                        <option value="@info.CountryId">@info.CountryName</option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownListFor(model => model.CountryId, ViewBag.CountryList as SelectList, new { @class = "form-control req", @required = "required", @id = "country" })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-address-card text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @if (info.StateName != null)
+                                                {
+                                                    <select class="form-control" name="StateId">
+                                                        <option value="@info.StateId">@info.StateName</option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <select id="sel" class="form-control" required name="StateId">
+                                                        <option value="">Select State</option>
+                                                    </select>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-address-card-o text-white"></i>
+                                                    </span>
+                                                </div>
+                                                @if (info.CityName != null)
+                                                {
+                                                    <select class="form-control" name="CityId">
+                                                        <option value="@info.CityId">@info.CityName</option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <select id="city" class="form-control" required name="CityId">
+                                                        <option value="">Select City</option>
+                                                    </select>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend bg-info">
+                                                    <span class="input-group-text bg-transparent">
+                                                        <i class="fa fa-lock text-white"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="password" name="password" id="password-field" placeholder="Enter the password" class="form-control" value="@Model.Password" required />
+                                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <button type="submit" id="submit1" class="btn btn-facebook mr-2">Submit</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="text-black">Executive List</h4>
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Age</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.ExecutiveList.Count > 0)
+                                        {
+                                            foreach (var i in ViewBag.ExecutiveList)
+                                            {
+                                                <tr>
+
+                                                    <td>@i.ExecutiveName</td>
+                                                    <td>@i.ExecutiveEmail</td>
+                                                    <td>@i.ExecutivePhone</td>
+                                                    <td>@i.ExecutiveAge</td>
+                                                    @if (i.IsActive == "True")
+                                                    {
+                                                        <td><a href="javascript:void(0)" onclick="ChngStatus('@i.ExecutiveId','@i.IsActive')" class="btn btn-success btn-xs">ACTIVE</a></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><a href="javascript:void(0)" onclick="ChngStatus('@i.ExecutiveId','@i.IsActive')" class="btn btn-danger btn-xs">INACTIVE</a></td>
+                                                    }
+                                                    <td><a href="/MarketingExecutive/MarketingExecutive/@i.ExecutiveId">Edit</a></td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" onclick="Delete('@i.ExecutiveId')" class="btn btn-danger btn-xs">
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="editpartial">
+
+        </div>
+    </div>
+</div>
+
+<a data-toggle="modal" data-target="#EditModal" id="editpartial1"></a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function ChngStatus(id, status) {
+        $.getJSON('/MarketingExecutive/MarketingExecutiveStatus/', { id: id, status: status }, function (data) {
+            location.reload();
+        });
+    }
+</script>
+
+<script>
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    //On change in Drop-Down selection
+    $('#country').change(function () {
+        status = $(this).val();
+        $.ajax({
+            "type": "GET",
+            "dataType": 'json',
+            "contentType": "application/json; charset=utf-8",
+            "url": '/Admin/StateName', //sending server side status and filtering table
+            "data": { id: status },
+            "success": function (data) {
+                $('#sel').empty();
+                $('#sel').append('<option value="">' + "Select State" + '</option>');
+                $.each(data, function (i, data) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $('#sel').append('<option value="' + data.StateId + '">' + data.StateName + '</option>');
+                });
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    //On change in Drop-Down selection
+    $('#sel').change(function () {
+        status = $(this).val();
+        $.ajax({
+            "type": "GET",
+            "dataType": 'json',
+            "contentType": "application/json; charset=utf-8",
+            "url": '/Admin/CityName', //sending server side status and filtering table
+            "data": { id: status },
+            "success": function (data) {
+                $('#city').empty();
+                //$('#city').append('<option value="">' + "Select City" + '</option>');
+                $.each(data, function (i, data) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $('#city').append('<option value="' + data.CityId + '">' + data.CityName + '</option>');
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/MarketingExecutive/DeleteExecutive/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function Edit(id) {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/MarketingExecutive/EditMarketingExecutive',
+            data: { id: id },
+            success: function (data) {
+                $('#editpartial').html('');
+                $('#editpartial').html(data);
+                $('#editpartial1').trigger('click');
+            }
+        });
+    }
+</script>

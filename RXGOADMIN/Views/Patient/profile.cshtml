@@ -1,0 +1,2282 @@
+﻿@model RXGOADMIN.Models.OPDPatient
+@{
+    ViewBag.Title = "profile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var info = Model;
+}
+
+<style type="text/css">
+    .box {
+        position: relative;
+        border-radius: 3px;
+        background: #ffffff;
+        border: solid 1px #c5d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        /* box-shadow: 0 1px 1px rgba(0,0,0,0.1); */
+    }
+
+    .profile-user-img {
+        margin: 0 auto;
+        width: 100px;
+        max-height: 100px;
+    }
+
+    .img-circle {
+        border-radius: 50%;
+        display: block;
+    }
+
+    .nav-tabs-custom {
+        margin-bottom: 20px;
+        border: 1px solid #c5d6de;
+        background: #fff;
+        /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); */
+        border-radius: 3px;
+    }
+
+        .nav-tabs-custom > .nav-tabs {
+            margin: 0;
+            border-bottom-color: #c5d6de;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+
+    .nav-tabs {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .nav {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li:first-of-type {
+        margin-left: 0;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li.active {
+        border-bottom-color: #0283cc;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li {
+        border-bottom: 3px solid transparent;
+        font-family: 'Roboto';
+        margin-bottom: -1px;
+        margin-right: 5px;
+    }
+
+    .nav-tabs > li {
+        float: left;
+        margin-bottom: -1px;
+    }
+
+    .nav > li {
+        position: relative;
+        display: block;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li > a, .nav-tabs-custom > .nav-tabs > li > a:hover {
+        background: transparent;
+        margin: 0;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li > a {
+        padding: 10px 10px;
+        color: #444;
+        border-radius: 0;
+    }
+
+    .nav > li > a, .sidebar-menu > li > a, .treeview-menu > li > a {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .nav-tabs-custom > .tab-content {
+        background: #fff;
+        padding: 10px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .tab-content > .active {
+        display: block;
+    }
+
+    .impbtnview20 {
+        position: absolute;
+        right: 20px;
+        top: 11px;
+    }
+
+    .download_label {
+        display: none;
+    }
+
+    .btn-group-xs > .btn, .btn-xs {
+        padding: 1px 5px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+
+    .btn-primary {
+        background-color: #2196f3;
+        border-color: transparent;
+        transition: .3s;
+    }
+
+    .timeline {
+        position: relative;
+        margin: 0 0 30px 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .timeline > li {
+            position: relative;
+            /* margin-right: 10px; */
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .timeline > .time-label > span {
+            /* font-family: 'Roboto-Bold'; */
+            padding: 5px;
+            display: inline-block;
+            background-color: #fff;
+            border-radius: 4px;
+            font-family: 'Roboto-Bold';
+            font-size: 10px;
+        }
+
+    .bg-blue {
+        background-color: #0073b7 !important;
+    }
+
+    .timeline > li > .fa, .timeline > li > .glyphicon, .timeline > li > .ion {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
+        line-height: 30px;
+        position: absolute;
+        color: #666;
+        background: #d2d6de;
+        border-radius: 50%;
+        text-align: center;
+        left: 18px;
+        top: 0;
+    }
+
+    .timeline-inverse > li > .timeline-item {
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .timeline > li > .timeline-item {
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        border-radius: 3px;
+        margin-top: 0;
+        background: #fff;
+        color: #444;
+        margin-left: 60px;
+        /* margin-right: 15px; */
+        padding: 0;
+        position: relative;
+    }
+
+        .timeline > li > .timeline-item > .time {
+            color: #999;
+            float: right;
+            padding: 10px 5px;
+            font-size: 12px;
+        }
+
+    .defaults-c {
+        color: #464646;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline;
+        vertical-align: initial;
+        /* padding-left: 10px; */
+    }
+
+    .timeline-inverse > li > .timeline-item > .timeline-header {
+        border-bottom-color: #ddd;
+    }
+
+    .timeline > li > .timeline-item > .timeline-header {
+        margin: 0;
+        color: #555;
+        border-bottom: 1px solid #f4f4f4;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.1;
+    }
+
+    .text-aqua {
+        color: #00c0ef !important;
+    }
+
+    .timeline > li > .timeline-item > .timeline-body, .timeline > li > .timeline-item > .timeline-footer {
+        padding: 10px;
+    }
+
+    .timeline:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #ddd;
+        left: 31px;
+        margin: 0;
+        border-radius: 2px;
+    }
+
+    .timeline > li:after {
+        clear: both;
+    }
+
+    .timeline > li:before, .timeline > li:after {
+        content: " ";
+        display: table;
+    }
+
+    .singlelist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .singlelist li {
+            display: block;
+            padding-bottom: 10px;
+        }
+
+    .singlelist24bold {
+        font-size: 24px;
+        font-weight: 900;
+    }
+
+    .multilinelist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .multilinelist li {
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    /*.modal-header {
+        background: linear-gradient(to right,#1e9ef2,#0094f5 100%);
+        color: #fff;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        border-bottom-color: #f4f4f4;
+        border-radius: 2px 2px 0 0;
+    }*/
+</style>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row" style="margin-left:unset;">
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+
+                        @if (info.PatientPhoto == null || info.PatientPhoto == "")
+                        {
+                            <img class="profile-user-img img-responsive img-circle" src="http://localhost:50231/DataImages/no_image.png" alt="User profile picture">
+                        }
+                        else
+                        {
+                            <img class="profile-user-img img-responsive img-circle" src="http://localhost:50231/@info.PatientPhoto" alt="User profile picture">
+                        }
+                        <h3 class="profile-username text-center">@info.Name</h3>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item listnoback">
+                                <b>Patient Id</b> <a class="pull-right text-aqua">@info.PatientUniqueId</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Gender</b> <a class="pull-right text-aqua">@info.Gender</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Marital Status</b> <a class="pull-right text-aqua">@info.MaritalStatus</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Phone</b> <a class="pull-right text-aqua">@info.Phone</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Email</b> <a class="pull-right text-aqua">@info.Email</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Address</b> <a class="pull-right text-aqua">@info.Address</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Age</b> <a class="pull-right text-aqua">@info.Year Year @info.Month Month</a>
+                            </li>
+                            <li class="list-group-item listnoback">
+                                <b>Guardian Name</b> <a class="pull-right text-aqua">@info.GuardianName</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs profiletab">
+                        <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true"><i class="far fa-caret-square-down"></i> Visits</a></li>
+                        <li class=""><a href="#diagnosis" data-toggle="tab" aria-expanded="true"><i class="fas fa-diagnoses"></i> Diagnosis</a></li>
+                        <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="true"><i class="far fa-calendar-check"></i> Timeline</a></li>
+                        <li class=""><a href="#live_consult" data-toggle="tab" aria-expanded="true"><i class="fa fa-video-camera ftlayer"></i> Live Consultation</a></li>
+                    </ul>
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="activity">
+                            <div class="impbtnview20">
+                                <a href="#" onclick="getRevisitRecord(@info.PatientId)" class="btn btn-primary btn-sm revisitpatient" data-toggle="modal" title=""><i class="fas fa-exchange-alt"></i> Revisit</a>
+                            </div>
+                            <!--./impbtnview20-->
+                            <div class="download_label">@info.Name OPD Details</div>
+                            <div class="table-responsive">
+                                <table id="zero_config" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>OPD No</th>
+                                            <th>Appointment Date</th>
+                                            <th>Consultant</th>
+                                            <th>Reference</th>
+                                            <th>Symptoms</th>
+                                            @*<th class="text-right">Action</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.OPDPatientList.Count > 0)
+                                        {
+                                            foreach (var item in ViewBag.OPDPatientList)
+                                            {
+                                                <tr>
+                                                    <td><a href="#.">@item.OPDNo</a></td>
+                                                    <td>@item.AppointmentDate</td>
+                                                    <td>@item.ConsultantDoctor</td>
+                                                    <td>@item.Reference</td>
+                                                    <td>
+                                                        @item.Symptoms
+                                                    </td>
+                                                    @*<td class="text-right" width="90px">
+                                                            <a href="#" class="btn btn-default btn-xs prescription" data-toggle="tooltip" title="Add Prescription" onclick="getRecord_id()"><i class="mdi mdi-prescription"></i></a>
+                                                            <a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" title="Manual Prescription" onclick="viewmanual_prescription()">
+                                                                <i class="mdi mdi-prescription"></i>
+                                                            </a>
+
+                                                            <a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show" onclick="getRecord()">
+                                                                <i class="fa fa-reorder"></i>
+                                                            </a>
+
+                                                        </td>*@
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- -->
+                        <div class="tab-pane" id="diagnosis">
+                            <div class="impbtnview20">
+                                <a data-toggle="modal" onclick="holdModal('add_diagnosis')" class="btn btn-primary btn-sm adddiagnosis" style="color:#fff;"><i class="fa fa-plus"></i> Add Diagnosis</a>
+                            </div>
+
+                            <div class="download_label">@info.Name OPD Details</div>
+                            <div class="table-responsive">
+                                <table id="zero_config1" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Report Type</th>
+                                            <th>Report Date</th>
+                                            <th>Description</th>
+                                            <th class="text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.DiagnosisList.Count > 0)
+                                        {
+                                            foreach (var item1 in ViewBag.DiagnosisList)
+                                            {
+                                                <tr>
+                                                    <td>@item1.ReportType</td>
+                                                    <td>@item1.ReportDate</td>
+                                                    <td>@item1.Description</td>
+                                                    <td class="text-right">
+                                                        @if (item1.Diagosis_document == null || item1.Diagosis_document == "")
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/Patient/report_download?filePath=@item1.Diagosis_document" data-toggle="tooltip" class="btn btn-default btn-xs" data-original-title="Download" title=""><i class="fa fa-download"></i></a>
+                                                        }
+
+                                                        <a onclick="editDiagnosis(@item1.DiagnosisId)" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a onclick="deleteOpdPatientDiagnosis(@item1.DiagnosisId)" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="timeline">
+                            <div class="impbtnview20">
+                                <a data-toggle="modal" onclick="holdModal('myTimelineModal')" class="btn btn-primary btn-sm addtimeline" style="color:#fff;"><i class="fa fa-plus"></i>  Add Timeline</a>
+                            </div>
+                            <div class="timeline-header no-border">
+                                <div id="timeline_list">
+
+                                    @if (ViewBag.TimelineList.Count > 0)
+                                    {
+                                        <ul class="timeline timeline-inverse">
+                                            @foreach (var item2 in ViewBag.TimelineList)
+                                            {
+                                                <li class="time-label">
+                                                    <span class="bg-blue" style="color:#fff"> @item2.Date</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-list-alt bg-blue" style="color:#fff"></i>
+                                                    <div class="timeline-item">
+                                                        <span class="time">
+                                                            <a class="defaults-c" data-toggle="tooltip" title="" onclick="delete_timeline(@item2.TimelineId)" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+                                                        </span>
+                                                        <span class="time">
+                                                            <a onclick="editTimeline(@item2.TimelineId)" class="btn btn-default btn-xs" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                        </span>
+                                                        @if (item2.Timeline_document == null || item2.Timeline_document == "")
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="time">
+                                                                <a class="defaults-c text-right" data-toggle="tooltip" title="" href="/Patient/download_patient_timeline?filePath=@item2.Timeline_document" data-original-title="Download"><i class="fa fa-download"></i></a>
+                                                            </span>
+                                                        }
+
+                                                        <h3 class="timeline-header text-aqua"> @item2.Title </h3>
+                                                        <div class="timeline-body">
+                                                            @item2.Description
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                            <li><i class="fa fa-clock-o bg-gray"></i></li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        <div class="alert alert-info">No Record Found</div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -->
+
+                        <div class="tab-pane" id="live_consult">
+
+                            <div class="download_label">Samila OPD Details</div>
+                            <div class="table-responsive">
+                                <table id="zero_config2" class="table table-striped table-bordered table-hover example">
+                                    <thead>
+                                        <tr>
+                                            <th>Consultation Title</th>
+                                            <th>Date</th>
+                                            <th>Created By </th>
+                                            <th>Created For</th>
+                                            <th>Patient</th>
+                                            <th>Status</th>
+                                            <th class="text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="mailbox-name">
+                                                <a href="#" data-toggle="popover" class="detail_popover">Online consult for Revisit OPDN31</a>
+
+                                                <div class="fee_detail_popover" style="display: none">
+                                                    <p class="text text-danger">No Description</p>
+                                                </div>
+                                            </td>
+
+                                            <td class="mailbox-name">
+                                                06/11/2020 04:55 PM
+                                            </td>
+
+                                            <td class="mailbox-name">
+
+                                                Simon Stark (Super Admin: 9000)
+                                            </td>
+
+                                            <td class="mailbox-name">
+                                                Sonia Bush (Doctor: 9002)
+                                            </td>
+
+                                            <td class="mailbox-name">
+                                                Samila (1031)
+                                            </td>
+                                            <td class="mailbox-name" width="110">
+                                                <form class="chgstatus_form" method="POST" action="https://demo.smart-hospital.in/admin/conference/chgstatus">
+                                                    <input type="hidden" name="conference_id" value="24">
+                                                    <select class="form-control chgstatus_dropdown" name="chg_status">
+                                                        <option value="0" selected='selected'>Awaited</option>
+                                                        <option value="1">Cancelled </option>
+                                                        <option value="2">Finished </option>
+                                                    </select>
+                                                </form>
+                                            </td>
+                                            <td class="mailbox-date relative text-right" width="70">
+                                                <a data-placement="left" href="#" class="btn btn-sm label-success start-mr-20" data-toggle="modal" data-target="#modal-chkstatus" data-id="24">
+                                                    <span class="label"><i class="fa fa-video-camera"></i> Start</span>
+                                                </a>
+
+
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="mailbox-name">
+                                                <a href="#" data-toggle="popover" class="detail_popover">Online consult for OPDN30</a>
+
+                                                <div class="fee_detail_popover" style="display: none">
+                                                    <p class="text text-danger">No Description</p>
+                                                </div>
+                                            </td>
+
+                                            <td class="mailbox-name">
+                                                01/11/2020 04:49 PM
+                                            </td>
+
+                                            <td class="mailbox-name">
+
+                                                Simon Stark (Super Admin: 9000)
+                                            </td>
+
+                                            <td class="mailbox-name">
+                                                Sonia Bush (Doctor: 9002)
+                                            </td>
+
+                                            <td class="mailbox-name">
+                                                Samila (1031)
+                                            </td>
+                                            <td class="mailbox-name" width="110">
+                                                <form class="chgstatus_form" method="POST" action="https://demo.smart-hospital.in/admin/conference/chgstatus">
+                                                    <input type="hidden" name="conference_id" value="23">
+                                                    <select class="form-control chgstatus_dropdown" name="chg_status">
+                                                        <option value="0" selected='selected'>Awaited</option>
+                                                        <option value="1">Cancelled </option>
+                                                        <option value="2">Finished </option>
+                                                    </select>
+                                                </form>
+                                            </td>
+                                            <td class="mailbox-date relative text-right" width="70">
+                                                <a data-placement="left" href="#" class="btn btn-sm label-success start-mr-20" data-toggle="modal" data-target="#modal-chkstatus" data-id="23">
+                                                    <span class="label"><i class="fa fa-video-camera"></i> Start</span>
+                                                </a>
+
+
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="prescription">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover example">
+                                    <thead>
+                                        <tr>
+                                            <th>OPD Id</th>
+                                            <th>Appointment Date</th>
+                                            <th>Note</th>
+                                            <th class="text-right">Action</th>
+                                    </thead>
+                                    </tr>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="modal-chkstatus" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog2 modal-lg">
+        <form id="form-chkstatus" action="" method="POST">
+            <div class="modal-content">
+                <div class="">
+                    <button type="button" class="close modalclosezoom" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body" id="zoom_details">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="editModal" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-mid" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="box-title"> Edit Visit Details</h4>
+            </div>
+            <form id="formedit" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="">
+                <div class="modal-body pt0 pb0">
+                    <div class="ptt10">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>
+                                        Appointment Date
+                                    </label><small class="req"> *</small>
+                                    <input type="text" name="appointment_date" class="form-control datetime" id="appointmentdate" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Case</label>
+                                    <input type="text" class="form-control" name="case" id="edit_case" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Casualty</label>
+                                    <select name="casualty" class="form-control" id="edit_casualty">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Old Patient</label>
+                                    <select name="old_patient" class="form-control" id="edit_oldpatient">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Height</label>
+                                    <input type="text" id="edit_height" name="height" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Weight</label>
+                                    <input type="text" id="edit_weight" name="weight" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>BP</label>
+                                    <input type="text" name="bp" class="form-control" id="edit_bp" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Pulse</label>
+                                    <input type="text" id="edit_pulse" name="pulse" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Temperature</label>
+                                    <input type="text" id="edit_temperature" name="temperature" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Respiration</label>
+                                    <input type="text" name="respiration" class="form-control" id="edit_respiration" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>TPA</label>
+                                    <select name="organisation" style="width:100%" class="form-control" id="edit_organisation">
+                                        <option value="">Select</option>
+                                        <option value="3">CGHS  </option>
+                                        <option value="2">IDBI Federal</option>
+                                        <option value="1">Star Health Insurance</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">
+                                        Symptoms Type
+                                    </label>
+                                    <div>
+                                        <select name='symptoms_type' id="act" class="form-control select2 act" style="width:100%">
+                                            <option value="">Select</option>
+                                            <option value="1">General Symptoms</option>
+
+                                            <option value="3">Uncommon Symptoms</option>
+
+                                            <option value="4">Inherited Symptoms</option>
+
+                                            <option value="5">Viral Symptoms</option>
+
+                                        </select>
+                                    </div>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <label for="exampleInputFile">
+                                    Symptoms Title
+                                </label>
+                                <div id="dd" class="wrapper-dropdown-3">
+                                    <input class="form-control filterinput" type="text">
+                                    <ul class="dropdown scroll150 section_ul">
+                                        <li><label class="checkbox">--Select--</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <label>Symptoms Description</label>
+                                    <textarea class="form-control" id="symptoms_description" name="symptoms"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Consultant Doctor</label><small class="req"> *</small>
+                                    <select onchange="get_Charge(this.value)" name="consultant_doctor" style="width: 100%" class="form-control select2" id="edit_consdoctor">
+                                        <!--   <option value="">Select</option>
+                                        -->
+                                        <option value="2">Sonia Bush</option>
+                                        <option value="8">Sansa Gomez</option>
+                                        <option value="10">Amit Singh</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Reference</label>
+                                    <input type="text" name="refference" class="form-control" id="edit_refference" />
+                                </div>
+                            </div>
+                            <input type="hidden" name="opdid" id="edit_opdid">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Standard Charge ($)</label>
+                                    <input type="text" readonly name="standard_charge" id="standard_charge" class="form-control" value="">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Amount ($)</label>
+                                    <input type="text" name="amount" class="form-control" id="edit_amount" />
+                                    <input type="hidden" name="patientid" class="form-control" id="patientid" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Payment Mode</label>
+                                    <select id="edit_paymentmode" name="payment_mode" class="form-control">
+
+                                        <option value="Cash" selected>Cash</option>
+                                        <option value="Cheque">Cheque</option>
+                                        <option value="Online">Transfer to Bank Account</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Note</label>
+                                    <textarea class="form-control" id="revisit_note" name="revisit_note"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--./modal-body-->
+
+                <div class="box-footer">
+                    <button type="submit" id="formeditbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Charges -->
+<!-- -->
+<!-- Add Diagnosis -->
+<!-- -->
+<!-- Timeline -->
+<div class="modal fade" id="myTimelineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-mid" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <h4 class="box-title"> Add Timeline</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="add_timeline" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="" action="/Patient/timeline">
+                <div class="modal-body pt0 pb0">
+                    <div class="ptt10">
+
+                        <div class="row">
+                            <div class=" col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Title</label><small style="color: #fc2d42;"> *</small>
+                                    <input type="hidden" name="PatientId" id="patient_id" value="@Model.PatientId">
+                                    <input id="timeline_title" name="Title" placeholder="" type="text" class="form-control" required />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Date</label><small style="color: #fc2d42;"> *</small>
+                                    <input id="timeline_date" name="Date" placeholder="" type="date" class="form-control" required />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Description</label>
+                                    <textarea id="timeline_desc" name="Description" placeholder="" class="form-control"></textarea>
+                                    <span class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Attach Document</label>
+                                    <input id="timeline_doc_id" name="Timeline_document" placeholder="" type="file" class="dropify form-control" data-height="40" value="" />
+                                    <span class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" data-loading-text="Processing..." class="btn btn-success">Save</button>
+                    </div>
+                </div>
+                @*<div class="box-footer">
+                        <div class="pull-right">
+                            <button type="submit" data-loading-text="Processing..." id="add_timelinebtn" class="btn btn-info pull-right">Save</button>
+                        </div>
+                    </div>*@
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+<!-- Edit Timeline -->
+<div class="modal fade" id="myTimelineEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-mid" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <h4 class="box-title"> Edit Timeline</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="edit_timeline" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="" action="/Patient/timeline">
+                <div class="modal-body pt0 pb0">
+                    <div class="ptt10">
+                        <div class="row">
+                            <div class=" col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Title</label><small style="color: #fc2d42;"> *</small>
+                                    <input type="hidden" name="PatientId" id="epatientid" value="">
+                                    <input type="hidden" name="TimelineId" id="etimelineid" value="">
+                                    <input id="etimelinetitle" name="Title" placeholder="" type="text" class="form-control" required />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Date</label><small style="color: #fc2d42;"> *</small>
+
+                                    <input type="date" name="Date" class="form-control" id="etimelinedate" required />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Description</label>
+                                    <textarea id="timelineedesc" name="Description" placeholder="" class="form-control"></textarea>
+                                    <span class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Attach Document</label>
+                                    <div class="" style="margin-top:-5px; border:0; outline:none;">
+                                        <input id="etimeline_doc_id" name="Timeline_document" placeholder="" type="file" class="dropify form-control" data-height="40" value="" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--./modal-body-->
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" data-loading-text="Processing..." class="btn btn-success">Update</button>
+                    </div>
+                </div>
+                @*<div class="box-footer">
+                        <div class="pull-right">
+                            <button type="submit" data-loading-text="Processing..." id="edit_timelinebtn" class="btn btn-info pull-right">Save</button>
+                        </div>
+                    </div>*@
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+<div class="modal fade" id="edit_prescription" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="box-title"> Edit Prescription</h4>
+            </div>
+
+            <div class="modal-body pt0 pb0" id="editdetails_prescription">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+<!-- -->
+<div class="modal fade" id="viewModal" role="dialog">
+    <div class="modal-dialog modal-dialog2 modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+
+                <button type="button" data-toggle="tooltip" data-original-title="Close" class="close" data-dismiss="modal">&times;</button>
+                <div class="modalicon">
+                    <div id='edit_delete'>
+
+                        <a href="#" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="#" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+                <h4 class="box-title"> Visit Details</h4>
+            </div>
+
+            <div class="modal-body pt0 pb0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <form id="" class="pt5 pb5" accept-charset="utf-8" enctype="multipart/form-data" method="post">
+                            <div class="table-responsive">
+                                <table class="table mb0 table-striped table-bordered examples tablelr0space noborder">
+                                    <tr>
+                                        <th width="15%">OPD No</th>
+                                        <td width="35%">
+                                            <span id="opd_no"></span>
+                                        </td>
+                                        <th width="15%">Old Patient</th>
+                                        <td width="35%">
+                                            <span id="old_patient"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Patient Name</th>
+                                        <td width="35%">
+                                            <span id="patient_name"></span>
+                                        </td>
+                                        <th width="15%">Patient Id</th>
+                                        <td width="35%"><span id='patients_id'></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Guardian Name</th>
+                                        <td width="35%"><span id='guardian_name'></span></td>
+                                        <th width="15%">Gender</th>
+                                        <td width="35%"><span id='gen'></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Marital Status</th>
+                                        <td width="35%">
+                                            <span id="marital_status"></span>
+                                        </td>
+                                        <th width="15%">Phone</th>
+                                        <td width="35%">
+                                            <span id="contact"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Email</th>
+                                        <td width="35%"><span id='email' style="text-transform: none"></span></td>
+                                        <th width="15%">Address</th>
+                                        <td width="35%"><span id='patient_address'></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Age</th>
+                                        <td width="35%">
+                                            <span id="age"></span>
+                                        </td>
+                                        <th width="15%">Blood Group</th>
+                                        <td width="35%">
+                                            <span id="blood_group"></span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Height</th>
+                                        <td width="35%"><span id='height'></span></td>
+                                        <th width="15%">Weight</th>
+                                        <td width="35%">
+                                            <span id="weight"></span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">BP</th>
+                                        <td width="35%"><span id='patient_bp'></span></td>
+                                        <th width="15%">Pulse</th>
+                                        <td width="35%"><span id='pulse'></span></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Temperature</th>
+                                        <td width="35%"><span id='temperature' style=""></span></td>
+                                        <th width="15%">Respiration</th>
+                                        <td width="35%"><span id='respiration' style=""></span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Known Allergies</th>
+                                        <td width="35%">
+                                            <span id="known_allergies"></span>
+                                        </td>
+                                        <th width="15%">Appointment Date</th>
+                                        <td width="35%">
+                                            <span id="appointment_date"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Case</th>
+                                        <td width="35%"><span id='case'></span></td>
+                                        <th width="15%">Casualty</th>
+                                        <td width="35%">
+                                            <span id="casualty"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Reference</th>
+                                        <td width="35%">
+                                            <span id="refference"></span>
+                                        </td>
+
+                                        <th width="15%">TPA</th>
+                                        <td width="35%">
+                                            <span id="organisation"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Amount</th>
+                                        <td width="35%">$<span id='amount'></span></td>
+                                        <th width="15%">Payment Mode</th>
+                                        <td width="35%"><span id='payment_mode' style="text-transform: capitalize;"></span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th width="15%">Consultant Doctor</th>
+                                        <td width="35%"><span id='doc'></span></td>
+                                        <th width="15%">Note</th>
+                                        <td width="35%"><span id='note'></span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th width="15%">Symptoms</th>
+                                        <td width="50%"><span id='symptoms'></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="15%">Collected By</th>
+                                        <td width="35%"><span id='collected_by'></span></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--bill -->
+<!-- bill end-->
+<!-- -->
+<div class="modal fade" id="prescriptionview" tabindex="-1" role="dialog" aria-labelledby="follow_up">
+    <div class="modal-dialog modal-mid modal-lg" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modalicon">
+                    <div id='edit_deleteprescription'>
+
+                    </div>
+                </div>
+                <h4 class="box-title">Prescription</h4>
+            </div>
+            <div class="modal-body pt0 pb0" id="getdetails_prescription">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="prescriptionviewmanual" tabindex="-1" role="dialog" aria-labelledby="follow_up">
+    <div class="modal-dialog modal-mid modal-lg" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modalicon">
+                    <div id='edit_deleteprescriptionmanual'>
+
+                    </div>
+                </div>
+                <h4 class="box-title">Prescription</h4>
+            </div>
+            <div class="modal-body pt0 pb0" id="getdetails_prescriptionmanual">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+<div class="modal fade" id="myModaledit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="box-title"> Patient Details</h4>
+            </div>
+            <div class="modal-body pt0 pb0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 paddlr">
+                        <form id="formeditrecord" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="ptt10">
+                            <input id="eupdateid" name="updateid" placeholder="" type="hidden" class="form-control" value="" />
+                            <div class="row row-eq">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="row ptt10">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Name</label><small class="req"> *</small>
+                                                <input id="ename" name="name" placeholder="" type="text" class="form-control" value="" />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Guardian Name</label>
+                                                <input type="text" name="guardian_name" id="eguardian_name" placeholder="" value="" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label> Gender</label>
+                                                        <select class="form-control" name="gender" id="egenders">
+                                                            <option value="">Select</option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="dob">Date Of Birth</label>
+                                                        <input type="text" name="dob" id="ebirth_date" placeholder="" class="form-control date" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-5" id="calculate">
+                                                    <div class="form-group">
+                                                        <label>Age</label>
+                                                        <div style="clear: both;overflow: hidden;">
+                                                            <input type="text" placeholder="Year" name="age" id="eage_year" value="" class="form-control" style="width: 43%; float: left;">
+                                                            <input type="text" id="eage_month" placeholder="Month" name="month" value="" class="form-control" style="width: 53%;float: left; margin-left: 4px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--./col-md-6-->
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label> Blood Group</label>
+                                                        <select class="form-control" id="blood_groups" name="blood_group">
+                                                            <option value="">Select</option>
+                                                            <option value="O+">O+</option>
+                                                            <option value="A+">A+</option>
+                                                            <option value="B+">B+</option>
+                                                            <option value="AB+">AB+</option>
+                                                            <option value="O-">O-</option>
+                                                            <option value="A-">A-</option>
+                                                            <option value="B-">B-</option>
+                                                            <option value="AB-">AB-</option>
+                                                        </select>
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="pwd">Marital Status</label>
+                                                        <select name="marital_status" id="marital_statuss" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Single">Single</option>
+                                                            <option value="Married">Married</option>
+                                                            <option value="Widowed">Widowed</option>
+                                                            <option value="Separated">Separated</option>
+                                                            <option value="Not Specified">Not Specified</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputFile">
+                                                            Patient Photo
+                                                        </label>
+                                                        <div>
+                                                            <input class="filestyle form-control-file" type='file' name='file' id="exampleInputFile" size='20' data-height="26" data-default-file="https://demo.smart-hospital.in/uploads/patient_images/no_image.png">
+                                                            <!-- <img id="imagefile" width="20%" height="30%"/> -->
+                                                            <!--<input class="" src="" type='hidden' name='file' id="" size='20' >-->
+                                                        </div>
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div><!--./col-md-6-->
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="pwd">Phone</label>
+                                                <input id="emobileno" autocomplete="off" name="contact" type="text" placeholder="" class="form-control" value="" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" placeholder="" id="eemail" value="" name="email" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="address">Address</label>
+                                                <input name="address" id="eaddress" placeholder="" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="pwd">Remarks</label>
+                                                <textarea name="note" id="enote" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="email">Any Known Allergies</label>
+                                                <textarea name="known_allergies" id="eknown_allergies" placeholder="" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div><!--./row-->
+                                </div><!--./col-md-8-->
+                            </div><!--./row-->
+                            <!--./row-->
+                            <div class="box-footer">
+                                <div class="pull-right">
+                                    <button type="submit" data-loading-text="Processing..." id="formeditrecordbtn" class="btn btn-info pull-right">Save                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div><!--./col-md-12-->
+                </div><!--./row-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Revisit Modal-->
+<div class="modal fade" id="revisitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg modalfullmobile" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <h4 class="box-title"> Patient Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body pt0 pb0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <form id="formrevisit" accept-charset="utf-8" enctype="multipart/form-data" method="post" action="/Patient/revisit">
+                            <div class="row row-eq">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <input type="hidden" name="OPDId" id="opdid" />
+                                    <input type="hidden" name="password" id="revisit_password">
+                                    <input type="hidden" name="PatientId" id="pid">
+                                    <input type="hidden" name="Phone" id="pmobileno">
+                                    <input type="hidden" name="Email" id="pemail">
+                                    <input type="hidden" name="TotalVisit" id="revisit_totalvist" value="" />
+                                    <input id="revisit_name" name="Name" placeholder="" type="hidden" class="form-control" value="" />
+                                    <ul class="singlelist">
+                                        <li class="singlelist24bold pt5">
+                                            <span id="listname"></span>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-user-secret" data-toggle="tooltip" data-placement="top" title="Guardian"></i>
+                                            <span id="guardian"></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="multilinelist">
+                                        <li>
+                                            <i class="fas fa-venus-mars" data-toggle="tooltip" data-placement="top" title="Gender"></i>
+                                            <span id="rgender"></span>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-tint" data-toggle="tooltip" data-placement="top" title="Blood Group"></i>
+                                            <span id="rblood_group"></span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-life-ring" data-toggle="tooltip" data-placement="top" title="Marital Status"></i>
+                                            <span id="rmarital_status"></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="singlelist">
+                                        <li>
+                                            <i class="fas fa-hourglass-half" data-toggle="tooltip" data-placement="top" title="Age"></i>
+                                            <span id="rage"></span>
+                                        </li>
+
+                                        <li>
+                                            <i class="fa fa-phone-square" data-toggle="tooltip" data-placement="top" title="Phone"></i>
+                                            <span id="listnumber"></span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-envelope" data-toggle="tooltip" data-placement="top" title="Email"></i>
+                                            <span id="remail"></span>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-street-view" data-toggle="tooltip" data-placement="top" title="Address"></i>
+                                            <span id="raddress"></span>
+                                        </li>
+
+                                    </ul>
+                                    <div class="row">
+                                        <div class="col-sm-2 col-xs-4">
+                                            <div class="form-group">
+                                                <label for="pwd">Height</label>
+                                                <input name="Height" id="revisit_height" type="text" class="form-control" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-4">
+                                            <div class="form-group">
+                                                <label for="pwd">Weight</label>
+                                                <input name="Weight" id="revisit_weight" type="text" class="form-control" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-4">
+                                            <div class="form-group">
+                                                <label for="pwd">BP</label>
+                                                <input name="Bp" type="text" id="revisit_bp" class="form-control" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-4">
+                                            <div class="form-group">
+                                                <label for="pwd">Pulse</label>
+                                                <input name="Pulse" id="revisit_pulse" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-4">
+                                            <div class="form-group">
+                                                <label for="pwd">Temperature</label>
+                                                <input name="Temperature" id="revisit_temperature" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-4">
+                                            <div class="form-group">
+                                                <label for="pwd">Respiration</label>
+                                                <input name="Respiration" id="revisit_respiration" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Symptoms Type
+                                                </label>
+                                                <div>
+                                                    @Html.DropDownListFor(model => model.SymptomsTypeId, ViewBag.SymptomsType as SelectList, new { @class = "form-control act" })
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-3 col-xs-6">
+                                            <label for="exampleInputFile">
+                                                Symptoms Title
+                                            </label>
+                                            <div>
+                                                <select id="SelectedItemIds" name="SymptomsTitleId" class="form-control" onchange="getsymptoms(this.value)">
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                            @*<div>
+                                                  <select name="SymptomsTitleId" id="edit_SelectedItemIds" class="form-control"></select>
+                                                </div>*@
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="email">Symptoms Description</label>
+                                                <textarea class="form-control" id="symptoms_description" name="Symptoms"></textarea>
+                                                @*<textarea name="Symptoms" id="esymptoms" class="form-control"></textarea>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="email">Any Known Allergies</label>
+                                                <textarea name="known_allergies" id="revisit_allergies" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="pwd">Note</label>
+                                                <textarea name="Note" id="revisit_note1" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div><!--./row-->
+                                </div><!--./col-md-8-->
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-eq ptt10">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Appointment Date</label>
+                                                <small class="req">*</small>
+                                                @*<input id="revisit_date" name="appointment_date" placeholder="" type="text" class="form-control datetime" />*@
+                                                <input type='text' class="form-control" id='datetimepicker1' name="AppointmentDate" required />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Case
+                                                </label>
+                                                <div>
+                                                    <input class="form-control" type='text' id="revisit_case" name='PCase' />
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Casualty
+                                                </label>
+                                                <div>
+                                                    <select name="Casualty" id="revisit_casualty" class="form-control">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No" selected>No</option>
+                                                    </select>
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Old Patient
+                                                </label>
+                                                <div>
+                                                    <select name="OldPatient" id="revisit_old_patient" class="form-control">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No" selected>No</option>
+                                                    </select>
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    TPA
+                                                </label>
+                                                <div>
+                                                    @Html.DropDownListFor(model => model.TPA, ViewBag.TPA as SelectList, new { @class = "form-control", @id = "revisit_organisation" })
+                                                    @*<select class="form-control" onchange="get_Chargesrevisit('')" name='organisation_name' id="revisit_organisation">
+                                                            <option value="">Select</option>
+                                                            <option value="3">CGHS  </option>
+                                                            <option value="2">IDBI Federal</option>
+                                                            <option value="1">Star Health Insurance</option>
+                                                        </select>*@
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Reference
+                                                </label>
+                                                <div>
+                                                    <input class="form-control" id="revisit_refference" type='text' name='Reference' />
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Consultant Doctor
+                                                </label>
+                                                <div>
+                                                    @Html.DropDownListFor(model => model.DoctorId, ViewBag.DoctorList as SelectList, new { @class = "form-control select2", @required = "required", onchange = "get_Charges(this.value)", @id = "revisit_doctor" })
+                                                    @*<select onchange="get_Chargesrevisit(this.value)" class="form-control" style="width: 100%" name='consultant_doctor' id="revisit_doctor">
+                                                            <option value="2">Sonia Bush</option>
+                                                            <option value="8">Sansa Gomez</option>
+                                                            <option value="10">Amit Singh</option>
+                                                        </select>*@
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Standard Charge</label>
+                                                <input type="text" readonly name="StandardCharge" id="standard_chargerevisit" class="form-control" value="">
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="pwd">Amount</label><small class="req"> *</small>
+                                                <input name="AppliedCharge" type="text" class="form-control" id="revisit_amount" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="pwd">Payment Mode</label>
+                                                <select name="PaymentMode" id="revisit_payment" class="form-control">
+
+                                                    <option value="Cash">Cash</option>
+                                                    <option value="Cheque">Cheque</option>
+                                                    <option value="Online">Transfer to Bank Account</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">
+                                                    Live Consultation
+                                                </label>
+                                                <div>
+                                                    <select name="LiveConsultation" id="live_consultrevisit" class="form-control">
+                                                        <option value="No" selected>No</option>
+                                                        <option value="Yes">Yes</option>
+
+                                                    </select>
+                                                </div>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--./row-->
+                            <div class="row" style="float:right">
+                                <div class="box-footer">
+                                    <div class="pull-right mrminus8">
+                                        <button type="submit" id="formrevisitbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                                    </div>
+                                    @*<div class="pull-right" style="margin-right: 10px;">
+                                            <button type="button" data-loading-text="Processing..." class="btn btn-info pull-right printsavebtn">Save & Print</button>
+                                        </div>*@
+                                </div>
+                            </div><!--./row-->
+                        </form>
+                    </div><!--./col-md-12-->
+                </div><!--./row-->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- -->
+<!-- Add Diagnosis -->
+<div class="modal fade" id="add_diagnosis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-mid" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <h4 class="box-title"> Add Diagnosis</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="form_diagnosis" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="" action="/Patient/diagnosis">
+                <div class="modal-body pt0 pb0">
+                    <div class="ptt10">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Report Type
+                                    </label><small style="color: #fc2d42;"> *</small>
+                                    <input type="text" name="ReportType" class="form-control" id="report_type" required />
+                                    <input type="hidden" value="@Model.PatientId" name="PatientId" class="form-control" id="patient" />
+
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Report Date
+                                    </label>
+                                    <input type="date" name="ReportDate" class="form-control date" id="report_date" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Document</label>
+                                    <input type="file" class="form-control dropify" name="Diagosis_document" id="report_document" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea name="Description" class="form-control" id="description"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Diagnosis -->
+<div class="modal fade" id="edit_diagnosis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-mid" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <h4 class="box-title"> Edit Diagnosis</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="form_editdiagnosis" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="" action="/Patient/diagnosis">
+                <div class="modal-body pt0 pb0">
+                    <div class="ptt10">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Report Type
+                                    </label><small style="color: #fc2d42;"> *</small>
+                                    <input type="text" name="ReportType" class="form-control" id="ereporttype" required />
+                                    <input type="hidden" value="" name="DiagnosisId" class="form-control" id="eid" />
+                                    <input type="hidden" value="" name="PatientId" class="form-control" id="epatient_id" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Report Date
+                                    </label>
+                                    <input type="date" name="ReportDate" class="form-control date" id="ereportdate" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Document</label>
+                                    <input type="file" class="form-control dropify" name="Diagosis_document" id="ereportdocument" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea name="Description" class="form-control" id="edescription"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+<!-- -->
+<div class="modal fade" id="myPaymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-mid" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="box-title">Add Payment</h4>
+            </div>
+            <form id="add_payment" accept-charset="utf-8" method="post" class="">
+                <div class="modal-body pt0 pb0">
+                    <div class="ptt10">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Amount ($)</label><small class="req"> *</small>
+                                    <input type="text" name="amount" id="amount" class="form-control">
+                                    <input type="hidden" name="patient_id" id="payment_patient_id" class="form-control">
+                                    <input type="hidden" name="total" id="total" class="form-control">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Payment Mode</label>
+                                    <select class="form-control" name="payment_mode">
+
+                                        <option value="Cash">Cash</option>
+                                        <option value="Cheque">Cheque</option>
+                                        <option value="Online">Transfer to Bank Account</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Date</label><small class="req"> *</small>
+                                    <input type="text" name="payment_date" id="date" class="form-control date">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Attach Document</label>
+                                    <input type="file" class="filestyle form-control" name="document">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Note</label>
+                                    <input type="text" name="note" id="note" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" id="add_paymentbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- -->
+<!-- Add Prescription -->
+<div class="modal fade" id="add_prescription" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-media-content">
+            <div class="modal-header modal-media-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="box-title"> Add Prescription</h4>
+            </div>
+            <form id="form_prescription" accept-charset="utf-8" enctype="multipart/form-data" method="post" class="">
+                <div class="modal-body pt0 pb0">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="ptt10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Header Note</label>
+                                            <textarea style="height:50px" name="header_note" class="form-control" id="compose-textareanew"></textarea>
+                                        </div>
+                                        <hr />
+                                    </div>
+
+                                    <table class="nobordertable" id="tableID">
+                                        <tr id="row0">
+                                            <td>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Medicine Category
+                                                        </label> <small class="req"> *</small>
+                                                        <select class="form-control select2" style="width: 100%" name='medicine_cat[]' onchange="getMedicineName(0)" id="medicine_cat0">
+                                                            <option value="">Select                                                    </option>
+                                                            <option value="5">Syrup                                                        </option>
+                                                            <option value="6">Capsule                                                        </option>
+                                                            <option value="7">Injection                                                        </option>
+                                                            <option value="9">Ointment                                                        </option>
+                                                            <option value="10">Cream                                                        </option>
+                                                            <option value="11">Surgical                                                        </option>
+                                                            <option value="12">Drops                                                        </option>
+                                                            <option value="13">Inhalers                                                        </option>
+                                                            <option value="14">Implants / Patches                                                        </option>
+                                                            <option value="15">Liquid                                                        </option>
+                                                            <option value="16">Preparations                                                        </option>
+                                                            <option value="17">Diaper                                                        </option>
+                                                            <option value="18">Tablet                                                        </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Medicine</label>
+                                                        <select class="form-control select2" style="width: 100%" name="medicine[]" id="search-query0">
+                                                            <option value="l">Select</option>
+                                                        </select>
+                                                        <div id="suggesstion-box0"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Dosage</label>
+
+                                                        <select class="form-control select2" style="width: 100%" name="dosage[]" id="search-dosage0">
+                                                            <option value="l">Select</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Instruction</label>
+                                                        <textarea name="instruction[]" style="height: 28px;" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><button type="button" onclick="add_more()" style="color: #2196f3;margin-top: 24px;" class="modaltableclosebtn"><i class="fa fa-plus"></i></button></td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" id="prescription_id" name="opd_no">
+                                    <input type="hidden" id="opd_no_value" name="opd_no_value">
+                                    <input type="hidden" id="visit_id" name="visit_id" value="0">
+
+                                    <hr />
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Footer Note</label>
+                                            <textarea style="height:50px" rows="1" name="footer_note" class="form-control" id="compose-textareas"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="ptt10">
+                                <label for="exampleInputEmail1">Notification To</label>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="1" checked onclick='return false;' /> <b>Admin</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="2" /> <b>Accountant</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="3" /> <b>Doctor</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="4" /> <b>Pharmacist</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="5" /> <b>Pathologist</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="6" /> <b>Radiologist</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="7" /> <b>Super Admin</b> </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="visible[]" value="8" /> <b>Receptionist</b> </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--./modal-body-->
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <button type="submit" id="form_prescriptionbtn" data-loading-text="Processing..." class="btn btn-info">Save</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Add Prescription -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+<script src="/Assets/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript">
+    $('#datetimepicker1').datetimepicker();
+</script>
+
+<script type="text/javascript">
+    $(".nav.profiletab>li").click(function () {
+        $(".nav.profiletab>li").removeClass("active");
+        $(this).addClass("active");
+    })
+</script>
+
+<script type="text/javascript">
+    function holdModal(modalId) {
+        $('#' + modalId).modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    }
+    function deleteOpdPatientDiagnosis(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Patient/deleteOpdPatientDiagnosis/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function editDiagnosis(id) {
+        $.ajax({
+            url: '/Patient/editDiagnosis',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $("#eid").val(data.DiagnosisId);
+                $("#epatient_id").val(data.PatientId);
+                $("#ereporttype").val(data.ReportType);
+                $("#ereportdate").val(data.ReportDate);
+                $("#edescription").val(data.Description);
+                holdModal('edit_diagnosis');
+            },
+        });
+    }
+    function delete_timeline(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Patient/delete_timeline/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function editTimeline(id) {
+        $.ajax({
+            url: '/Patient/editTimeline',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function (data) {
+                //var date_format = 'dd/MM/yyyy';
+                //var dt = new Date(data.Date).toString(date_format);
+                $("#etimelineid").val(data.TimelineId);
+                $("#epatientid").val(data.PatientId);
+                $("#etimelinetitle").val(data.Title);
+                $("#etimelinedate").val(data.Date);
+                $("#timelineedesc").val(data.Description);
+
+                //if (data.status == '') {
+                //    //$("#evisible_check").attr('checked', false);
+                //} else {
+                //    $("#evisible_check").attr('checked', true);
+                //}
+                //$("#add_diagnosis").modal('hide');
+                holdModal('myTimelineEditModal');
+            },
+        });
+    }
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+    function getRevisitRecord(id) {
+        //var password = makeid(5);
+        $.ajax({
+            url: '/Patient/getDetails',
+            type: "POST",
+            data: { opd_id: id },
+            dataType: 'json',
+            success: function (data) {
+                $("#opdid").val(data.OPDId);
+                $("#revisit_totalvist").val(data.TotalVisit);
+                $("#revisit_id").val(data.PatientUniqueId);
+                $("#revisit_name").val(data.Name);
+                //$("#revisit_password").val(password);
+                $("#listname").html(data.Name);
+                $('#revisit_guardian').val(data.GuardianName);
+                $('#guardian').html(data.GuardianName);
+                $('#rgender').html(data.Gender);
+                $("#revisit_contact").val(data.Phone);
+                $("#listnumber").html(data.Phone);
+                //$("#pmobileno").val(data.mobileno);
+                // $("#revisit_date").val(data.appointment_date);
+                $("#revisit_case").val(data.PCase);
+                //$("#revisit_organisation").val(data.orgid);
+                $("#pid").val(data.PatientId);
+                $("#revisit_allergies").val(data.AnyKnownAllergies);
+                $("#revisit_refference").val(data.Reference);
+                $("#revisit_email").val(data.Email);
+                //$("#pemail").val(data.email);
+                $("#remail").html(data.Email);
+                $("#revisit_amount").val(data.AppliedCharge);
+                //$("#standard_charge").val(data.standard_charge);
+                $("#standard_chargerevisit").val(data.StandardCharge);
+                if (data.LiveConsultation) {
+                    $("#live_consultrevisit").val(data.LiveConsultation);
+                }
+
+                $("#revisit_amount").val(data.AppliedCharge);
+                $("#esymptoms").val(data.Symptoms);
+                $("#revisit_age").val(data.Age);
+                $("#revisit_month").val(data.Month);
+                $("#revisit_height").val(data.Height);
+                $("#revisit_weight").val(data.Weight);
+                $("#revisit_bp").val(data.Bp);
+                $("#revisit_pulse").val(data.Pulse);
+                $("#revisit_temperature").val(data.Temperature);
+                $("#revisit_respiration").val(data.Respiration);
+                $("#revisit_blood_group").val(data.BloodGroup);
+                $("#rblood_group").html(data.BloodGroup);
+                $("#revisi_tax").val(data.tax);
+                $("#revisit_address").val(data.Address);
+                $("#revisit_note1").val(data.Note);
+                $("#raddress").html(data.Address);
+                $("#rmarital_status").html(data.MaritalStatus);
+                // var dobp = date($this->customlib->getSchoolDateFormat(true, false), strtotime(data.dob)) ;
+                //var date_format = 'dd/MM/yyyy';
+                //var dob_format = new Date(data.dob).toString(date_format);
+
+                //if (data.age == "") {
+                //    $("#rage").html("");
+                //} else {
+                //    $("#rage").html(data.age + " Years " + data.month + " Month (" + dob_format + ")");
+                //}
+                if (data.Year == "") {
+                    $("#rage").html("");
+                } else {
+                    if (data.Year) {
+                        var age = data.Year + " " + "Years";
+                    } else {
+                        var age = '';
+                    }
+                    if (data.Month) {
+                        var month = data.Month + " " + "Month";
+                    } else {
+                        var month = '';
+                    }
+                    if (data.DOB) {
+                        var dob = "(" + data.DOB + ")";
+                    } else {
+                        var dob = '';
+                    }
+
+                    $("#rage").html(age + "," + month + " " + dob);
+                }
+                //$('select[id="revisit_old_patient"] option[value="' + data.old_patient + '"]').attr("selected", "selected");
+                //$('select[id="revisit_doctor"] option[value="' + data.cons_doctor + '"]').attr("selected", "selected");
+                //$('select[id="revisit_payment"] option[value="' + data.payment_mode + '"]').attr("selected", "selected");
+                //$('select[id="revisit_gender"] option[value="' + data.gender + '"]').attr("selected", "selected");
+                //$('select[id="revisit_marital_status"] option[value="' + data.marital_status + '"]').attr("selected", "selected");
+                $('select[id="revisit_old_patient"] option[value="' + data.OldPatient + '"]').attr("selected", "selected");
+                $('select[id="revisit_doctor"] option[value="' + data.DoctorId + '"]').attr("selected", "selected");
+                $('select[id="revisit_symtype"] option[value="' + data.SymptomsTypeId + '"]').attr("selected", "selected");
+                $('select[id="revisit_organisation"] option[value="' + data.TPA + '"]').attr("selected", "selected");
+                $('select[id="edit_SelectedItemIds"] option[value="' + data.SymptomsTitleId + '"]').attr("selected", "selected");
+                holdModal('revisitModal');
+            },
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Basic
+        $('.dropify').dropify();
+
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+
+        drEvent.on('dropify.beforeClear', function (event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+
+        drEvent.on('dropify.afterClear', function (event, element) {
+            alert('File deleted');
+        });
+
+        drEvent.on('dropify.errors', function (event, element) {
+            console.log('Has Errors');
+        });
+
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function (e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('change', '.act', function () {
+        $this = $(this);
+        var sys_val = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Patient/getPartialsymptoms',
+            data: { 'sys_id': sys_val },
+            dataType: 'JSON',
+
+            success: function (data) {
+                $('#SelectedItemIds').empty();
+                $('#SelectedItemIds').append('<option value="">' + "Select" + '</option>');
+                $.each(data, function (i, data) {
+                    $('#SelectedItemIds').append('<option value="' + data.SympId + '">' + data.Symptomshead + '</option>');
+                });
+            },
+            error: function (xhr) { // if error occured
+                alert("Error occured.please try again");
+            },
+            complete: function () {
+            }
+        });
+    });
+    function getsymptoms(id) {
+        $.ajax({
+            url: "/Patient/getsymptoms",
+            type: "POST",
+            data: { id: id },
+            dataType: "json",
+            success: function (data) {
+                $('#symptoms_description').val(data.SympDescription);
+            }
+        });
+    }
+</script>

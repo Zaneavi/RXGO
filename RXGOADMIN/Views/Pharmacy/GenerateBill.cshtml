@@ -1,0 +1,910 @@
+﻿@model RXGOADMIN.Models.BillDetails
+@{
+    ViewBag.Title = "GenerateBill";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                Category List
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                Pharmacy
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Category List
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Generate Bill</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Bill No</th>
+                                    <th>Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Doctor Name</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.CategoryList != null)
+                                {
+                                    foreach (var i in ViewBag.CategoryList)
+                                    {
+                                <tr>
+                                    <td>@i.BillNo</td>
+                                    <td>@i.Date</td>
+                                    <td>@i.PatientName</td>
+                                    <td>@i.DoctorName</td>
+                                    <td>@i.Total</td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="Delete('@i.BillNo')" class="btn btn-danger btn-xs">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+ Modal
+<div class="modal fade col-md-12" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        Modal content
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Generate Bill</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card">
+                    @using (Html.BeginForm("Generate", "Pharmacy", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="card-body">
+                            <div class="row">
+                                @*@Html.HiddenFor(model => model.CategoryId)*@
+
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table tableover table-striped table-bordered table-hover tablefull12" id="tableID">
+                                            <thead>
+                                                <tr class="font-12">
+                                                    <th>
+                                                        "Medicine Category"
+                                                        <small class="req" style="color:red;">*</small>
+                                                    </th>
+                                                    <th>
+                                                        "Medicine Name"
+                                                        <small class="req" style="color:red;">*</small>
+                                                    </th>
+                                                    <th>
+                                                        "Expiry Date"
+                                                        <small class="req" style="color:red;">*</small>
+                                                    </th>
+                                                    <th>
+                                                        "Expiry Date"
+                                                        <small class="req" style="color:red;">*</small>
+                                                    </th>
+                                                    <th class="text-right">
+                                                        "Quantity"
+                                                        <small class="req" style="color:red;">*</small>
+                                                        " | Available Qty"
+                                                    </th>
+                                                    <th class="text-right">
+                                                        "Sale Price ($)"
+                                                        <small class="req" style="color:red;">*</small>
+                                                    </th>
+                                                    <th class="text-right">
+                                                        "Amount ($)"
+                                                        <small class="req" style="color:red;">*</small>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tr id="row0">
+                                                <td width="160">
+                                                    <select class="form-control" name="medicine_category_id[]" onchange="getmedicine_name(this.value, '0')" autocomplete="off">
+                                                        <option value="">Select     </option>
+                                                        <option value="5">Syrup     </option>
+                                                        <option value="6">Capsule     </option>
+                                                        <option value="7">Injection     </option>
+                                                        <option value="9">Ointment     </option>
+                                                        <option value="10">Cream     </option>
+                                                        <option value="11">Surgical    </option>
+                                                        <option value="12">Drops    </option>
+                                                        <option value="13">Inhalers    </option>
+                                                        <option value="14">Implants / Patches  </option>
+                                                        <option value="15">Liquid       </option>
+                                                        <option value="16">Preparations       </option>
+                                                        <option value="17">Diaper       </option>
+                                                        <option value="18">Tablet       </option>
+                                                    </select>
+                                                </td>
+                                                <td width="24%">
+                                                    <select class="form-control select2 select2-hidden-accessible" style="width:100%" onchange="getbatchnolist(this.value, 0)" id="medicine_name0" name="medicine_name[]" tabindex="-1" aria-hidden="true">
+                                                        <option value="">Select</option>
+                                                        <option value="4">Erovit plus</option>
+                                                        <option value="12">ADCO-NAPROXEN</option>
+                                                        <option value="26">BETACLOPRAMIDE</option>
+                                                        <option value="31">BUCINE (WAS IBUMAX)</option>
+                                                        <option value="37">Codral</option>
+                                                        <option value="64">PONSTEL FORTE</option>
+                                                    </select>
+                                                    <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                                        <span class="selection">
+                                                            <span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-medicine_name0-container">
+                                                                <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                                            </span>
+                                                        </span><span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                    </span>
+                                                    <span class="text-danger"></span>
+
+                                                </td>
+                                                <td width="16%">
+                                                    <!-- <input type="text" name="batch_no[]" onchange="getExpire(0)" placeholder="" class="form-control" id="batch_no0" > -->
+                                                    <select class="form-control" id="batch_no0" name="batch_no[]" onchange="getExpire(0)" autocomplete="off"><option value="">Select</option><option value="134">134</option></select>
+                                                    <span class="text-danger"></span>
+                                                </td>
+                                                <td width="8%">
+                                                    <input type="text" readonly="" name="expire_date[]" id="expire_date0" class="form-control">
+
+                                                </td>
+
+                                                <td>
+                                                    <!--  <input type="text" name="quantity[]" placeholder="" class="form-control text-right" id="quantity0" onchange="multiply(0)" onfocus="getQuantity(0)">
+                                                    <span id="totalqty0" class="text-danger"></span> -->
+                                                    <div class="input-group">
+                                                        <input type="text" name="quantity[]" onchange="multiply(0)" onfocus="getQuantity(0)" id="quantity0" class="form-control text-right" autocomplete="off">
+                                                        <span class="input-group-addon text-danger" style="font-size: 10pt" id="totalqty0">90</span>
+                                                    </div>
+                                                    <input type="hidden" name="available_quantity[]" id="available_quantity0" value="90">
+                                                    <input type="hidden" name="id[]" id="id0" value="4">
+                                                </td>
+                                                <td class="text-right">
+
+                                                    <input type="text" name="sale_price[]" onchange="multiply(0)" id="sale_price0" placeholder="" class="form-control text-right">
+                                                    <span class="text-danger"></span>
+                                                </td>
+
+                                                <td class="text-right">
+                                                    <input type="text" name="amount[]" id="amount0" placeholder="" class="form-control text-right" autocomplete="off">
+                                                    <span class="text-danger"></span>
+                                                </td>
+                                                <td><button type="button" onclick="addMore()" style="color: #2196f3" class="closebtn" autocomplete="off"><i class="fa fa-plus"></i></button></td>
+                                            </tr>
+
+
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputFile">
+                                                                Hospital Doctor
+                                                            </label>
+                                                            <div>
+                                                                <select name="consultant_doctor" style="width:100%;" id="consultant_doctor" onchange="get_Docname(this.value)" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                                    <option value="">Select</option>
+                                                                    <option value="2">Sonia Bush</option>
+                                                                    <option value="8">Sansa Gomez</option>
+                                                                    <option value="10">Amit Singh</option>
+                                                                </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-consultant_doctor-container"><span class="select2-selection__rendered" id="select2-consultant_doctor-container" title="Select">Select</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+
+                                                            </div>
+                                                            <span class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Doctor Name</label>
+                                                            <input name="doctor_name" id="doctname" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-sm-6">
+                                                <table class="printablea4">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th width="40%">Total ($)</th>
+                                                            <td width="60%" colspan="2" class="text-right ipdbilltable"><input type="text" placeholder="Total" value="0" name="total" id="total" style="width: 30%; float: right" class="form-control" autocomplete="off"></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>Discount ($)</th>
+                                                            <td class="text-right ipdbilltable"><h4 style="float: right;font-size: 12px; padding-left: 5px;"> %</h4><input type="text" placeholder="Discount" value="" name="discount_percent" id="discount_percent" style="width: 70%; float: right;font-size: 12px;" class="form-control" autocomplete="off"></td>
+
+                                                            <td class="text-right ipdbilltable"><input type="text" placeholder="Discount" value="0" name="discount" id="discount" style="width: 50%; float: right" class="form-control" autocomplete="off"></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>Tax ($)</th>
+                                                            <td class="text-right ipdbilltable">
+                                                                <h4 style="float: right;font-size: 12px;padding-left: 5px;"> %</h4><input type="text" placeholder="Tax" name="tax_percent" value="" id="tax_percent" style="width: 70%; float: right;font-size: 12px;" class="form-control" autocomplete="off">
+
+                                                            </td>
+
+                                                            <td class="text-right ipdbilltable">
+                                                                <input type="text" placeholder="Tax" name="tax" value="0" id="tax" style="width: 50%; float: right" class="form-control" autocomplete="off">
+
+                                                            </td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <th>Net Amount ($)</th>
+                                                            <td colspan="2" class="text-right ipdbilltable">
+                                                                <input type="text" placeholder="Net Amount" value="0" name="net_amount" id="net_amount" style="width: 30%; float: right" class="form-control" autocomplete="off">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+
+                                            </div>
+
+
+                                            <div class="box-footer" style="clear: both;">
+                                                <div class="pull-right">
+                                                    <input type="button" onclick="addTotal()" value="Calculate" class="btn btn-info" autocomplete="off">&nbsp;
+                                                    <button type="submit" data-loading-text="Processing..." style="" id="billsave" class="btn btn-info pull-right">Save</button>
+                                                    <button type="button" style="margin-right: 2px;" data-loading-text="Processing..." class="btn btn-info pull-right printsavebtn">Save &amp; Print</button>
+                                                </div>
+
+                                            </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="editpartial">
+
+        </div>
+    </div>
+</div>
+
+<a data-toggle="modal" data-target="#EditModal" id="editpartial1"></a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function ChngStatus(id, status) {
+        $.getJSON('/Pharmacy/PharmacyCategoryStatus/', { id: id, status: status }, function (data) {
+            location.reload();
+        });
+    }
+</script>
+
+<script>
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Pharmacy/DeleteBill/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+    function Edit(id) {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/Pharmacy/EditCategory',
+            data: { id: id },
+            success: function (data) {
+                $('#editpartial').html('');
+                $('#editpartial').html(data);
+                $('#editpartial1').trigger('click');
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+     
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+    });
+
+    function edit_bill(id, bill_no, patient_id) {
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/pharmacy/getdate',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function (data) {
+                var date_format = 'dd/MM/yyyy h:mm A';
+
+                //  alert(data.date);
+                // alert($this->customlib->getSchoolDateFormat(true, true));
+                // var newformat = hours >= 12 ? 'PM' : 'AM';, 'i' => 'mm'
+                var date = new Date(data.date).toString(date_format);
+                //var hours = date.getHours();
+                //alert(date);
+                $('#editdate').val(data.date);
+                $("#editbillno").val(bill_no);
+                $("#addeditpatient_id").val(patient_id);
+                $.ajax({
+                    url: 'https://demo.smart-hospital.in/admin/pharmacy/editPharmacyBill/' + id,
+                    success: function (res) {
+                        $('#viewModal').modal('hide');
+                        $("#edit_bill_details").html(res);
+                        holdModal('edit_bill');
+                    },
+                    error: function () {
+                        alert("Fail")
+                    }
+                });
+
+            }
+
+        });
+
+    }
+
+    // function edit_bill(id, bill_no, patient_id) {
+    //     // var billno = bill_no;
+    //     // console.log(billno);
+    //     $.ajax({
+    //         url: 'https://demo.smart-hospital.in/admin/pharmacy/editPharmacyBill/' + id,
+    //         success: function (res) {
+    //         // var date_format = 'dd/MM/yyyy';
+    //         // ///new Date().toLocaleTimeString();
+    //         // var date = new Date(data.date).toString(date_format);
+    //             //$('#editdate').val(date);
+    //             $('#viewModal').modal('hide');
+    //             $("#editbillno").val(bill_no);
+    //             $("#addeditpatient_id").val(patient_id);
+    //             // $("#editdate").val(date);
+    //             $("#edit_bill_details").html(res);
+
+    //             holdModal('edit_bill');
+    //         },
+    //         error: function () {
+    //             alert("Fail")
+    //         }
+    //     });
+    // }
+
+    function get_PatientDetails(id) {
+        //$("#patient_name").html("patient_name");
+        //$("#schedule_charge").html("schedule_charge");
+
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/pharmacy/patientDetails',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function (res) {
+                // console.log(res);
+                if (res) {
+                    $('#patient_name').val(res.patient_name);
+                    $('#patient_id').val(res.id);
+                } else {
+                    $('#patient_name').val('Null');
+
+                }
+            }
+        });
+    }
+
+    function get_PatienteditDetails(id) {
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/pharmacy/patientDetails',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function (res) {
+                // console.log(res);
+                if (res) {
+                    //$('#patient_name').val(res.patient_name);
+                    $('#patienteditid').val(res.id);
+                    $('#patienteditname').val(res.patient_name);
+                    // console.log(res.patient_name)
+
+                }
+            }
+        });
+    }
+
+    function getmedicine_name(id, rowid) {
+        var div_data = "";
+
+        //$("#medicine_name" + rowid).prepend($('<option></option>').html('Loading...'));
+        $("#medicine_name" + rowid).html("<option value='l'>Loading...</option>");
+        $('#medicine_name' + rowid).select2("val", 'l');
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/pharmacy/get_medicine_name',
+            type: "POST",
+            data: { medicine_category_id: id },
+            dataType: 'json',
+            success: function (res) {
+                $.each(res, function (i, obj) {
+                    var sel = "";
+                    div_data += "<option value=" + obj.id + ">" + obj.medicine_name + "</option>";
+                });
+                $("#medicine_name" + rowid).html("<option value=''>Select</option>");
+                $('#medicine_name' + rowid).append(div_data);
+                $('#medicine_name' + rowid).select2("val", '');
+                //$('#medicine_name'+rowid).select2();
+            }
+        });
+    }
+
+    $(document).ready(function (e) {
+
+        $(".printsavebtn").on('click', (function (e) {
+            // $(this).submit();
+            var form = $(this).parents('form').attr('id');
+            var str = $("#" + form).serializeArray();
+            var postData = new FormData();
+            $.each(str, function (i, val) {
+                postData.append(val.name, val.value);
+            });
+            //  $("#"+form).submit();
+
+            $("#billsave").button('loading');
+            e.preventDefault();
+            $.ajax({
+                url: 'https://demo.smart-hospital.in/admin/pharmacy/addBill',
+                type: "POST",
+                data: postData,
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    if (data.status == "fail") {
+                        var message = "";
+                        $.each(data.error, function (index, value) {
+                            message += value;
+                        });
+                        errorMsg(message);
+                    } else {
+
+                        successMsg(data.message);
+                        printData(data.insert_id);
+
+                        // window.location.reload(true);
+                    }
+                    $("#billsave").button('reset');
+                },
+                error: function () {
+                    //  alert("Fail")
+                }
+            });
+
+
+        }));
+    });
+
+    function printData(insert_id, id) {
+        // alert(insert_id);
+
+        var base_url = 'https://demo.smart-hospital.in/';
+        $.ajax({
+            url: base_url + 'admin/pharmacy/getBillDetails/' + insert_id,
+            type: 'POST',
+            data: { id: insert_id, print: 'yes' },
+            success: function (result) {
+                // $("#testdata").html(result);
+                popup(result);
+            }
+        });
+    }
+
+    function popup(data) {
+        var base_url = 'https://demo.smart-hospital.in/';
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html>');
+        frameDoc.document.write('<head>');
+        frameDoc.document.write('<title></title>');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/bootstrap/css/bootstrap.min.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/font-awesome.min.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/ionicons.min.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/AdminLTE.min.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/skins/_all-skins.min.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/plugins/iCheck/flat/blue.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/plugins/morris/morris.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/plugins/jvectormap/jquery-jvectormap-1.2.2.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/plugins/datepicker/datepicker3.css">');
+        frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/plugins/daterangepicker/daterangepicker-bs3.css">');
+        frameDoc.document.write('</head>');
+        frameDoc.document.write('<body >');
+        frameDoc.document.write(data);
+        frameDoc.document.write('</body>');
+        frameDoc.document.write('</html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+            window.location.reload(true);
+        }, 500);
+
+
+        return true;
+    }
+
+
+    function addMore() {
+        var table = document.getElementById("tableID");
+        var table_len = (table.rows.length);
+        var id = parseInt(table_len - 1);
+        var div = "<td><select class='form-control' name='medicine_category_id[]' onchange='getmedicine_name(this.value," + id + ")'><option value=''>Select</option><option value='5'>Syrup</option><option value='6'>Capsule</option><option value='7'>Injection</option><option value='9'>Ointment</option><option value='10'>Cream</option><option value='11'>Surgical</option><option value='12'>Drops</option><option value='13'>Inhalers</option><option value='14'>Implants / Patches</option><option value='15'>Liquid</option><option value='16'>Preparations</option><option value='17'>Diaper</option><option value='18'>Tablet</option></select></td><td><select class='form-control select2' style='width:100%' name='medicine_name[]' onchange='getbatchnolist(this.value," + id + ")' id='medicine_name" + id + "' ><option value=''>Select</option></select></td><td><select name='batch_no[]' id='batch_no" + id + "' onchange='getExpire(" + id + ")' class='form-control'><option value=''>Select</option></select></td><td><input type='text' name='expire_date[]' readonly id='expire_date" + id + "' class='form-control'></td><td><div class='input-group'><input type='text' name='quantity[]' onchange='multiply(" + id + ")' onfocus='getQuantity(" + id + ")' id='quantity" + id + "' class='form-control text-right'><span class='input-group-addon text-danger' style='font-size:10pt'  id='totalqty" + id + "'>&nbsp;&nbsp;</span></div><input type='hidden' name='available_quantity[]' id='available_quantity" + id + "'><input type='hidden' name='id[]' id='id" + id + "'></td><td> <input type='text' onchange='multiply(" + id + ")' name='sale_price[]' id='sale_price" + id + "'  class='form-control text-right'></td><td><input type='text' name='amount[]' id='amount" + id + "'  class='form-control text-right'></td>";
+
+        var row = table.insertRow(table_len).outerHTML = "<tr id='row" + id + "'>" + div + "<td><button type='button' onclick='delete_row(" + id + ")' class='closebtn'><i class='fa fa-remove'></i></button></td></tr>";
+        $('.select2').select2();
+
+        var expire_date = 'DD/MM/YYYY';
+        $('.expire_date').datepicker({
+            format: "M/yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            autoclose: true
+        });
+        generateBillNo()
+    }
+
+    function addTotal() {
+        var total = 0;
+        var sale_price = document.getElementsByName('amount[]');
+        for (var i = 0; i < sale_price.length; i++) {
+            var inp = sale_price[i];
+            if (inp.value == '') {
+                var inpvalue = 0;
+            } else {
+                var inpvalue = inp.value;
+            }
+            total += parseFloat(inpvalue);
+        }
+        var discount_percent = $("#discount_percent").val();
+        var tax_percent = $("#tax_percent").val();
+        // var discount_amnt = $("#discount").val();
+        //var tax_amnt = $("#tax").val();
+
+        if (discount_percent != '') {
+            var discount = (total * discount_percent) / 100;
+            $("#discount").val(discount.toFixed(2));
+        } else {
+            var discount = $("#discount").val();
+            //var discount = 0; 
+        }
+
+        if (tax_percent != '') {
+            var tax = ((total - discount) * tax_percent) / 100;
+            $("#tax").val(tax.toFixed(2));
+        } else {
+            var tax = $("#tax").val();
+            // var tax = 0; 
+        }
+
+
+        //   var tax = $("#tax").val();
+        //  var discount = $("#discount").val();
+        $("#total").val(total.toFixed(2));
+
+        var net_amount = parseFloat(total) + parseFloat(tax) - parseFloat(discount);
+        // var net_amount = (total)+(tax) - (discount);
+        //  alert(net_amount);
+        var cnet_amount = net_amount.toFixed(2)
+        $("#net_amount").val(cnet_amount);
+        var editdate = $("#date_pharmacy").val();
+        $("#date_result").val(editdate);
+        $("#billsave").show();
+        $(".printsavebtn").show();
+    }
+
+    function delete_row(id) {
+        var table = document.getElementById("tableID");
+        var rowCount = table.rows.length;
+        $("#row" + id).remove();
+    }
+
+
+    $(document).ready(function (e) {
+        $("#bill").on('submit', (function (e) {
+            e.preventDefault();
+            var btn = $("#billsave");
+            btn.button('loading');
+            var table = document.getElementById("tableID");
+            var rowCount = table.rows.length;
+
+            for (var k = 0; k < rowCount; k++) {
+                var quantityk = $('#quantity' + k).val();
+                var availquantityk = $('#available_quantity' + k).val();
+                if (parseInt(quantityk) > parseInt(availquantityk)) {
+                    errorMsg('Order quantity should not be greater than available quantity');
+                    return false;
+                } else {
+                }
+            }
+            $.ajax({
+                url: 'https://demo.smart-hospital.in/admin/pharmacy/addBill',
+                type: "POST",
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    if (data.status == "fail") {
+                        var message = "";
+                        $.each(data.error, function (index, value) {
+                            message += value;
+                        });
+                        errorMsg(message);
+                    } else {
+                        successMsg(data.message);
+                        window.location.reload(true);
+                    }
+                    $("#billsave").button('reset');
+                },
+                error: function () { }
+            });   //alert(parseInt(quantity));
+
+        }));
+    });
+
+
+    function viewDetail(id, bill_no, patient_id) {
+
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/pharmacy/getBillDetails/' + id,
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                $('#reportdata').html(data);
+                $('#edit_deletebill').html("<a href='#' data-toggle='tooltip' onclick='printData(" + id + ")'   data-original-title='Print'><i class='fa fa-print'></i></a> <a href='#'' onclick='edit_bill(" + id + "," + bill_no + "," + patient_id + ")' data-toggle='tooltip'  data-original-title='Edit'><i class='fa fa-pencil'></i></a><a onclick='delete_bill(" + id + ")'  href='#'  data-toggle='tooltip'  data-original-title='Delete'><i class='fa fa-trash'></i></a>");
+                holdModal('viewModal');
+            },
+        });
+    }
+
+    function getQuantity(id) {
+        var batch_no = $('#batch_no' + id).val();
+        var medicine = $("#medicine_name" + id).val();
+        if (batch_no != "") {
+            $('#quantity').html("");
+            $.ajax({
+                type: "GET",
+                url: base_url + "admin/pharmacy/getQuantity",
+                data: { 'batch_no': batch_no, 'med_id': medicine },
+                dataType: 'json',
+                success: function (data) {
+                    $('#id' + id).val(data.id);
+                    //$('#quantity').html(data.available_quantity);
+                    $('#totalqty' + id).html(data.available_quantity);
+                    $('#available_quantity' + id).val(data.available_quantity);
+                    $('#sale_price' + id).val(data.sale_rate);
+                }
+            });
+        }
+    }
+
+    function getExpire(id) {
+        var medicine = $("#medicine_name" + id).val();
+        var batch_no = $("#batch_no" + id).val();
+        $.ajax({
+            type: "POST",
+            url: base_url + "admin/pharmacy/getExpiryDate",
+            data: { 'batch_no': batch_no, 'med_id': medicine },
+            dataType: 'json',
+            success: function (res) {
+                if (res != null) {
+                    $('#expire_date' + id).val(res.expiry_date);
+                    getQuantity(id);
+                }
+            }
+        });
+    }
+
+    function getbatchnolist(id, rowid) {
+        //alert(id)
+        // var batch_no = $("#batch_no"+id).val();
+        //$('#medicine_name'+rowid).select2("val", '');
+        var div_data = "";
+        //$('#quantity').html(data.available_quantity);
+        $('#totalqty' + rowid).html("<span class='input-group-addon text-danger' style='font-size:10pt'  id='totalqty" + rowid + "'></span>");
+        $('#available_quantity' + rowid).val('');
+        $('#sale_price' + rowid).val('');
+        $('#expire_date' + rowid).val('');
+        $('#amount' + rowid).val('');
+        $('#quantity' + rowid).val('');
+        //      $("#batch_no" + rowid).html("<option value=''>Select</option>");
+        $("#batch_no" + rowid).html("<option value='l'>Loading...</option>");
+        //  $('#batch_no' + rowid).select2("val", 'l');
+        $.ajax({
+            type: "POST",
+            url: base_url + "admin/pharmacy/getBatchNoList",
+            data: { 'medicine': id },
+            dataType: 'json',
+            success: function (res) {
+                //console.log(res);
+                $.each(res, function (i, obj) {
+                    var sel = "";
+                    div_data += "<option value='" + obj.batch_no + "'>" + obj.batch_no + "</option>";
+                });
+                $("#batch_no" + rowid).html("<option value=''>Select</option>");
+                //       $('#batch_no' + rowid).select2("val", 'l');
+
+                $('#batch_no' + rowid).append(div_data);
+            }
+        });
+    }
+
+    function get_Docname(id) {
+        $("#standard_charge").html("standard_charge");
+        //$("#schedule_charge").html("schedule_charge");
+
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/patient/doctName',
+            type: "POST",
+            data: { doctor: id },
+            dataType: 'json',
+            success: function (res) {
+                //alert(res);
+                if (res) {
+                    $('#doctname').val(res.name + " " + res.surname);
+                    //$('#surname').val(res.surname);
+
+                } else {
+
+                }
+            }
+        });
+    }
+
+    function multiply(id) {
+
+        var quantity = $('#quantity' + id).val();
+        var availquantity = $('#available_quantity' + id).val();
+        if (parseInt(quantity) > parseInt(availquantity)) {
+            errorMsg('Order quantity should not be greater than available quantity');
+        } else {
+            //alert(parseInt(quantity));
+        }
+        var sale_price = $('#sale_price' + id).val();
+        var amount = quantity * sale_price;
+        $('#amount' + id).val(amount);
+    }
+
+    function generateBillNo() {
+        $.ajax({
+            url: 'https://demo.smart-hospital.in/admin/pharmacy/getBillNo',
+            type: "POST",
+            dataType: 'json',
+            data: { id: 1 },
+            success: function (data) {
+                //alert(data);
+                $('#billno').val(data);
+                $('#billnoform').val(data);
+            }
+        });
+
+    }
+
+    /* function getPatientIdName(opd_ipd_no) {
+     //var opd_ipd_patient_type = $('select[name=customer_type]:selected').val();
+     //alert(opd_ipd_patient_type);
+     //alert($("#customer_type").val());
+     $('#patient_id').val("");
+     $('#patient_name').val("");
+     var opd_ipd_patient_type = $("#customer_type").val();
+     $.ajax({
+     url: 'https://demo.smart-hospital.in/admin/patient/getPatientType',
+     type: "POST",
+     data: {opd_ipd_patient_type: opd_ipd_patient_type, opd_ipd_no: opd_ipd_no},
+     dataType: 'json',
+     success: function (data) {
+     $('#patient_id').val(data.patient_id);
+     $('#patient_name').val(data.patient_name);
+     $('#doctor_name').val(data.doctorname + ' ' + data.surname);
+     }
+     });
+     }*/
+    // function add_instruction(id){
+    //     $('#ins_patient_id').val(id);
+    // }
+
+    function holdModal(modalId) {
+        $('#' + modalId).modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+        //$('#tableID').html('');
+        /* var table = document.getElementById("tableID");
+         var table_len = (table.rows.length);
+         var id = parseInt(table_len - 1);
+         var div = "<td><select class='form-control' name='medicine_category_id[]' onchange='getmedicine_name(this.value," + id + ")'><option value=''>Select</option><option value='5'>Syrup</option><option value='6'>Capsule</option><option value='7'>Injection</option><option value='9'>Ointment</option><option value='10'>Cream</option><option value='11'>Surgical</option><option value='12'>Drops</option><option value='13'>Inhalers</option><option value='14'>Implants / Patches</option><option value='15'>Liquid</option><option value='16'>Preparations</option><option value='17'>Diaper</option><option value='18'>Tablet</option></select></td><td><select class='form-control select2' style='width:100%' name='medicine_name[]' onchange='getbatchnolist(this.value," + id + ")' id='medicine_name" + id + "' ><option value=''>Select</option></select></td><td><select name='batch_no[]' id='batch_no" + id + "' onchange='getExpire(" + id + ")' class='form-control'><option value=''>Select</option></select></td><td><input type='text' name='expire_date[]' readonly id='expire_date" + id + "' class='form-control expire_date'></td><td><div class='input-group'><input type='text' name='quantity[]' onchange='multiply(" + id + ")' onfocus='getQuantity(" + id + ")' id='quantity" + id + "' class='form-control text-right'><span class='input-group-addon text-danger' style='font-size:10pt'  id='totalqty" + id + "'>&nbsp;&nbsp;</span></div><input type='hidden' name='available_quantity[]' id='available_quantity" + id + "'><input type='hidden' name='id[]' id='id" + id + "'></td><td> <input type='text' onchange='multiply(" + id + ")' name='sale_price[]' id='sale_price" + id + "'  class='form-control text-right'></td><td><input type='text' name='amount[]' id='amount" + id + "'  class='form-control text-right'></td>";
+         
+         var row = table.insertRow(table_len).outerHTML = "<tr id='row" + id + "'>" + div + "<td><button type='button' onclick='addMore()'style='color: #2196f3' class='closebtn'><i class='fa fa-plus'></i></button></td></tr>"; */
+        $('.select2').select2();
+
+        var expire_date = 'DD/MM/YYYY';
+        $('.expire_date').datepicker({
+            format: "m/yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            autoclose: true
+        });
+        generateBillNo()
+    }
+
+</script>

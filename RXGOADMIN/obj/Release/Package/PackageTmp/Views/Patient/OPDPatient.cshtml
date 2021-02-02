@@ -1,0 +1,336 @@
+﻿@model RXGOADMIN.Models.OPDPatient
+
+@{
+    ViewBag.Title = "OPDPatient";
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+}
+
+<link href="~/Assets/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+<link href="~/Assets/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">
+                OPD Patient
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Employees">Home</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:(void);">
+                                OPD Patient
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            OPD Patient
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Add Patient</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Patient Id</th>
+                                    <th>Guardian Name</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Consultant</th>
+                                    @*<th>Last Visit</th>
+                <th>Total Visit</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.PatientList.Count > 0)
+                                {
+                                    foreach (var i in ViewBag.PatientList)
+                                    {
+                                        <tr>
+
+                                            <td>@i.Name</td>
+                                            <td>@i.PatientId</td>
+                                            <td>@i.GuardianName</td>
+                                            <td>@i.Gender</td>
+                                            <td>@i.Phone</td>
+                                            <td>@i.ConsultantDoctor</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Patient Id</th>
+                                    <th>Guardian Name</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Consultant</th>
+                                    @*<th>Last Visit</th>
+                <th>Total Visit</th>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Patient</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body wizard-content">
+                        <h6 class="card-subtitle"></h6>
+                        <form id="example-form" action="#" class="m-t-40" enctype="multipart/form-data">
+                            <div>
+                                <h3>Basic Details</h3>
+                                <section>
+                                    <label for="name">Name *</label>
+                                    @Html.TextBoxFor(model => model.Name, new { @placeholder = "Name", @required = "required", @class = "required form-control", @type = "text", @maxlength = "100" })
+                                    <label for="guardianname">Guardian Name</label>
+                                    @Html.TextBoxFor(model => model.GuardianName, new { @placeholder = "Guardian Name", @class = "form-control", @type = "text", @maxlength = "100" })
+                                    <label for="gender">Gender</label>
+                                    @Html.DropDownListFor(model => model.Gender, new List<SelectListItem>
+                                    {
+                                        new SelectListItem() {Text = "Select", Value=""},
+                                        new SelectListItem() {Text = "Male", Value="Male"},
+                                        new SelectListItem() {Text = "Female", Value="Female"}
+                                    }, new { @class = "form-control" })
+                                    <label for="dob">Date Of Birth</label>
+                                    @Html.TextBoxFor(model => model.DOB, new { @placeholder = "DOB", @class = "form-control", @type = "date" })
+                                    <label for="age">Age</label>
+                                    @Html.TextBoxFor(model => model.Age, new { @placeholder = "Age", @class = "form-control", @type = "number" })
+                                    <label for="blood">Blood Group</label>
+                                    @Html.DropDownListFor(model => model.BloodGroup, new List<SelectListItem>
+                                   {
+                                        new SelectListItem() {Text = "Select", Value=""},
+                                        new SelectListItem() {Text = "O+", Value="O+"},
+                                        new SelectListItem() {Text = "A+", Value="A+"},
+                                        new SelectListItem() {Text = "B+", Value="B+"},
+                                        new SelectListItem() {Text = "AB+", Value="AB+"},
+                                        new SelectListItem() {Text = "O-", Value="O-"},
+                                        new SelectListItem() {Text = "A-", Value="A-"},
+                                        new SelectListItem() {Text = "B-", Value="B-"},
+                                        new SelectListItem() {Text = "AB-", Value="AB-"}
+                                   }, new { @class = "form-control" })
+                                    <label for="marital">Marital Status</label>
+                                    @Html.DropDownListFor(model => model.MaritalStatus, new List<SelectListItem>
+                                   {
+                                        new SelectListItem() {Text = "Select", Value=""},
+                                        new SelectListItem() {Text = "Single", Value="Single"},
+                                        new SelectListItem() {Text = "Married", Value="Married"},
+                                        new SelectListItem() {Text = "Widowed", Value="Widowed"},
+                                        new SelectListItem() {Text = "Separated", Value="Separated"},
+                                        new SelectListItem() {Text = "Not Specified", Value="Not Specified"}
+                                   }, new { @class = "form-control" })
+                                    <label for="phone">Phone</label>
+                                    @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Phone Number", @class = "form-control", @type = "number", onKeyPress = "if(this.value.length==10) return false;" })
+                                    <label for="email">Email</label>
+                                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email", @class = "email form-control", @type = "email" })
+                                    <label for="address">Address</label>
+                                    @Html.TextBoxFor(model => model.Address, new { @placeholder = "Address", @class = "form-control", @type = "text" })
+                                    <label for="remarks">Remarks</label>
+                                    @Html.TextAreaFor(model => model.Remarks, new { @placeholder = "Remarks", @class = "form-control", @type = "text" })
+                                    <label for="allergies">Any Known Allergies</label>
+                                    @Html.TextAreaFor(model => model.AnyKnownAllergies, new { @placeholder = "Any Known Allergies", @class = "form-control", @type = "text" })
+                                    <label for="patient photo">Patient Photo</label>
+                                    <input id="PatientId" type="file" name="PatientPhoto" class="form-control" accept="image/jpg,image/png,image/jpeg" />
+                                    <p>(*) Mandatory</p>
+                                </section>
+                                <h3>Profile</h3>
+                                <section>
+                                    <label for="height">Height</label>
+                                    @Html.TextBoxFor(model => model.Height, new { @placeholder = "Height", @class = "form-control", @type = "text" })
+                                    <label for="weight">Weight</label>
+                                    @Html.TextBoxFor(model => model.Weight, new { @placeholder = "Weight", @class = "form-control", @type = "text" })
+                                    <label for="bp">BP</label>
+                                    @Html.TextBoxFor(model => model.Bp, new { @placeholder = "BP", @class = "form-control", @type = "text" })
+                                    <label for="pulse">Pulse</label>
+                                    @Html.TextBoxFor(model => model.Pulse, new { @placeholder = "Pulse", @class = "form-control", @type = "text" })
+                                    <label for="temperature">Temperature</label>
+                                    @Html.TextBoxFor(model => model.Temperature, new { @placeholder = "Temperature", @class = "form-control", @type = "text" })
+                                    <label for="respiration">Respiration</label>
+                                    @Html.TextBoxFor(model => model.Respiration, new { @placeholder = "Respiration", @class = "form-control", @type = "text" })
+                                    <label for="title">
+                                        Symptoms Title
+                                    </label>
+                                    @Html.TextBoxFor(model => model.SymptomsTitle, new { @placeholder = "Symptoms Title", @class = "form-control" })
+                                    <label for="note">Note</label>
+                                    @Html.TextAreaFor(model => model.Note, new { @placeholder = "Note", @class = "form-control" })
+                                    <p>(*) Mandatory</p>
+                                </section>
+                                <h3>Appointment</h3>
+                                <section>
+                                    <label for="VoterId">Appointment Date *</label>
+                                    @Html.TextBoxFor(model => model.AppointmentDate, new { @placeholder = "Appointment Date", @required = "required", @class = "required form-control", @type = "date" })
+                                    <label for="case">Case</label>
+                                    @Html.TextBoxFor(model => model.PCase, new { @placeholder = "Case", @class = "form-control" })
+                                    <label for="casualty">Casualty</label>
+                                    @Html.DropDownListFor(model => model.Casualty, new List<SelectListItem>
+                                     {
+                                        new SelectListItem() {Text = "No", Value="No" },
+                                        new SelectListItem() {Text = "Yes", Value="Yes"}
+                                     }, new { @class = "form-control" })
+                                    <label for="old patient">Old Patient</label>
+                                    @Html.DropDownListFor(model => model.OldPatient, new List<SelectListItem>
+                                     {
+                                        new SelectListItem() {Text = "No", Value="No" },
+                                        new SelectListItem() {Text = "Yes", Value="Yes"}
+                                     }, new { @class = "form-control" })
+                                    <label for="reference">Reference</label>
+                                    @Html.TextBoxFor(model => model.Reference, new { @placeholder = "Reference", @class = "form-control" })
+                                    <label for="consultant doctor">Consultant Doctor *</label>
+                                    @Html.DropDownListFor(model => model.ConsultantDoctor, ViewBag.DoctorList as SelectList, new { @class = "required form-control", @required = "required" })
+                                    <label for="applied charge">Applied Charge *</label>
+                                    @Html.TextBoxFor(model => model.AppliedCharge, new { @placeholder = "Applied Charge", @required = "required", @class = "required form-control" })
+                                    <label for="payment mode">Payment Mode</label>
+                                    @Html.DropDownListFor(model => model.PaymentMode, new List<SelectListItem>
+                                     {
+                                        new SelectListItem() {Text = "Cash", Value="Cash" },
+                                        new SelectListItem() {Text = "Cheque", Value="Cheque"},
+                                        new SelectListItem() {Text = "Online", Value="Transfer to Bank Account"},
+                                        new SelectListItem() {Text = "Other", Value="Other"}
+                                     }, new { @class = "form-control" })
+                                    <label for="reference">Live Consultation</label>
+                                    @Html.DropDownListFor(model => model.LiveConsultation, new List<SelectListItem>
+                                     {
+                                        new SelectListItem() {Text = "No", Value="No" },
+                                        new SelectListItem() {Text = "Yes", Value="Yes"}
+                                     }, new { @class = "form-control" })
+                                    <p>(*) Mandatory</p>
+                                </section>
+                                <h3>Finish</h3>
+                                <section>
+                                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                                    <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                                </section>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Assets/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- this page js -->
+<script src="~/Assets/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/Assets/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+    // Basic Example with form
+    var form = $("#example-form");
+
+    //form.validate({
+    //    errorPlacement: function errorPlacement(error, element) { element.before(error); },
+    //    rules: {
+    //        confirm: {
+    //            equalTo: "#password"
+    //        }
+    //    }
+    //});
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            //alert("Submitted!");
+
+            $.ajax({
+                url: "/Patient/OPDPatient",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response == 1) {
+                        alert("Successfully Data Saved");
+                        window.location.href = '/Patient/OPDPatient';
+                    }
+                    else {
+                        alert("Something Went Wrong..");
+                        window.location.href = '/Patient/OPDPatient';
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $('#PatientId').on('change', function (e) {
+        var formData = new FormData();
+        var files = $("#PatientId").get(0).files;
+
+
+        formData.append("file", files[0]);
+        formData.append("Pan", files[0].name);
+
+        $.ajax({
+            type: 'POST',
+            url: "/Patient/AddPatientPhoto",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response == 1) {
+                    alert("successfully Patient Photo Updated");
+                }
+                else {
+                    alert("Something Went Wrong..");
+                }
+            }
+        });
+    });
+</script>

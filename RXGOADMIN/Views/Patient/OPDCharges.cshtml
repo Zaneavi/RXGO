@@ -1,0 +1,1514 @@
+﻿@model RXGOADMIN.Models.OPDCharge 
+@{ ViewBag.Title = "OPDCharges";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var info = Model;
+    }
+
+<style type="text/css">
+    .box {
+        position: relative;
+        border-radius: 3px;
+        background: #ffffff;
+        border: solid 1px #c5d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        /* box-shadow: 0 1px 1px rgba(0,0,0,0.1); */
+    }
+
+    .profile-user-img {
+        margin: 0 auto;
+        width: 100px;
+        max-height: 100px;
+    }
+
+    .img-circle {
+        border-radius: 50%;
+        display: block;
+    }
+
+    .nav-tabs-custom {
+        margin-bottom: 20px;
+        border: 1px solid #c5d6de;
+        background: #fff;
+        /* box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); */
+        border-radius: 3px;
+    }
+
+        .nav-tabs-custom > .nav-tabs {
+            margin: 0;
+            border-bottom-color: #c5d6de;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+
+    .nav-tabs {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .nav {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li:first-of-type {
+        margin-left: 0;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li.active {
+        border-bottom-color: #0283cc;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li {
+        border-bottom: 3px solid transparent;
+        font-family: "Roboto";
+        margin-bottom: -1px;
+        margin-right: 5px;
+    }
+
+    .nav-tabs > li {
+        float: left;
+        margin-bottom: -1px;
+    }
+
+    .nav > li {
+        position: relative;
+        display: block;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li > a,
+    .nav-tabs-custom > .nav-tabs > li > a:hover {
+        background: transparent;
+        margin: 0;
+    }
+
+    .nav-tabs-custom > .nav-tabs > li > a {
+        padding: 10px 10px;
+        color: #444;
+        border-radius: 0;
+    }
+
+    .nav > li > a,
+    .sidebar-menu > li > a,
+    .treeview-menu > li > a {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .nav-tabs-custom > .tab-content {
+        background: #fff;
+        padding: 10px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    .tab-content > .active {
+        display: block;
+    }
+
+    .impbtnview20 {
+        position: absolute;
+        right: 20px;
+        top: 11px;
+    }
+
+    .download_label {
+        display: none;
+    }
+
+    .btn-group-xs > .btn,
+    .btn-xs {
+        padding: 1px 5px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+
+    .btn-primary {
+        background-color: #2196f3;
+        border-color: transparent;
+        transition: 0.3s;
+    }
+
+    .timeline {
+        position: relative;
+        margin: 0 0 30px 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .timeline > li {
+            position: relative;
+            /* margin-right: 10px; */
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .timeline > .time-label > span {
+            /* font-family: 'Roboto-Bold'; */
+            padding: 5px;
+            display: inline-block;
+            background-color: #fff;
+            border-radius: 4px;
+            font-family: "Roboto-Bold";
+            font-size: 10px;
+        }
+
+    .bg-blue {
+        background-color: #0073b7 !important;
+    }
+
+    .timeline > li > .fa,
+    .timeline > li > .glyphicon,
+    .timeline > li > .ion {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
+        line-height: 30px;
+        position: absolute;
+        color: #666;
+        background: #d2d6de;
+        border-radius: 50%;
+        text-align: center;
+        left: 18px;
+        top: 0;
+    }
+
+    .timeline-inverse > li > .timeline-item {
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .timeline > li > .timeline-item {
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        margin-top: 0;
+        background: #fff;
+        color: #444;
+        margin-left: 60px;
+        /* margin-right: 15px; */
+        padding: 0;
+        position: relative;
+    }
+
+        .timeline > li > .timeline-item > .time {
+            color: #999;
+            float: right;
+            padding: 10px 5px;
+            font-size: 12px;
+        }
+
+    .defaults-c {
+        color: #464646;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline;
+        vertical-align: initial;
+        /* padding-left: 10px; */
+    }
+
+    .timeline-inverse > li > .timeline-item > .timeline-header {
+        border-bottom-color: #ddd;
+    }
+
+    .timeline > li > .timeline-item > .timeline-header {
+        margin: 0;
+        color: #555;
+        border-bottom: 1px solid #f4f4f4;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.1;
+    }
+
+    .text-aqua {
+        color: #00c0ef !important;
+    }
+
+    .timeline > li > .timeline-item > .timeline-body,
+    .timeline > li > .timeline-item > .timeline-footer {
+        padding: 10px;
+    }
+
+    .timeline:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #ddd;
+        left: 31px;
+        margin: 0;
+        border-radius: 2px;
+    }
+
+    .timeline > li:after {
+        clear: both;
+    }
+
+    .timeline > li:before,
+    .timeline > li:after {
+        content: " ";
+        display: table;
+    }
+
+    .singlelist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .singlelist li {
+            display: block;
+            padding-bottom: 10px;
+        }
+
+    .singlelist24bold {
+        font-size: 24px;
+        font-weight: 900;
+    }
+
+    .multilinelist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .multilinelist li {
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    /*.modal-header {
+            background: linear-gradient(to right,#1e9ef2,#0094f5 100%);
+            color: #fff;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-bottom-color: #f4f4f4;
+            border-radius: 2px 2px 0 0;
+        }*/
+
+    .modal-open .modal {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .modal-header {
+        background-color: #424242;
+    }
+
+    .modal-header {
+        padding: 10px 15px;
+    }
+
+    .modal-header {
+        background: linear-gradient(to right, #1e9ef2, #0094f5 100%);
+        /* color: #fff; */
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+
+    .modal-header {
+        border-bottom-color: #f4f4f4;
+        border-radius: 2px 2px 0 0;
+    }
+
+    .pb0 {
+        padding-bottom: 0px !important;
+    }
+
+    .pt0 {
+        padding-top: 0 !important;
+    }
+
+    /*#addcharges .col-sm-3{
+    padding-bottom: 0;
+    }*/
+</style>
+
+<div class="col-md-12 itemcol">
+    <div class="nav-tabs-custom relative">
+        <a href="#" class="dshow arrow-angle"><i class="fa fa-angle-right"></i></a>
+        <a href="#" class="dhide arrow-angle" style="display: none;"><i class="fa fa-angle-left"></i></a>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#activity" data-toggle="tab" aria-expanded="true"><i class="far fa-caret-square-down"></i> Visits</a>
+            </li>
+
+            <li>
+                <a href="#charges" data-toggle="tab" aria-expanded="true"><i class="far fa-calendar-check"></i> Charges</a>
+            </li>
+            <li>
+                <a href="#payment" data-toggle="tab" aria-expanded="true"><i class="far fa-calendar-check"></i> Payment</a>
+            </li>
+            <li>
+                <a href="#bill" data-toggle="tab" aria-expanded="true"><i class="far fa-calendar-check"></i> Bill</a>
+            </li>
+
+            <li>
+                <a href="#diagnosis" data-toggle="tab" aria-expanded="true"><i class="fas fa-diagnoses"></i> Diagnosis</a>
+            </li>
+
+            <li>
+                <a href="#timeline" data-toggle="tab" aria-expanded="true"><i class="far fa-calendar-check"></i> Timeline</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="activity">
+                <div class="impbtnview">
+                    <a href="#" onclick="getRevisitRecord('2')" class="btn btn-primary btn-sm revisitrecheckup" data-toggle="modal" title=""><i class="fas fa-exchange-alt"></i> Recheckup </a>
+                </div>
+                <!--./impbtnview20-->
+                <div class="download_label">Abhijeet Sharma OPD Details</div>
+                <div class="table-responsive">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                            <label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0" /></label>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover example dataTable no-footer"
+                               cellspacing="0"
+                               width="100%"
+                               id="DataTables_Table_0"
+                               role="grid"
+                               aria-describedby="DataTables_Table_0_info"
+                               style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="OPD No: activate to sort column ascending" style="width: 47px;">OPD No</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Appointment Date: activate to sort column ascending" style="width: 78px;">Appointment Date</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Consultant: activate to sort column ascending" style="width: 66px;">Consultant</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Reference: activate to sort column ascending" style="width: 61px;">Reference</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Symptoms: activate to sort column ascending" style="width: 709px;">Symptoms</th>
+                                    <th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 39px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr role="row" class="odd">
+                                    <td>OPDN20</td>
+                                    <td>14/09/2020 03:08 PM</td>
+                                    <td>Sonia Bush</td>
+                                    <td>Mr nitin chouhan</td>
+                                    <td>
+                                        Headache<br />
+                                        Types of headaches<br />
+                                        <br />
+                                        Many of us are familiar with some form of the throbbing, uncomfortable, and distracting pain of a headache. There are different types of headaches. This article will explain 10 different types of
+                                        headaches:<br />
+                                        <br />
+                                        tension headaches<br />
+                                        cluster headaches<br />
+                                        migraine headaches<br />
+                                        allergy or sinus headaches<br />
+                                        hormone headaches<br />
+                                        caffeine headaches<br />
+                                        exertion headaches<br />
+                                        hypertension headaches<br />
+                                        rebound headaches<br />
+                                        post-traumatic headaches
+                                    </td>
+                                    <td class="pull-right">
+                                        <a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" title="Add Prescription" onclick="getRecord_id('20',0,'OPDN20')"><i class="fas fa-prescription"></i></a>
+                                        <a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show" onclick="getRecord('2', '20')">
+                                            <i class="fa fa-reorder"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr role="row" class="even">
+                                    <td>OPDN20</td>
+                                    <td>14/09/2020 02:24 AM</td>
+                                    <td>Sonia Bush</td>
+                                    <td>Mr nitin chouhan</td>
+                                    <td>Throat</td>
+                                    <td class="pull-right">
+                                        <a href="#" class="btn btn-default btn-xs" onclick="view_prescription('20', '20', '3', 'yes')" data-toggle="tooltip" title="View Prescription">
+                                            <i class="fas fa-file-prescription"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" title="Show" onclick="getRecord('2', '', '3')">
+                                            <i class="fa fa-reorder"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 1 to 2 of 2</div>
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                            <a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a>
+                            <span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span>
+                            <a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- -->
+            <div class="tab-pane" id="diagnosis">
+                <div class="impbtnview">
+                    @if (TempData["DiagnosisMSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["DiagnosisMSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-primary fa fa-plus" data-toggle="modal" data-target="#adddiagnosis">Add Diagnosis</button>
+
+                </div>
+                <div class="download_label">Abhijeet Sharma OPD Details</div>
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Report Type</th>
+                                <th>Report Date</th>
+                                <th>Description</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.DiagnosisList != null)
+                            {
+                                foreach (var i in ViewBag.DiagnosisList)
+                                {
+                                    <tr>
+                                        <td>@i.ReportType</td>
+                                        <td>@i.ReportDate</td>
+                                        <td>@i.Description</td>
+                                        <td>
+                                            <a href="javascript:void(0)" onclick="DeleteDiagnosis('@i.DiagnosisId')" class="fas fa-trash">
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Charges -->
+            <div class="tab-pane" id="charges">
+                <div class="impbtnview">
+                    @if (TempData["MSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["MSG"]</strong>
+                        </div>
+                    }
+
+                    <button type="button" class="btn btn-primary fa fa-plus" data-toggle="modal" data-target="#addcharges">Add Charges</button>
+                </div>
+                <div class="download_label">Abhijeet Sharma OPD Details</div>
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Charge Type</th>
+                                <th>Charge Category</th>
+                                <th>Standard Charge ($)</th>
+                                <th>Applied Charge ($)</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.CategoryList != null)
+                            {
+                                foreach (var i in ViewBag.CategoryList)
+                                {
+                                    <tr>
+                                        <td>@i.Date</td>
+                                        <td>@i.Type</td>
+                                        <td>@i.Name</td>
+                                        <td>@i.StandardCharge</td>
+                                        <td>@i.AppliedCharge</td>
+                                        <td>
+                                            <a href="javascript:void(0)" onclick="DeleteCharge('@i.OPDChargeId')" class="fas fa-trash">
+                                                
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <!-- -->
+            <!--payment -->
+            <div class="tab-pane" id="payment">
+                <div class="impbtnview">
+
+                    @if (TempData["PaymentMSG"] != null)
+                    {
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                            <strong>@TempData["PaymentMSG"]</strong>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-primary fa fa-plus" data-toggle="modal" data-target="#addpayment">Add Payment</button>
+                    @*<a href="#" class="btn btn-sm btn-primary dropdown-toggle addpayment" onclick="addpaymentModal()" data-toggle="modal"><i class="fa fa-plus"></i> Add Payment</a>*@
+                </div>
+                <!--./impbtnview-->
+                <div class="download_label">Payment</div>
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Note</th>
+                                <th>Payment Mode</th>
+                                <th>Paid Amount ($)</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.PaymentList != null)
+                            {
+                                foreach (var i in ViewBag.PaymentList)
+                                {
+                                    <tr>
+                                        <td>@i.Date</td>
+                                        <td>@i.Note</td>
+                                        <td>@i.PaymentMode</td>
+                                        <td>@i.Amount</td>
+                                        <td>
+                                            <a href="javascript:void(0)" onclick="DeletePayment('@i.PaymentId')" class="fas fa-trash">
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- -->
+            <div class="tab-pane" id="timeline">
+                <div class="impbtnview">
+                    <a data-toggle="modal" onclick="holdModal('myTimelineModal')" class="btn btn-primary btn-sm addtimeline"><i class="fa fa-plus"></i> Add Timeline</a>
+                </div>
+                <div class="timeline-header no-border">
+                    <div id="timeline_list">
+                        <ul class="timeline timeline-inverse">
+                            <li class="time-label">
+                                <span class="bg-blue"> 04/12/2020</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-list-alt bg-blue"></i>
+                                <div class="timeline-item">
+                                    <span class="time">
+                                        <a class="defaults-c text-right" data-toggle="tooltip" title="" onclick="delete_timeline('7')" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+                                    </span>
+                                    <h3 class="timeline-header text-aqua">MRI Next week</h3>
+                                    <div class="timeline-body"></div>
+                                </div>
+                            </li>
+
+                            <li class="time-label">
+                                <span class="bg-blue"> 09/10/2019</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-list-alt bg-blue"></i>
+                                <div class="timeline-item">
+                                    <span class="time">
+                                        <a class="defaults-c text-right" data-toggle="tooltip" title="" onclick="delete_timeline('1')" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+                                    </span>
+                                    <span class="time">
+                                        <a class="defaults-c text-right" data-toggle="tooltip" title="" href="https://demo.smart-hospital.in/admin/timeline/download_patient_timeline/1/1.pdf" data-original-title="Download">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                    </span>
+                                    <h3 class="timeline-header text-aqua">next after a week</h3>
+                                    <div class="timeline-body">
+                                        revisit
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li><i class="fa fa-clock-o bg-gray"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- -->
+
+            <div class="tab-pane" id="live_consult">
+                <div class="table-responsive">
+                    <div id="DataTables_Table_4_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="dt-buttons btn-group btn-group2">
+                            <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Copy">
+                                <span><i class="fa fa-files-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Excel">
+                                <span><i class="fa fa-file-excel-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="CSV">
+                                <span><i class="fa fa-file-text-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="PDF">
+                                <span><i class="fa fa-file-pdf-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Print">
+                                <span><i class="fa fa-print"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_4" href="#" title="Columns">
+                                <span><i class="fa fa-columns"></i></span>
+                            </a>
+                        </div>
+                        <div id="DataTables_Table_4_filter" class="dataTables_filter">
+                            <label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_4" /></label>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_4" role="grid" aria-describedby="DataTables_Table_4_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Consultation Title: activate to sort column ascending" style="width: 0px;">Consultation Title</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0px;">Date</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Created By : activate to sort column ascending" style="width: 0px;">Created By</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Created For: activate to sort column ascending" style="width: 0px;">Created For</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Patient: activate to sort column ascending" style="width: 0px;">Patient</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 0px;">Status</th>
+                                    <th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr role="row" class="odd">
+                                    <td class="mailbox-name">
+                                        <a href="#" data-toggle="popover" class="detail_popover">Online consult for Recheckup OPDN20</a>
+
+                                        <div class="fee_detail_popover" style="display: none;">
+                                            <p class="text text-danger">No Description</p>
+                                        </div>
+                                    </td>
+
+                                    <td class="mailbox-name">
+                                        14/09/2020 02:24 AM
+                                        <!--   <td class="mailbox-name">
+
+                                             Global
+                                          </td> -->
+                                    </td>
+                                    <td class="mailbox-name">
+                                        Simon Stark (Doctor : 9002)
+                                    </td>
+
+                                    <td class="mailbox-name">
+                                        Sonia Bush (Doctor : 9002)
+                                    </td>
+
+                                    <td class="mailbox-name">
+                                        Abhijeet Sharma (Patient : 1002)
+                                    </td>
+                                    <td class="mailbox-name">
+                                        <form class="chgstatus_form" method="POST" action="https://demo.smart-hospital.in/admin/conference/chgstatus">
+                                            <input type="hidden" name="conference_id" value="12" />
+                                            <select class="form-control chgstatus_dropdown" name="chg_status">
+                                                <option value="0" selected="selected">Awaited</option>
+                                                <option value="1">Cancelled </option>
+                                                <option value="2">Finished </option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td class="mailbox-date pull-right relative">
+                                        <a data-placement="left"
+                                           href="https://us04web.zoom.us/s/73322921604?zak=eyJ6bV9za20iOiJ6bV9vMm0iLCJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjbGllbnQiLCJ1aWQiOiJFMng2cFFOOVRhLWg5OUV2TDY3ZUd3IiwiaXNzIjoid2ViIiwic3R5IjoxMDAsIndjZCI6InVzMDQiLCJjbHQiOjAsInN0ayI6IklDMmlRcGN6ZFhmZTN6a25hOUxxNzczaGU0UUdZSDAzM2xlQTVIemQzUk0uQmdVc1RFbGFXSGRXVTFNdlZYa3diVU5WTW14WE0wcFNTRUZ3Tm1KR1QwVnZRMnd3U0VGVmJFZ3JUVEJ5YnoxQVlqazBPVFE1T1dVd05UUXhNemRoTkRobVptSm1ZMk5tTkRVek4yVXpOemRsWlRNM1lqZGhNRFkyWVRGaE1HRTJNRGMwTnpVNVpEUmlaVFU1TVRRNVlRQU1NME5DUVhWdmFWbFRNM005QUFSMWN6QTAiLCJleHAiOjE2MDAxNjEzNDQsImlhdCI6MTYwMDE1NDE0NCwiYWlkIjoiVU14bXEzNVFTcWFsZlFuUzRvRGFjdyIsImNpZCI6IiJ9.rkS07r-X2RHGO-QgbTxCwxepJXmRHGkQQwIQWOJ-t38"
+                                           class="btn btn-default btn-xs starsuccessbtn"
+                                           target="_blank">
+                                            <i class="fa fa-sign-in"></i> Start
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_info" id="DataTables_Table_4_info" role="status" aria-live="polite">Records: 1 to 1 of 1</div>
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_4_paginate">
+                            <a class="paginate_button previous disabled" aria-controls="DataTables_Table_4" data-dt-idx="0" tabindex="0" id="DataTables_Table_4_previous"><i class="fa fa-angle-left"></i></a>
+                            <span><a class="paginate_button current" aria-controls="DataTables_Table_4" data-dt-idx="1" tabindex="0">1</a></span>
+                            <a class="paginate_button next disabled" aria-controls="DataTables_Table_4" data-dt-idx="2" tabindex="0" id="DataTables_Table_4_next"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="prescription">
+                <div class="table-responsive">
+                    <div id="DataTables_Table_5_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="dt-buttons btn-group btn-group2">
+                            <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Copy">
+                                <span><i class="fa fa-files-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Excel">
+                                <span><i class="fa fa-file-excel-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="CSV">
+                                <span><i class="fa fa-file-text-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="PDF">
+                                <span><i class="fa fa-file-pdf-o"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Print">
+                                <span><i class="fa fa-print"></i></span>
+                            </a>
+                            <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_5" href="#" title="Columns">
+                                <span><i class="fa fa-columns"></i></span>
+                            </a>
+                        </div>
+                        <div id="DataTables_Table_5_filter" class="dataTables_filter">
+                            <label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_5" /></label>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_5" role="grid" aria-describedby="DataTables_Table_5_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="OPD Id: activate to sort column ascending" style="width: 0px;">OPD Id</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Appointment Date: activate to sort column ascending" style="width: 0px;">Appointment Date</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Note: activate to sort column ascending" style="width: 0px;">Note</th>
+                                    <th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 0px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd">
+                                    <td valign="top" colspan="4" class="dataTables_empty">
+                                        <div align="center">
+                                            No data available in table <br />
+                                            <br />
+                                            <img src="https://smart-school.in/ssappresource/images/addnewitem.svg" width="150" /><br />
+                                            <br />
+                                            <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span>
+                                            <div></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_info" id="DataTables_Table_5_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div>
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_5_paginate">
+                            <a class="paginate_button previous disabled" aria-controls="DataTables_Table_5" data-dt-idx="0" tabindex="0" id="DataTables_Table_5_previous"><i class="fa fa-angle-left"></i></a><span></span>
+                            <a class="paginate_button next disabled" aria-controls="DataTables_Table_5" data-dt-idx="1" tabindex="0" id="DataTables_Table_5_next"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="bill">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="box-title mt0">Charges</h4>
+                        <div class="table-responsive" style="border: 1px solid #dadada; border-radius: 2px; padding: 10px;">
+                            <table class="nobordertable table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th width="16%">Charges</th>
+                                        <th width="16%">Category</th>
+                                        <th width="19%">Date</th>
+                                        <th width="16%" class="pttright reborder">Amount ($)</th>
+                                    </tr>
+
+                                @if (ViewBag.CategoryList != null)
+                                {
+                                    foreach (var i in ViewBag.CategoryList)
+                                    {
+                                    <tr>
+                                   
+                                        <td>@i.Type</td>
+                                        <td>@i.Name</td>
+                                        <td>@i.Date</td>
+                                        <td class="pttright reborder">@i.AppliedCharge</td>
+                                    </tr>
+                                    }
+                                }
+                                    @*<tr class="box box-solid total-bg">
+
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right">Total : 500</td>
+ 
+                                    </tr>*@
+                                        
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4 class="box-title mt0">Payment</h4>
+                        <div class="table-responsive" style="border: 1px solid #dadada; border-radius: 2px; padding: 10px;">
+                            <table class="nobordertable table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th width="20%" class="">Payment Mode</th>
+                                        <th width="16%" class="">Payment Date</th>
+                                        <th width="16%" class="text-right">Paid Amount ($)</th>
+                                    </tr>
+                                    @if (ViewBag.PaymentList != null)
+                                    {
+                                        foreach (var i in ViewBag.PaymentList)
+                                        {
+                                    <tr>
+                                        <td class="pttleft" style="text-transform: capitalize;">@i.PaymentMode</td>
+                                        <td class="">@i.Date</td>
+                                        <td class="text-right">@i.Amount</td>
+                                    </tr>
+                                        }
+                                    }
+                                    @*<tr class="box box-solid total-bg">
+                                        <td></td>
+                                        <td></td>
+
+                                        <td class="text-right">Total : $100</td>
+                                    </tr>*@
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--./table-responsive-->
+                        <h4 class="box-title ptt10">Bill Summary</h4>
+                        <div class="table-responsive" style="border: 1px solid #dadada; border-radius: 2px; padding: 10px;">
+                            <table class="nobordertable table table-striped table-responsive">
+                                <form class="" method="post" id="add_bill" action="#" enctype="multipart/form-data"></form>
+                                <input type="hidden" name="status" id="status" value="yes" />
+
+                                <tbody>
+                          
+                                    <tr>
+                                                <th>Total Charges ($)</th>
+                                                <td class="text-right fontbold20">@info.AppliedCharge</td>  
+                                        
+                                    </tr>
+
+                                    <tr>
+                                        <th>Other Charges ($)</th>
+                                        <td class="text-right ipdbilltable"><input type="text" id="other_charge" value="0" name="other_charge" style="width: 30%; float: right;" class="form-control" /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Discount(%)</th>
+                                        <td class="text-right ipdbilltable">
+                                            <input type="text" id="discount_percent" name="discount_percent" style="width: 30%; float: right;" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Discount ($)</th>
+                                        <td class="text-right ipdbilltable">
+                                            <input type="hidden" name="patient_id" value="2" />
+                                            <input type="hidden" name="opd_id" value="20" />
+                                            <input type="text" id="discount" value="0" name="discount" style="width: 30%; float: right;" class="form-control" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tax(%)</th>
+                                        <td class="text-right ipdbilltable">
+                                            <input type="text" id="tax_percent" name="tax_percent" style="width: 30%; float: right;" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tax ($)</th>
+                                        <td class="text-right ipdbilltable"><input type="text" name="tax" value="0" id="tax" style="width: 30%; float: right;" class="form-control" /></td>
+                                    </tr>
+
+                                    <tr>
+                                                <th>Gross Total ($)</th>
+                                                <td class="text-right fontbold20">
+                                                    <span id="grass_amount_span" class=""></span>
+                                                </td>
+                                        <!--<td class="text-right fontbold20">500</td>-->
+                                         
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="2"><input type="hidden" id="gross_total" value="@info.AppliedCharge" name="gross_total" style="width: 30%; float: right;" class="form-control" /></td>
+   
+                                    </tr>
+ 
+                                    <tr>
+                                       
+                                                <th>Total Payment ($)</th>
+                                                <td class="text-right fontbold20">
+                                                    @ViewBag.PaymentInfo.Amount
+                                                    <input type="hidden" value="@ViewBag.PaymentInfo.Amount" id="paid_amountpa" name="" style="width: 30%;" class="form-control" />
+                                                    
+                                                    <input type="hidden" value="@info.AppliedCharge" id="total_amount" name="total_amount" style="width: 30%;" class="form-control" />
+                                                   
+                                                </td>
+                                           
+                                        
+                                    </tr>
+
+                                    <tr>
+                                        <th>Net Payable Amount ($)</th>
+                                        <td class="text-right fontbold20">
+                                            <span id="net_amount_span" class="">0</span><input type="hidden" name="net_amount" value="0" id="net_amount_payble" style="width: 30%; float: right;" class="form-control" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <input type="button" onclick="calculate()" id="cal_btn" name="" value="Calculate" class="btn btn-sm btn-info" />
+                            <input data-loading-text="Processing..." type="submit" style="display: none;" id="save_button" name="" value="Generate" class="btn btn-sm btn-info" />
+
+                            <a href="#" style="display: none;" class="btn btn-sm btn-info" id="printBill" onclick="printBill('2', '20')">Print Bill</a>
+                        </div>
+                </div>
+            </div>
+            <!-- -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Charges</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body pt0 pb0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 paddlr">
+                        <form id="add_charges" accept-charset="utf-8" method="post" class="ptt10">
+                            <input type="hidden" name="patient_id" value="2" />
+                            <input type="hidden" name="charge_id" id="charge_id" />
+                            <input type="hidden" name="org_id" id="org_id" />
+                            <input type="hidden" name="opd_id" value="20" />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Date *</label>
+                                        <input id="charge_date" name="date" placeholder="" type="text" class="form-control date" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Charge Type *</label>
+
+                                        <select name="charge_type" onchange="getcharge_category(this.value)" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="Procedures">
+                                                Procedures
+                                            </option>
+                                            <option value="Investigations">
+                                                Investigations
+                                            </option>
+                                            <option value="Supplier">
+                                                Supplier
+                                            </option>
+                                            <option value="Operation Theatre">
+                                                Operation Theatre
+                                            </option>
+                                            <option value="Others">
+                                                Others
+                                            </option>
+                                        </select>
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Charge Category *</label>
+
+                                        <select name="charge_category" id="charge_category" style="width: 100%;" class="form-control select2 select2-hidden-accessible" onchange="getchargecode(this.value)" tabindex="-1" aria-hidden="true">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                            <span class="selection">
+                                                <span class="select2-selection select2-selection--single"
+                                                      role="combobox"
+                                                      aria-autocomplete="list"
+                                                      aria-haspopup="true"
+                                                      aria-expanded="false"
+                                                      tabindex="0"
+                                                      aria-labelledby="select2-charge_category-container">
+                                                    <span class="select2-selection__rendered" id="select2-charge_category-container" title="Select"></span>
+                                                    <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                                </span>
+                                            </span>
+                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                        </span>
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Code</label>
+                                        <select name="code" id="code" style="width: 100%;" class="form-control select2 select2-hidden-accessible" onchange="get_Charges(this.value, '3')" tabindex="-1" aria-hidden="true">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                            <span class="selection">
+                                                <span class="select2-selection select2-selection--single"
+                                                      role="combobox"
+                                                      aria-autocomplete="list"
+                                                      aria-haspopup="true"
+                                                      aria-expanded="false"
+                                                      tabindex="0"
+                                                      aria-labelledby="select2-code-container">
+                                                    <span class="select2-selection__rendered" id="select2-code-container" title="Select"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                                </span>
+                                            </span>
+                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                        </span>
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Standard Charge ($)</label>
+                                        <input type="text" readonly="" name="standard_charge" id="addstandard_charge" class="form-control" value="" />
+
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>TPA Charge ($)</label>
+                                        <input type="text" readonly="" name="schedule_charge" id="schedule_charge" placeholder="" class="form-control" value="" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Applied Charge ($) *</label><input type="text" name="apply_charge" id="apply_charge" class="form-control" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" id="add_chargesbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addcharges" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            @using (Html.BeginForm("OPDCharges", "Patient", FormMethod.Post, new { @class = "form-sample" }))
+            {
+            <div class="modal-header">
+                <h4 class="modal-title">Add Charges</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body pt0 pb0">
+                <div class="row">
+                   
+                        <div class="col-lg-12 col-md-12 col-sm-12 paddlr">
+                            @*<input type="hidden" name="patient_id" value="2" />
+                                <input type="hidden" name="charge_id" id="charge_id" />
+                                <input type="hidden" name="org_id" id="org_id" />
+                                <input type="hidden" name="opd_id" value="20" />*@
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Date</label> <small class="req"> *</small>
+                                        @Html.TextBoxFor(model => model.Date, new { @class = "form-control", @type = "date" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Charge Type</label><small class="req"> *</small>
+                                        @Html.DropDownListFor(model => model.ChargeTypeId, ViewBag.ChargeTypeinventory as SelectList, new
+                                   {
+                                       @class = "form-control req",
+                                       @required = "required",
+                                       onchange = "getchargecategory(this.value)",
+                                       @id =
+                         "ChargeTypeId"
+                                   })
+
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Charge Category</label><small class="req"> *</small>
+                                        <select name="ChargeCategoryId" onchange="getcharge(this.value)" class="form-control" id="ChargeCategoryId">
+                                            <option value="">Select</option>
+                                            
+                                        </select>
+
+                                        @*@Html.DropDownListFor(model => model.ChargeCategoryId, ViewBag.ChargeCategoryinventory as SelectList, new { @class = "form-control req", @required = "required", onchange = "getcharge(this.value)", @id =
+                                            "ChargeCategoryId" })*@
+
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Code</label>
+                                        <select name="ChargeId" onchange="getstandardcharge(this.value)" class="form-control" id="ChargeId">
+                                            <option value="">Select</option>
+                                           
+                                        </select>
+
+                                        @*@Html.DropDownListFor(model => model.ChargeId, ViewBag.ChargeCodeinventory as SelectList, new { @class = "form-control req", @required = "required", onchange = "getstandardcharge(this.value)", @id =
+                                            "ChargeId" })*@
+
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Standard Charge ($)</label>
+                                        <input type="text" readonly="" id="StandardCharge" placeholder="" class="form-control" value="" name="StandardCharge" />
+                                        @*@Html.TextBoxFor(model => model.StandardCharge, new { @class = "form-control", @type = "text", @readonly="readonly", @id = "StandardCharge" })*@
+
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                @*
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>TPA Charge ($)</label>
+                                            <input type="text" readonly="" name="schedule_charge" id="schedule_charge" placeholder="" class="form-control" value="" />
+                                            <span class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                *@
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Applied Charge ($) *</label>
+                                        <input type="text" id="AppliedCharge" class="form-control" name="AppliedCharge" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" id="add_chargesbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+            </div>
+                    }
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="addpayment" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            @using (Html.BeginForm("AddPayment", "Patient", FormMethod.Post, new { @class = "form-sample", enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Payment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body pt0 pb0">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 paddlr">
+                            @*<input type="hidden" name="patient_id" value="2" />
+                                <input type="hidden" name="charge_id" id="charge_id" />
+                                <input type="hidden" name="org_id" id="org_id" />
+                                <input type="hidden" name="opd_id" value="20" />*@
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Amount ($)</label> <small class="req"> *</small>
+                                        <input type="text" required class="form-control" value="" name="Amount" />
+                                        
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Payment Mode</label>
+                                        <select class="form-control chgstatus_dropdown" name="PaymentMode">
+                                            <option>Cash</option>
+                                            <option>Cheque </option>
+                                            <option>Tranfer to Bank Account </option>
+                                            <option>Other</option>
+                                        </select>
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Date</label><small class="req"> *</small>
+                                        <input type="date" required class="form-control" name="Date" />
+                                       
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Attach Document</label>
+                                        <input type="file" class="dropify" name="Attachment" />
+
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <input type="text" class="form-control" name="Note" />
+                                        <span class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" id="add_chargesbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+    <div class="modal fade" id="adddiagnosis" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                @using (Html.BeginForm("AddDiagnosis", "Patient", FormMethod.Post, new { @class = "form-sample", enctype = "multipart/form-data" }))
+            {
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Diagnosis</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body pt0 pb0">
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 paddlr">
+                                @*<input type="hidden" name="patient_id" value="2" />
+                                    <input type="hidden" name="charge_id" id="charge_id" />
+                                    <input type="hidden" name="org_id" id="org_id" />
+                                    <input type="hidden" name="opd_id" value="20" />*@
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Report Type</label> <small class="req"> *</small>
+                                            <input type="text" required class="form-control" value="" name="ReportType" />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Report Date</label>
+                                            <input type="date" required class="form-control" value="" name="ReportDate" />
+                                            <span class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Document</label>
+                                            <input type="file" class="dropify" name="Attachment" />
+
+                                            <span class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Description</label>
+
+                                            <textarea class="form-control" name="Description"></textarea>
+                                            
+
+                                            <span class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                  
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" id="add_chargesbtn" data-loading-text="Processing..." class="btn btn-info pull-right">Save</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function getchargecategory(id) {
+        var div_data = "";
+        //$('#charge_category').html("<option value='l'>Loading...</option>");
+        //$("#charge_category").select2("val", 'l');
+        $.ajax({
+            url: "/Patient/ChargeCategory",
+            type: "POST",
+            data: { id: id },
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, obj) {
+                    var sel = "";
+                    div_data += "<option value='" + obj.ChargeCategoryId + "'>" + obj.Name + "</option>";
+                });
+                $("#ChargeCategoryId").html("<option value=''>Select</option>");
+                $("#ChargeCategoryId").append(div_data);
+                //$("#charge_category").select2("val", '');
+            },
+        });
+    }
+
+    function getcharge(id) {
+        var div_data = "";
+        //$('#charge_category').html("<option value='l'>Loading...</option>");
+        //$("#charge_category").select2("val", 'l');
+        $.ajax({
+            url: "/Patient/Charge",
+            type: "POST",
+            data: { id: id },
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, obj) {
+                    var sel = "";
+                    div_data += "<option value='" + obj.ChargeId + "'>" + obj.Code + "</option>";
+                });
+                $("#ChargeId").html("<option value=''>Select</option>");
+                $("#ChargeId").append(div_data);
+                //$("#charge_category").select2("val", '');
+            },
+        });
+    }
+
+    function getstandardcharge(id) {
+        var selected_val = $("#ChargeId").find(":selected").attr("value");
+        $.ajax({
+            type: "POST",
+            url: "/Patient/StandardCharge",
+            data: "id=" + selected_val,
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#StandardCharge").val(data[0].StandardCharge);
+                    $("#AppliedCharge").val(data[0].StandardCharge);
+                } else {
+                    $("#StandardCharge").val("");
+                    $("#AppliedCharge").val("");
+                }
+            },
+        });
+    }
+
+    function DeleteCharge(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Patient/DeleteCharge/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+
+    function DeletePayment(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Patient/DeletePayment/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+
+    function DeleteDiagnosis(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Patient/DeleteDiagnosis/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+
+    function calculate() {
+
+        var discount_percent = $("#discount_percent").val();
+        var tax_percent = $("#tax_percent").val();
+        var other_charge = $("#other_charge").val();
+        var paid_amount = $("#paid_amountpa").val();
+
+        var total_amount = $("#total_amount").val();
+
+        var subtotal_amount = parseFloat(total_amount) + parseFloat(other_charge);
+
+        //console.log(paid_amount);
+
+        if (discount_percent != '') {
+            var discount = (subtotal_amount * discount_percent) / 100;
+            $("#discount").val(discount.toFixed(2));
+        } else {
+            var discount = $("#discount").val();
+
+        }
+
+        if (tax_percent != '') {
+            var tax = ((subtotal_amount - discount) * tax_percent) / 100;
+            $("#tax").val(tax.toFixed(2));
+        } else {
+            var tax = $("#tax").val();
+        }
+
+        var gross_total = parseFloat(total_amount) + parseFloat(other_charge) + parseFloat(tax) - parseFloat(discount);
+        var net_amount = parseFloat(total_amount) + parseFloat(other_charge) + parseFloat(tax) - parseFloat(discount);
+        var net_amount_payble = parseFloat(net_amount) - parseFloat(paid_amount);
+        $("#gross_total").val(gross_total.toFixed(2));
+        $("#net_amount").val(net_amount.toFixed(2));
+        $("#grass_amount").val(net_amount.toFixed(2));
+        $("#grass_amount_span").html(net_amount.toFixed(2));
+        $("#net_amount_span").html(net_amount_payble.toFixed(2));
+        $("#net_amount_payble").val(net_amount_payble.toFixed(2));
+        $("#save_button").show();
+        $("#printBill").show();
+    }
+
+
+
+</script>

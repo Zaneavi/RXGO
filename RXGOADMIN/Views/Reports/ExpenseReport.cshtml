@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "ExpenseReport";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<style type="text/css">
+    .content-wrapper {
+        min-height: 100%;
+        background-color: #eceff4;
+        z-index: 800;
+    }
+
+    .content {
+        min-height: 250px;
+        clear: both;
+        padding: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .box {
+        position: relative;
+        border-radius: 3px;
+        background: #ffffff;
+        border: solid 1px #c5d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        /* box-shadow: 0 1px 1px rgba(0,0,0,0.1); */
+    }
+
+    .box-header.with-border {
+        border-bottom: solid 1px #d8e2e7;
+    }
+
+    .box-header {
+        color: #444;
+        display: block;
+        padding: 7px 10px 8px;
+        position: relative;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group .req {
+            color: #fc2d42;
+        }
+
+    .form-control {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #d2d6de;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 28px;
+        padding: 0px 10px;
+        font-size: 10pt;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+
+    .btn-sm {
+        padding: 4px 10px;
+    }
+
+    .btn-primary {
+        background-color: #2196f3;
+        border-color: transparent;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    .btn {
+        border-radius: 2px;
+        box-shadow: none;
+        border: 0;
+        line-height: 1.42857143;
+    }
+
+    .border0 {
+        border: 0 !important;
+    }
+
+    .clear {
+        clear: both;
+    }
+    /*div.dataTables_wrapper div.dataTables_length label{
+        display:none;
+    }*/
+</style>
+
+<div class="content-wrapper" style="min-height: 946px;">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            Expense Report
+                        </h3>
+                    </div>
+
+                    @using (Html.BeginForm("ExpenseReport", "Reports", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="box-body row">
+                            <div class="col-sm-6 col-md-3" id="fromdate">
+                                <div class="form-group">
+                                    <label>Date From</label><small class="req"> *</small>
+                                    <input id="date_from" name="date_from" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3" id="todate">
+                                <div class="form-group">
+                                    <label>Date To</label><small class="req"> *</small>
+                                    <input id="date_to" name="date_to" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" name="search" value="search_filter" class="btn btn-primary btn-sm checkbox-toggle pull-right"><i class="fa fa-search"></i> Search</button>
+                            </div>
+                        </div>
+                    }
+
+                    @if (ViewBag.ExpList.Count > 0)
+                    {
+                        <div class="box border0 clear">
+                            <div class="box-header ptbnull"></div>
+                            <div class="box-body table-responsive">
+                                <table id="table_col_total" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Invoice No</th>
+                                            <th>Income Head</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.ExpList)
+                                        {
+                                            <tr>
+                                                <td>@item.Name</td>
+                                                <td>@item.InvoiceNo</td>
+                                                <td>@item.HeadName</td>
+                                                <td>@item.Date</td>
+                                                <td class="sum">@item.Amount</td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script>
+  jQuery('document').ready(function(){
+    $table2=jQuery('#table_col_total');
+    $table2.find('tbody').append('<tr><td>Total:</td></tr>');
+      var length=$table2.find('thead tr th').length;
+      for(var i=1;i<length;i++){
+        var sum=0;
+        $table2.find('tbody tr').each(function(){
+          if(!isNaN(Number(jQuery(this).find('td').eq(i).text()))){
+            sum=sum+Number(jQuery(this).find('td').eq(i).text());
+          }
+        });
+        $table2.find('tbody tr:last-child').append('<td>'+sum+'</td>');
+      }
+
+  });
+</script>
+
+
+
+

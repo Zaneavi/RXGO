@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "BirthReport";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<style type="text/css">
+    .content-wrapper {
+        min-height: 100%;
+        background-color: #eceff4;
+        z-index: 800;
+    }
+
+    .content {
+        min-height: 250px;
+        clear: both;
+        padding: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .box {
+        position: relative;
+        border-radius: 3px;
+        background: #ffffff;
+        border: solid 1px #c5d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        /* box-shadow: 0 1px 1px rgba(0,0,0,0.1); */
+    }
+
+    .box-header.with-border {
+        border-bottom: solid 1px #d8e2e7;
+    }
+
+    .box-header {
+        color: #444;
+        display: block;
+        padding: 7px 10px 8px;
+        position: relative;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group .req {
+            color: #fc2d42;
+        }
+
+    .form-control {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #d2d6de;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 28px;
+        padding: 0px 10px;
+        font-size: 10pt;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+
+    .btn-sm {
+        padding: 4px 10px;
+    }
+
+    .btn-primary {
+        background-color: #2196f3;
+        border-color: transparent;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    .btn {
+        border-radius: 2px;
+        box-shadow: none;
+        border: 0;
+        line-height: 1.42857143;
+    }
+
+    .border0 {
+        border: 0 !important;
+    }
+
+    .clear {
+        clear: both;
+    }
+    /*div.dataTables_wrapper div.dataTables_length label{
+        display:none;
+    }*/
+</style>
+
+<div class="content-wrapper" style="min-height: 946px;">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            Birth Report
+                        </h3>
+                    </div>
+
+                    @using (Html.BeginForm("BirthReport", "Reports", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="box-body row">
+                            <div class="col-sm-6 col-md-3" id="fromdate">
+                                <div class="form-group">
+                                    <label>Date From</label><small class="req"> *</small>
+                                    <input id="date_from" name="date_from" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3" id="todate">
+                                <div class="form-group">
+                                    <label>Date To</label><small class="req"> *</small>
+                                    <input id="date_to" name="date_to" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" name="search" value="search_filter" class="btn btn-primary btn-sm checkbox-toggle pull-right"><i class="fa fa-search"></i> Search</button>
+                            </div>
+                        </div>
+                    }
+
+                    @if (ViewBag.BthList.Count > 0)
+                    {
+                        <div class="box border0 clear">
+                            <div class="box-header ptbnull"></div>
+                            <div class="box-body table-responsive">
+                                <table id="zero_config" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>IPDOPDNo</td>
+                                            <th>Child Name</th>
+                                            <th>Birth Date</th>
+                                            <th>Weight</th>
+                                            <th>Mother Name</th>
+                                            <th>Father Name</th>
+
+                                            @*<th>Status</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.BthList)
+                                        {
+                                            <tr>
+                                                <td>@item.IPDOPDNo</td>
+                                                <td>@item.ChildName</td>
+                                                <td>@item.BirthDate</td>
+                                                <td>@item.Weight</td>
+                                                <td>@item.MotherName</td>
+                                                <td>@item.FatherName</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+

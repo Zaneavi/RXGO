@@ -1,0 +1,121 @@
+﻿
+@*@model RXGOADMIN.Models.Radiology*@
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Pathology Test</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    @using (Html.BeginForm("PathologyTest", "Pathology", FormMethod.Post, new { @class = "form-sample" }))
+                    {
+                        <div class="card-body">
+                            <div class="row">
+                                @*@Html.HiddenFor(model => model.PathologyId)*@
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Test Name *
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.TestName, new { @placeholder = "Test Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Short Name *
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.ShortName, new { @placeholder = "Short Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "50" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Test Type *
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.TestType, new { @placeholder = "Test Type", @required = "required", @class = "form-control", @type = "text", @maxlength = "50" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Category Name *
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryList as SelectList, new { @required = "required", @class = "form-control", @id = "category" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Sub Category
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.DropDownListFor(model => model.SubCategoryId, ViewBag.CategoryList as SelectList, new { @class = "form-control", @id = "subcategory" })*@
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Method
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.Method, new { @placeholder = "Method", @class = "form-control", @type = "text", @maxlength = "50" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Report Days
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.ReportDays, new { @placeholder = "Report Days", @class = "form-control", @type = "text", @maxlength = "50" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Standard Charge *
+                                        </label>
+                                        <div class="input-group">
+                                            @*@Html.TextBoxFor(model => model.Charge, new { @placeholder = "Standard Charge", @required = "required", @class = "form-control", @type = "number" })*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="border-top">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
